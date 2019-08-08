@@ -1,0 +1,100 @@
+﻿@model Usda.PlantBreeding.Data.Models.Genotype
+
+@{
+
+    var modelname = new Usda.PlantBreeding.Data.Models.Genotype();    
+
+    string candidateBtnTxt;
+    string candidateBtnClass;
+
+    if (Model.Candidates.Where(i => i.Year == DateTime.Now.Year).Any())
+    {
+        candidateBtnTxt = "Remove Candidate";
+        candidateBtnClass = "btn btn-warning form-inline";
+    }
+
+    else
+    {
+        candidateBtnTxt = "Make Candidate";
+        candidateBtnClass = "btn btn-primary form-inline";
+    }
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+</div>
+
+
+<div class="modal-body">
+    <div class="form-horizontal">
+        <div class="form-group row">
+            <h4>@Html.ActionLink(Model.Name, "Details", "Default", new { id = Model.Id }, new { @class = "modal-title text-center pull-left col-md-2", @id = "QuestionUpdateModalLabel" })</h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+              <input type="submit" class="@candidateBtnClass" value="@candidateBtnTxt">
+            }
+        </div>
+
+        <div>
+            <hr />
+            <h4>Details</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.LabelFor(model => model.Family.CrossNum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Family.CrossNum)
+                </dd>
+
+
+                <dt>
+                    @Html.LabelFor(model => model.SelectionNum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SelectionNum)
+                </dd>
+
+                <dt>
+                    @Html.LabelFor(model => model.GivenName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GivenName)
+                </dd>
+
+                <dt>
+                    @Html.LabelFor(model => model.Year)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+
+                <dt>
+                    @Html.LabelFor(model => model.Fate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Fate)
+                </dd>
+                <dt>
+                    @Html.LabelFor(model => model.Note)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Note)
+                </dd>
+
+
+               
+            </dl>
+        </div>
+        <p>
+        </p>
+    </div>
+</div>
+<div class="modal-footer">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    <button class="btn" data-dismiss="modal">Close</button>
+</div>

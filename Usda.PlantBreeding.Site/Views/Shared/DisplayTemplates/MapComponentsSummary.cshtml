@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.MapComponent>
+@{
+    var firstMC = Model.FirstOrDefault();
+}
+
+<table class="table table-striped">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.MapId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickingNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Row)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlantNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlantsInRep)
+        </th>
+
+        <th>
+            @Html.DisplayFor(m => firstMC.Map.Genus.VirusLabel1)
+        </th>
+        <th>
+            @Html.DisplayFor(m => firstMC.Map.Genus.VirusLabel2)
+        </th>
+        <th>
+            @Html.DisplayFor(m => firstMC.Map.Genus.VirusLabel3)
+        </th>
+        <th>
+            @Html.DisplayFor(m => firstMC.Map.Genus.VirusLabel4)
+        </th>
+
+
+    </tr>
+   
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Map.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickingNumber)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Row)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantNum)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Rep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantsInRep)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Virus1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Virus2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Virus3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Virus4)
+            </td>
+
+
+        </tr>
+    }
+
+</table>

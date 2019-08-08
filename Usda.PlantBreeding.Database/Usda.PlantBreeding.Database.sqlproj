@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Usda.PlantBreeding.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{3c744821-1247-4a8f-ad86-4bd5664bde92}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Usda.PlantBreeding.Database</RootNamespace>
+    <AssemblyName>Usda.PlantBreeding.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DacVersion>2.0.0.0</DacVersion>
+    <DacDescription>SQL Server Schema for Small Fruits</DacDescription>
+    <TargetDatabase>USDASchema</TargetDatabase>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Stage|AnyCPU' ">
+    <OutputPath>bin\Stage\</OutputPath>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Origins.sql" />
+    <Build Include="dbo\Tables\Genus.sql" />
+    <Build Include="dbo\Tables\Families.sql" />
+    <Build Include="dbo\Tables\CrossTypes.sql" />
+    <Build Include="dbo\Tables\Ploidies.sql" />
+    <Build Include="dbo\Tables\Genotypes.sql" />
+    <Build Include="dbo\Tables\Candidates.sql" />
+    <Build Include="dbo\Tables\Questions.sql" />
+    <Build Include="dbo\Tables\Maps.sql" />
+    <Build Include="dbo\Tables\Answers.sql" />
+    <Build Include="dbo\Tables\MapComponents.sql" />
+    <Build Include="dbo\Tables\Repetitions.sql" />
+    <Build Include="dbo\Tables\MapQuestion.sql" />
+    <Build Include="dbo\Tables\CrossPlans.sql" />
+    <Build Include="dbo\Tables\Fates.sql" />
+    <Build Include="dbo\Tables\Locations.sql" />
+    <Build Include="dbo\Tables\Notes.sql" />
+    <Build Include="dbo\Tables\FlatTypes.sql" />
+    <Build Include="dbo\Functions\GetOriginalName.sql" />
+    <Build Include="dbo\Stored Procedures\GetCrossPlans.sql" />
+    <Build Include="dbo\Stored Procedures\GetCrossPlanLocations.sql" />
+    <Build Include="dbo\Stored Procedures\GetAccessions.sql" />
+    <Build Include="dbo\Tables\Years.sql" />
+    <Build Include="dbo\Tables\MapComponentYearsFate.sql" />
+    <Build Include="dbo\Tables\MapComponentYears.sql" />
+    <Build Include="dbo\Tables\Purposes.sql" />
+    <Build Include="dbo\Functions\GetMapPrefix.sql" />
+    <Build Include="dbo\Stored Procedures\GetMapViewComponents.sql" />
+    <Build Include="dbo\Stored Procedures\GetMapComponents.sql" />
+    <Build Include="dbo\Stored Procedures\GetPhenotypeEntry.sql" />
+    <Build Include="dbo\Stored Procedures\GetMapInventory.sql" />
+    <Build Include="dbo\Stored Procedures\GetMapComponentFates.sql" />
+    <Build Include="dbo\Functions\GetSelectionsFromGenotype.sql" />
+    <Build Include="dbo\Stored Procedures\BreedingSummary.sql" />
+    <Build Include="dbo\Tables\UserPreferences.sql" />
+    <Build Include="dbo\Functions\GetPickingNumber.sql" />
+    <Build Include="dbo\Stored Procedures\CopyPhenotypeToLatestYear.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateSelectionYearForGenotypes.sql" />
+    <Build Include="dbo\Stored Procedures\DeletePhenotypeFromYear.sql" />
+    <Build Include="dbo\Tables\InputTypes.sql" />
+    <Build Include="dbo\Tables\Growers.sql" />
+    <Build Include="dbo\Tables\Materials.sql" />
+    <Build Include="dbo\Tables\Orders.sql" />
+    <Build Include="dbo\Tables\OrderProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAccessionParent.sql" />
+    <Build Include="dbo\Stored Procedures\GetOrders.sql" />
+    <Build Include="dbo\Stored Procedures\GetDistributions.sql" />
+    <Build Include="dbo\Stored Procedures\GetDistributionAccessions.sql" />
+    <Build Include="dbo\Tables\FlatNotes.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="defaultValues">
+      <DefaultValue>0</DefaultValue>
+      <Value>$(SqlCmdVar__2)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="isDebug">
+      <DefaultValue>True</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="USDASchema.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Usda.PlantBreeding.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PlantBreeding.PostDeployment.sql" />
+  </ItemGroup>
+</Project>

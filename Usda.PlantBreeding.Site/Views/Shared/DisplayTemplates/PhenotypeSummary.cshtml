@@ -1,0 +1,65 @@
+﻿@using Usda.PlantBreeding.Core.Models;
+
+@model PhenotypeDisplayViewModel
+
+@{
+    PhenotypeDisplayComponentViewModel pdcvm = new PhenotypeDisplayComponentViewModel();
+    Usda.PlantBreeding.Data.Models.Genotype genotype = new Usda.PlantBreeding.Data.Models.Genotype();
+}
+<!-- TODO: relocate style attibute to css file -->
+<div style="max-height:450px; ">
+    <table id="phenotypesummary" class="table table-striped table-hover cell-border table-bordered table-font-small table-condensed table-responsive" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr class="primary">
+                <th class="" style="min-width:150px;">
+                    @Html.LabelFor(m => pdcvm.MapComponentMapName)
+                </th>
+                <th>@Html.LabelFor(m => pdcvm.MapComponentPickingNumber)</th>
+                <th>@Html.LabelFor(m => pdcvm.MapComponentRep)</th>
+                <th>@Html.LabelFor(m => pdcvm.MapComponentMapEvaluationYear)</th>
+
+                @foreach (int i in Model.QuestionOrder)
+                {
+                    <th>
+                        @Html.Label(Model.QuestionHeaders[i].Label)
+                    </th>
+                }
+                <th>@Html.LabelFor(m => pdcvm.Fates)</th>
+                <th>@Html.LabelFor(m => pdcvm.Comments, new { @style = "width:15em;" })</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PhenotypeDisplayComponentViewModel row in Model.PhenotypeDisplayComponents)
+            {
+                <tr>
+                    <td width="25px">
+                        @Html.ActionLink(row.MapComponentMapName, "Details", "Default", new { Area = "Maps", id  = row.MapComponentMapId}, null)
+                    </td>
+                    <td style="text-align: right;">
+                        @Html.DisplayFor(m => row.MapComponentPickingNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => row.MapComponentRep)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => row.YearYear)
+                    </td>
+
+
+                    @foreach (int i in Model.QuestionOrder)
+                    {
+                        <td>
+                            @Html.Raw(row.Answers[i].Text ?? "")
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(m => row.Fates, "Fates")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => row.Comments)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

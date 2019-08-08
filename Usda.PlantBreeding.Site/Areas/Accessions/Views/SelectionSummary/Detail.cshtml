@@ -1,0 +1,470 @@
+﻿@model Usda.PlantBreeding.Site.Models.SelectionSummaryViewModel
+
+@{
+    ViewBag.IndexTitle = Model.GenotypeName;
+}
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/table")
+
+    @Scripts.Render("~/bundles/datatable")
+    @Styles.Render("~/Content/datatablecss")
+    @Scripts.Render("~/Scripts/js/Polyfill.js")
+    @Scripts.Render("~/Scripts/js/usda.phenotype-page.js")
+
+    <script src="~/Scripts/autocomplete/auto-complete.js" type="text/javascript"></script>
+
+    <script>
+        addEventListener("load", function () {
+            EntryPoint.initializeSummaryPage(@Html.Raw(Json.Encode(Model.PhenotypeSummaryVM)), document.getElementById("phenotype-entry"));
+        });
+    </script>
+}
+
+@section styles {
+    <link href="~/Content/PhenotypeEntry.css" rel="stylesheet" />
+    <link href="~/Content/SelectionSummary.css" rel="stylesheet" />
+
+}
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#crossuse').DataTable({
+            scrollY: '30vh',
+            scrollX: true,
+            //responsive: true,
+            fixedHeader: true,
+            "paging": false,
+            "ordering": false,
+            "scrollCollapse": true,
+            "info": false,
+            "autoWidth": true,
+            "searching": false
+        });
+
+    });
+
+    function GetCrossSelectionsModal(familyId) {
+        var url = '@Url.Action("GetCrossSelections", "SelectionSummary")';
+        $.ajax({
+            url: url,
+            type: 'get',
+            data: { id: familyId },
+            success: function (result) {
+                //replace modal body with info
+                $('#myModalContent').html(result);
+                //trigger modal to open
+                $('#myModal').modal('toggle');
+            },
+            failure: function (request, status, error) {
+                NotyMessage("Save failure");
+                console.log(status);
+                console.log(error);
+            },
+            error: function (request, status, error) {
+                NotyMessage("Save failure");
+                console.log(status);
+                console.log(error);
+            }
+        })
+
+    }
+
+</script>
+<div>
+    <ul class="nav nav-pills nav-pills-sm pull-right">
+        <li>
+            @Html.ActionLink("Return", "Index", "Default", new { genotypeId = Model.GenotypeId }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Pedigree", "Tree", new { Area = "Accessions", Controller = "Pedigree", id = Model.GenotypeId }, null)
+        </li>
+        <li role="presentation">
+            <a onclick="PhenotypeReport()" class="btn">Print Phenotype Summary</a>
+        </li>
+        <li>
+            <a onclick="DistributionReport()" class="btn">Distribution Report</a>
+        </li>
+    </ul>
+</div>
+
+
+
+<div class="row"></div>
+
+<div class="selection-summary-detail">
+        <div class="accession-search-form"> 
+            @using (Html.BeginForm("Detail", "SelectionSummary", FormMethod.Post))
+            {
+                <div class="form-group form-inline">
+                    @AutoComplete.Search(@Url.Action("Search", "Default", new { area = "Accessions" }), @ViewBag.GenusId, "filterId", "filter", @Model.GenotypeId.ToString(), Model.GenotypeName, false, "Accession")
+                    <input type="submit" class="btn btn-default" value="Find" />
+                </div>
+            }
+        </div>
+      <div class="parents">
+            <p>
+                <span class="text-label">@Html.DisplayNameFor(m => m.FemaleParentName):</span>
+                <span class="text-value">@Html.DisplayFor(model => model.FemaleParentName)</span>
+            </p>
+            <p>
+                <span class="text-label">@Html.DisplayNameFor(m => m.MaleParentName):</span>
+                <span class="text-value">@Html.DisplayFor(model => model.MaleParentName)</span>
+            </p>
+          </div>
+
+        <div>
+
+            <input type="button" value="Eliminate" onclick="CreateEliminateNote()" class="btn btn-small btn-danger" />
+        </div>
+
+        <div>
+             @Html.DisplayNameFor(m => m.PloidyName)
+             @Html.EditorFor(model => model.PloidyName, new { htmlAttributes = new { @class = "form-control ", onchange = "updatePloidyName(this)" } })
+        </div>
+        <div class="genotype-note-form">
+            @Html.Hidden("genotype-id", Model.GenotypeId)
+            @Html.DisplayNameFor(m => m.GenotypeNote)
+            @Html.TextArea("genotype-note", Model.GenotypeNote, new { @class = "form-control ", onchange = "updateGenotypeNote(this)" })
+        </div>
+
+    </div>
+    <div class="row"></div>
+<div class="row"></div>
+
+<div id="phenotype-entry" class="phenotype-entry selection-summary"></div>
+
+    <div class="row"></div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            @Html.DisplayFor(m => m.FamilyUseList, "FamilyUseListSummary")
+        </div>
+
+        <div id="notes-tabs" class="col-md-6 col-lg-6">
+
+            @Html.EditorFor(m => m.Notes, "Notes")
+
+
+            @*<ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#notes">Notes</a></li>
+                    <li><a data-toggle="tab" href="#flat-notes">Flat Notes</a></li>
+                </ul>
+                <div class="table-re tab-content " style="height:650px; width:100%; overflow:auto">
+
+                    @Html.EditorFor(m => m.Notes, "Notes")
+                    @Html.EditorFor(m => m.FlatNotes, "FlatNotes")
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="row"></div>
+
+<style>
+    .modalPos {
+        position: fixed;
+        top: 30%;
+        left: 25%;
+    }
+</style>
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modalPos">
+        <div class="modal-dialog modal-vertical-centered">
+            <div class="modal-content">
+                <div id='myModalContent'>
+
+                </div>
+                <div class="row"><div class="col-md-offset-10 col-md-2"><button type="button" class="btn btn-sm btn-default btn-primary" data-dismiss="modal">Close</button></div></div><br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" language="javascript">
+    "use strict";
+    $(document).ready(function () {
+        var noteURL = '@Url.Action("EditNote", "SelectionSummary")';
+        var flatURL = '@Url.Action("EditFlatNote", "SelectionSummary")';
+        var noteCols = ["#note-date-", "#note-text-"];
+        var flatCols = ["#falt-date-", "#flat-text-", "#flat-type-", "#flat-other-"];
+        var newFlatURL = '@Url.Action("CreateFlatNote", "SelectionSummary")';
+
+        // getter for note
+        function getNote(id) {
+            var genotypeId = $("#note-genotype-" + id).val();
+            var date = $("#note-date-" + id).val();
+            var text = $("#note-text-" + id).val();
+            var data = JSON.stringify({
+                note: {
+                    'Id': id,
+                    'GenotypeId': genotypeId,
+                    'Date': date,
+                    'Text': text
+                }
+            });
+            return data;
+        }
+
+        // getter for flat note
+        function getFlat(id) {
+            var genotypeId = $("#flat-genotype-" + id).val();
+            var date = $("#flat-date-" + id).val();
+            var text = $("#flat-text-" + id).val();
+            var flatTypeId = $("#flat-type-" + id).val();
+            var other = $("#flat-other").val();
+            var data = JSON.stringify({
+                note: {
+                    'Id': id,
+                    'GenotypeId': genotypeId,
+                    'Date': date,
+                    'Text': text,
+                    'FlatTypeId': flatTypeId,
+                    'Other': other
+                }
+            });
+            return data;
+        }
+
+
+
+        // getter for new flat note
+        function getNewFlat() {
+            var genotypeId = $("#new-flat-genotype").val();
+            var date = $("#new-flat-date").val();
+            var text = $("#new-flat-text").val();
+            var flatTypeId = $("#new-flat-type").val();
+            var other = $("#new-flat-other").val();
+            var data = {
+                GenotypeId: genotypeId,
+                Date: date,
+                Text: text,
+                FlatTypeId: flatTypeId,
+                Other: other
+            };
+            return data;
+        }
+
+        // attach handler to row
+        function attachHandler(url, row, getter, cols) {
+            var id = row.substring(row.indexOf("-") + 1);
+            var handler = function () {
+                $.ajax({
+                    url: url,
+                    method: "post",
+                    contentType: "application/json",
+                    data: getter(id),
+                    success: function (data, textStatus, jqXHR) {
+                        $(row).html(data);
+                        attachHandler(url, row, getter, cols);
+                    }
+                });
+            };
+            cols.map(function (col) { return col + id; }).forEach(function (col) { $(col).on("change", handler); });
+        }
+
+        // attach event handlers to tabs
+        $("#notes-tabs .nav-tabs a").on("click", function () { $(this).tab("show"); });
+
+        // attach edit event handlers to each note when document loads
+        //$("#notes tr:not(:last-child)").each(function () { attachHandler(noteURL, this.id, getNote, noteCols); });
+
+        // attach edit event handlers to each note when document loads
+        $("#flat-notes tr:not(:last-child)").each(function () { attachHandler(flatURL, this.id, getFlat, flatCols); });
+
+
+
+        // attach event handler to new flat note
+        $("#new-flat-button").on("click", function () {
+            $.ajax({
+                url: newFlatURL,
+                method: "post",
+                data: getNewFlat(),
+                success: function (data, textStatus, jqXHR) {
+                    var id = $(data)[0].id;
+                    if (id.indexOf("new") !== -1) {
+                        // model state isn't valid; display validation messages
+                        $("#new-flat").html(data);
+                    } else {
+                        // model state is valid; add note
+                        id = "flat-" + id.substring(id.indexOf("-") + 1);
+                        $("#new-flat").after($("<tr></tr>").attr("id", id).html(data));
+                        $("#new-flat-text").empty();
+                        $("#new-flat-text").val("");
+                        $("#new-flat-other").val("");
+                        $("#new-flat-type").val("");
+                        attachHandler(flatURL, id, getFlat, flatCols);
+                    }
+                }
+            });
+        });
+
+
+        $(".datepicker").each(function () {
+            $(this).datepicker();
+        });
+
+    });
+
+    function getGenotypeId() {
+        return document.getElementById("genotype-id").value;
+    }
+
+    function updateGenotypeNote(elem) {
+
+        var genotypeId = getGenotypeId();
+        var note = elem.value;
+        var object = { genotypeId: genotypeId, genotypeNote: note };
+        var url = "@Url.Action("EditGenotypeNote", "SelectionSummary")";
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: object,
+            success: function (result) {
+                if (result.Error) {
+                    NotyMessage(result.Message);
+                }
+            },
+            failure: function (result) {
+                NotyMessage("Save failure");
+            }
+        })
+
+    }
+
+    function updatePloidyName(elem) {
+        var genotypeId = getGenotypeId();
+        var ploidyValue = elem.value;
+        var object = { genotypeId: genotypeId, ploidy: ploidyValue };
+        var url = "@Url.Action("EditGenotypePloidy", "SelectionSummary")";
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: object,
+            success: function (result) {
+                if (result.Error) {
+                    NotyMessage(result.Message);
+                }
+            },
+            failure: function (result) {
+                NotyMessage("Save failure");
+            }
+        })
+
+    }
+
+
+
+</script>
+<script type="text/javascript">
+    var flatURL = '@Url.Action("EditFlatNote", "SelectionSummary")';
+    var noteCols = ["#note-date-", "#note-text-"];
+    var flatCols = ["#falt-date-", "#flat-text-", "#flat-type-", "#flat-other-"];
+    var newFlatURL = '@Url.Action("CreateFlatNote", "SelectionSummary")';
+
+    // getter for new note
+    function getNewNote() {
+        var genotypeId = $("#new-note-genotype").val();
+        var date = $("#new-note-date").val();
+        var text = $("#new-note-text").val();
+        var data = {
+            GenotypeId: genotypeId,
+            Date: date,
+            Text: text
+        };
+        return data;
+    }
+
+    // getter for note
+    function getNote(id) {
+        var genotypeId = $("#note-genotype-" + id).val();
+        var date = $("#note-date-" + id).val();
+        var text = $("#note-text-" + id).val();
+        return {
+            'Id': id,
+            'GenotypeId': genotypeId,
+            'Date': date,
+            'Text': text
+        };
+
+
+
+    }
+
+    function CreateEliminateNote() {
+        if(confirm("Are you sure you would like to eliminate plot?")){
+            document.getElementById("new-note-text").value = "CF says \"Eliminate from planet\"";
+            CreateNewNote();
+
+        }
+    }
+
+    // attach event handler to new note
+    function CreateNewNote() {
+
+
+        var newNoteURL = '@Url.Action("CreateNote", "SelectionSummary")';
+
+        $.ajax({
+            url: newNoteURL,
+            method: "post",
+            data: getNewNote(),
+            success: function (data, textStatus, jqXHR) {
+                var id = $(data)[0].id;
+                console.log(id);
+                if (id.indexOf("new") !== -1) {
+                    // model state isn't valid; display validation messages
+                    $("#new-note").html(data);
+                } else {
+                    // model state is valid; add note
+                    id = "note-" + id.substring(id.indexOf("-") + 1);
+                    $("#new-note").after($("<tr></tr>").attr("id", id).html(data));
+                    $("#new-note-text").empty();
+                    $("#new-note-text").val("");
+                    $("#new-note-text-validation").html("");
+                }
+                $(".datepicker").each(function () {
+                    $(this).datepicker();
+                });
+            }
+        });
+    }
+    function UpdateNote(objectid) {
+        var noteURL = '@Url.Action("EditNote", "SelectionSummary")';
+        var postdata = getNote(objectid);
+        var row = $("#note-" + objectid);
+        $.ajax({
+            url: noteURL,
+            method: "post",
+            data: postdata,
+            success: function (data, textStatus, jqXHR) {
+                $(row).html(data);
+            }
+        });
+
+
+    }
+
+    function PhenotypeReport() {
+
+        var genotypeId = @Model.GenotypeId;
+        var str =  "@Url.Action("SelectionSummary", "Default", new { area = "Reporting", genotypeId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", genotypeId);
+        window.open(url, "_blank");
+    }
+
+    function DistributionReport() {
+        var genotypeId = @Model.GenotypeId;
+        var str = "@Url.Action("Distributions", "Default", new { area = "Reporting", genotypeId = "genotypeIdplace" })";
+        var url = str.replace("genotypeIdplace", genotypeId);
+        window.open(url, "_blank");
+    }
+</script>

@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Usda.PlantBreeding.Site.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PageSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">250</Value>
+    </Setting>
+    <Setting Name="RecordsToReturn" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="FindAccessionError" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to Find Accession</Value>
+    </Setting>
+    <Setting Name="FindPageError" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Invalid Page</Value>
+    </Setting>
+    <Setting Name="SanboxFlag" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SandboxName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Dev</Value>
+    </Setting>
+    <Setting Name="ReportPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ReportUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

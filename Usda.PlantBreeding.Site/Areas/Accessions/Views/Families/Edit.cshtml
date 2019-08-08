@@ -1,0 +1,23 @@
+﻿@model Usda.Lib.Models.Family
+
+@{
+    ViewBag.Title = "Edit";
+    var modelname = new Usda.Lib.Models.Family();
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.EditorFor(m => m, "Families")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

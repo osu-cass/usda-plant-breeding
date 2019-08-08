@@ -1,0 +1,218 @@
+﻿@model Usda.PlantBreeding.Core.Models.AccessionViewModel
+
+@{
+    // html attributes for labels and form controls
+    Object labelAttr = new { @class = "control-label" };
+    Object validAttr = new { @class = "text-danger" };
+    Object enabledAttr = new { htmlAttributes = new { @class = "form-control" } };
+    Object disabledAttr = new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } };
+    Object familyAttr = Model.IsBase ? enabledAttr : disabledAttr;
+
+    var CrossTypeId = Model.FamilyCrossTypeId;
+    if (Model.FamilyCrossTypeId == null)
+    {
+        var crosstypes = ViewBag.CrossTypeId;
+        foreach( var item in crosstypes)
+        {
+            if (String.IsNullOrWhiteSpace(item.Text)){
+                CrossTypeId = Convert.ToInt32(item.Value);
+            }
+        }
+    }
+}
+
+<div class="row"></div>
+<hr />
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.FamilyId)
+@Html.HiddenFor(m => m.FamilyGenusId)
+@Html.HiddenFor(m => m.IsBase)
+
+@*
+    @Html.ValidationSummary("", validAttr)
+*@
+
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#FamilyCrossTypeId option[value = '']").remove();
+            var isBase = @Json.Encode(Model.IsBase);
+            var create = @Json.Encode(ViewBag.Create);
+            if(create == true) {
+
+                //$('.geno').prop("readonly", false);
+                //$('.geno-dropdown').prop("disabled", false);
+                //$('.fam').prop("readonly", false);
+                //$('.fam-dropdown').prop("disabled", false);
+                $('.create-lock').prop("readonly", true);
+            } else {
+
+                if(isBase) {
+                    $('.geno').prop("readonly", true);
+                    $('.geno-dropdown').prop("disabled", true);
+                } else {
+
+                    $('.fam').prop("readonly", true);
+                    $('.fam-dropdown').prop("disabled", true);
+                }
+            }
+        });
+
+</script>
+
+
+<div class="container">
+    <div class="row col-md-12">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+    <div class="row">
+        <div id="accessionSearch" class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyOriginId, labelAttr)
+            @AutoComplete.Search(@Url.Action("Search", "Origins", new { area = "Admin" }), null, "FamilyOriginId", "FamilyOriginName", @Model.FamilyOriginId.ToString(), Model.FamilyOriginName, !Model.IsBase, "Origin")
+            @Html.ValidationMessageFor(m => m.FamilyOriginId, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyCrossNum, labelAttr)
+            @Html.EditorFor(m => m.FamilyCrossNum, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.FamilyCrossNum, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.IsPopulation, labelAttr)
+            @Html.EditorFor(m => m.IsPopulation, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.IsPopulation, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.SelectionNum, labelAttr)
+            @Html.EditorFor(m => m.SelectionNum, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.SelectionNum, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyCrossTypeId, labelAttr)
+            @SearchHelpers.DropDownList("FamilyCrossTypeId", "FamilyCrossTypeId", ViewBag.CrossTypeId, CrossTypeId.ToString(), !Model.IsBase)
+            @Html.ValidationMessageFor(m => m.FamilyCrossTypeId, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyBaseGenotypeYear, labelAttr)
+
+            @Html.EditorFor(m => m.FamilyBaseGenotypeYear, new { htmlAttributes = new { @class = "form-control fam" } })
+            @*@Html.HiddenFor(m => m.FamilyBaseGenotypeYear)*@
+            @Html.ValidationMessageFor(m => m.FamilyBaseGenotypeYear, "", validAttr)
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyPurpose, labelAttr)
+            @Html.EditorFor(m => m.FamilyPurpose, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.FamilyPurpose, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilySeedNum, labelAttr)
+            @Html.EditorFor(m => m.FamilySeedNum, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.FamilySeedNum, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyTransplantedNum, labelAttr)
+            @Html.EditorFor(m => m.FamilyTransplantedNum, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.FamilyTransplantedNum, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyFieldPlantedNum, labelAttr)
+            @Html.EditorFor(m => m.FamilyFieldPlantedNum, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.FamilyFieldPlantedNum, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyBaseGenotypeNote, labelAttr)
+            @*@Html.DisplayFor(m => m.FamilyBaseGenotypeNote)*@
+            @Html.EditorFor(m => m.FamilyBaseGenotypeNote, new { htmlAttributes = new { @class = "form-control fam" } })
+            @*@Html.HiddenFor(m => m.FamilyBaseGenotypeNote)*@
+            @Html.ValidationMessageFor(m => m.FamilyBaseGenotypeNote, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyUnsuccessful, labelAttr)
+            @Html.EditorFor(m => m.FamilyUnsuccessful, new { htmlAttributes = new { @class = "form-control fam" } })
+            @Html.ValidationMessageFor(m => m.FamilyUnsuccessful, "", validAttr)
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyFemaleParent, labelAttr)
+            @AutoComplete.Search(@Url.Action("Search", "Default", new { area = "Accessions" }), @Model.FamilyGenusId, "FamilyFemaleParent", "FamilyFemaleGenotypeName", @Model.FamilyFemaleParent.ToString(), Model.FamilyFemaleGenotypeName, !Model.IsBase, "Female")
+            @Html.ValidationMessageFor(m => m.FamilyFemaleParent, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.FamilyMaleParent, labelAttr)
+            @AutoComplete.Search(@Url.Action("Search", "Default", new { area = "Accessions" }), @Model.FamilyGenusId, "FamilyMaleParent", "FamilyMaleGenotypeName", @Model.FamilyMaleParent.ToString(), Model.FamilyMaleGenotypeName, !Model.IsBase, "Male")
+            @Html.ValidationMessageFor(m => m.FamilyMaleParent, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.Year, labelAttr)
+            @Html.EditorFor(m => m.Year, new { htmlAttributes = new { @class = "form-control geno create-lock" } })
+            @Html.ValidationMessageFor(m => m.Year, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.Fate, labelAttr)
+            @Html.TextAreaFor(m => m.Fate, new { htmlAttributes = new { @class = "form-control geno" }, disabled = "disabled" })
+            @Html.ValidationMessageFor(m => m.Fate, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.PloidyName, labelAttr)
+
+            @Html.EditorFor(m => m.PloidyName, new { htmlAttributes = new { @class = "form-control geno" } })
+            @Html.ValidationMessageFor(m => m.PloidyName, "", validAttr)
+
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.Note, labelAttr)
+            @Html.EditorFor(m => m.Note, new { htmlAttributes = new { @class = "form-control geno create-lock" } })
+            @Html.ValidationMessageFor(m => m.Note, "", validAttr)
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.GivenName, labelAttr)
+            @Html.EditorFor(m => m.GivenName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.GivenName, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.PatentApp, labelAttr)
+            @Html.EditorFor(m => m.PatentApp, new { htmlAttributes = new { @class = "form-control " } })
+            @Html.ValidationMessageFor(m => m.PatentApp, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.Patent, labelAttr)
+            @Html.EditorFor(m => m.Patent, new { htmlAttributes = new { @class = "form-control " } })
+            @Html.ValidationMessageFor(m => m.Patent, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.PatentYear, labelAttr)
+            @Html.EditorFor(m => m.PatentYear, new { htmlAttributes = new { @class = "form-control " } })
+            @Html.ValidationMessageFor(m => m.PatentYear, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.Alias1, labelAttr)
+            @Html.EditorFor(m => m.Alias1, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Alias1, "", validAttr)
+        </div>
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.Alias2, labelAttr)
+            @Html.EditorFor(m => m.Alias2, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Alias2, "", validAttr)
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(m => m.OriginalName, labelAttr)
+            @*@Html.DisplayFor(m => m.OriginalName)*@
+            @Html.EditorFor(m => m.OriginalName, disabledAttr)
+            @*@Html.HiddenFor(m => m.OriginalName)*@
+            @Html.ValidationMessageFor(m => m.OriginalName, "", validAttr)
+        </div>
+    </div>
+    <hr />
+
+
+</div>

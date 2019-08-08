@@ -1,0 +1,23 @@
+﻿@model Usda.PlantBreeding.Data.Models.FlatNote
+
+@Html.HiddenFor(m => m.GenotypeId, new { id = "new-flat-genotype" })
+
+<td>
+    @Html.EditorFor(m => m.Date, new { htmlAttributes = new { id = "new-flat-date", @class = "datepicker" } })
+    @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
+</td>
+<td>
+    @Html.TextAreaFor(m => m.Text, new { id = "new-flat-text" })
+    @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger" })
+</td>
+<td>
+    @Html.DropDownListFor(m => m.FlatTypeId, (IEnumerable<SelectListItem>)ViewBag.FlatTypes, "", new { id = "new-flat-type" })
+    @Html.ValidationMessageFor(m => m.FlatTypeId, "", new { @class = "text-danger" })
+</td>
+<td>
+    @Html.EditorFor(m => m.Other, new { htmlAttributes = new { id = "new-flat-other" } })
+    @Html.ValidationMessageFor(m => m.Other, "", new { @class = "text-danger" })
+</td>
+<td>
+    <button id="new-flat-button" class="btn btn-default">Submit</button>
+</td>

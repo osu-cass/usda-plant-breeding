@@ -1,0 +1,61 @@
+﻿@model Usda.PlantBreeding.Data.Models.Genotype
+
+<div class="row"></div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.FamilyId)
+        @Html.HiddenFor(model => model.SelectionNum)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OriginalName, htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                <h4>@Html.DisplayFor(model => model.OriginalName)</h4>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GivenName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GivenName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GivenName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ploidy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @SearchHelpers.DropDownList("PloidyId", "PloidyId", ViewBag.PloidyId, Model.PloidyId.ToString())
+                @Html.ValidationMessageFor(model => model.Ploidy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+
+    @Html.ActionLink("Back to Family", "Details", "Families", new { id = Model.FamilyId }, null)
+</div>

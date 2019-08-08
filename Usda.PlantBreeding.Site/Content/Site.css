@@ -1,0 +1,379 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 98.4%;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 140px;
+}*/
+
+.fullscreen {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    display: none;
+}
+
+.pootable {
+    /*table-layout: fixed !important;*/
+    word-wrap: break-word !important;
+}
+
+.col-fixed-75 {
+    width: 75px !important;
+    height: 100% !important;
+}
+
+#exitfullscreen:offscreen {
+    position: fixed;
+}
+
+.table td {
+    text-align: left;
+}
+
+.tdReadOnly > input, .table-font-small > .tdReadOnly > input {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 10px !important;
+    width: 8em;
+    word-wrap: break-word;
+}
+
+.table th {
+    text-align: left;
+}
+
+
+.dropdown-menu > li > a {
+    color: black;
+}
+
+
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #f2f2f2;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #cccccc;
+}
+
+
+
+.pagination {
+    margin: 0;
+}
+
+.width-expand {
+    width: 70px !important;
+    -webkit-transition: width .25s ease-in-out;
+}
+
+    .width-expand:focus {
+        width: 300px !important;
+        -webkit-transition: width .25s ease-in-out;
+    }
+
+.note-expand {
+    width: 100px;
+    height: 38px;
+    -webkit-transition: width .25s ease-in-out;
+    -webkit-transition: height .25s ease-in-out;
+}
+
+    .note-expand:focus {
+        width: 300px;
+        height: 100px;
+        -webkit-transition: width .5s ease-in-out;
+        -webkit-transition: height .5s ease-in-out;
+    }
+
+.single {
+    min-width: 70px;
+}
+
+
+input-cp {
+    max-width: 200px;
+}
+
+
+.four-characters {
+    min-width: 90px;
+}
+
+input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+}
+
+.sandboxComponent {
+    z-index: 10000;
+    position: absolute;
+    width: 120px;
+    height: 22px;
+    background-color: #404040;
+    color: white;
+    right: 250px;
+    top: 0px;
+}
+
+    .sandboxComponent p {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+.pendingRequests {
+    z-index: 10000;
+    position: absolute;
+    width: 300px;
+    height: 22px;
+    background-color: #404040;
+    color: white;
+    right: 50%;
+    top: 0px;
+}
+
+    .pendingRequests p {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+.navbar-default .navbar-nav > li > a {
+    color: #404040;
+}
+
+.carousel-inner > .item > a > img {
+    margin: 0 auto;
+}
+
+@media (min-width: 1500px) {
+    .container {
+        width: 1480px;
+    }
+}
+
+@media (min-width: 1700px) {
+    .container {
+        width: 1680px;
+    }
+}
+
+
+.table-font-small input, .table-font-small textarea, .table-font-small button, .table-font-small .form-control {
+    font-size: 11px;
+}
+
+.table-font-small {
+    font-size: 11px;
+}
+
+.mapsummary-small {
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.pagination-sm {
+    font-size: 10px;
+}
+
+
+.breadcrumb-sm {
+    font-size: 10px;
+}
+
+.nav-pills-sm {
+    font-size: 10px;
+}
+
+.nav-tabs {
+    font-size: 12px;
+}
+
+table.table-bordered > thead > tr > th, .table > thead > tr > th, table > tbody > tr > th, .table > tbody > tr > th, table > tfoot > tr > th, .table > tfoot > tr > th, table > thead > tr > td, .table > thead > tr > td, table > tbody > tr > td, .table > tbody > tr > td, table > tfoot > tr > td, .table > tfoot > tr > td {
+    border-color: darkgray;
+}
+
+tr.primary, tr.primary > th {
+    background-color: #0066cc;
+}
+
+    tr.primary > th, tr.primary > th > label {
+        font-weight: bold;
+        color: #e5e5e5;
+    }
+
+.btn {
+    text-transform: none;
+}
+
+
+.form-control, .btn, body, .dropdown-menu {
+    font-size: 12px;
+}
+
+.nav-pills, .nav-pills > li > a {
+    font-size: 11px;
+}
+
+.text-area-2, .form-control > .text-area-2, textarea.text-area-2, .form-control.text-area-2 {
+    height: 40px;
+    width: 20em;
+}
+
+.input-number-5, .table-font-small.input-number-5, .form-control.input-number-5 {
+    width: 5em;
+}
+
+table .input-search, table > .form-control > .input-search, input.input-search, table .form-control.input-search {
+    width: 12em;
+}
+
+.input-search, .form-control > .input-search, input.input-search, .form-control.input-search {
+    width: 18em;
+}
+
+
+.ss-note {
+    min-width: 100%;
+}
+
+#load {
+    left: 50%;
+    top: 35%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    background: transparent url("Images/rolling.gif") no-repeat;
+}
+
+
+.momentum-scroll-dt {
+    /*overflow-y: scroll;*/ /* has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.momentum-scroll {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+@media (max-width: 950px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .navbar-left, .navbar-right {
+        float: none !important;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-nav {
+        float: none !important;
+        margin-top: 7.5px;
+    }
+
+        .navbar-nav > li {
+            float: none;
+        }
+
+            .navbar-nav > li > a {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+    .collapse.in {
+        display: block !important;
+    }
+}
+
+
+.button {
+    border: none;
+    background-color: #0066cc;
+    padding: 5px;
+    color: white;
+    border-radius: 2px;
+    display: inline;
+}
+
+.button:hover {
+    background-color: #0059b3;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button:disabled {
+    background-color: #989faa;
+}
+
+.button:disabled:hover {
+    box-shadow: none;
+}
+
+.create-button a {
+    color: white;
+    text-decoration: none;
+}

@@ -1,0 +1,14 @@
+﻿@model List<Usda.PlantBreeding.Core.Models.MapComponentViewModel>
+@using Usda.PlantBreeding.Data.Models;
+
+
+
+@Html.AntiForgeryToken()
+
+
+@for (int i = 0; i < Model.Count; i++)
+{
+  @Html.Partial("_MapComponentRow", Model[i] )
+}
+
+

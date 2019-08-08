@@ -1,0 +1,24 @@
+﻿@model Usda.PlantBreeding.Core.Models.AccessionViewModel
+
+@{
+    ViewBag.Title = "New";
+    ViewBag.IndexTitle = "New";
+
+}
+<div>
+    <ul class="nav nav-pills nav-pills-sm pull-right">
+        <li>
+            @Html.ActionLink("Return", "Index", "Default")
+        </li>
+     
+        <li>
+            @Html.ActionLink("New Accession", "Create", "Default", new { area = "Accessions" }, new { target = "_blank" })
+        </li>
+        
+    </ul>
+</div>
+<div class="row"></div>
+@using (Html.BeginForm("Create", "Default", FormMethod.Post))
+{
+    @Html.EditorFor(m => m)
+}

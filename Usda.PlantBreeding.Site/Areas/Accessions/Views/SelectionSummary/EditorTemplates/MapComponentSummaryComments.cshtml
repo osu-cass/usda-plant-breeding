@@ -1,0 +1,14 @@
+﻿@model Usda.PlantBreeding.Core.Models.PhenotypeDisplayComponentViewModel
+
+<div id="@string.Format("{0}-Comments", Model.Id)">
+    @Html.TextAreaFor(m => m.Comments, new
+    {
+        data_id = Model.Id,
+        @class = "form-control mcComment",
+        @style = "min-width: 15em !important;",
+        onchange = "SaveMapComponentComments(this, event)",
+     
+        
+       
+    })
+</div>

@@ -1,0 +1,21 @@
+﻿@model bool?
+
+@if(Model != null)
+{
+
+    if (Model.Value == true)
+    { 
+      <text>Yes</text>
+    }
+
+    else if (Model.Value == false)
+    {
+      <text>No</text>
+    }
+
+    else
+    {
+      <text>Not Specified</text>
+    }
+    
+}

@@ -1,0 +1,53 @@
+﻿@model Usda.PlantBreeding.Core.Models.CrossPlanLocationReportViewModel
+
+@{
+    ViewBag.Title = "Cross Plan Locations";
+    ViewBag.IndexTitle = @ViewBag.Title;
+}
+<div class="row"></div>
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.HiddenFor(m => m.Virus1Label)
+                @Html.HiddenFor(m => m.Virus2Label)
+                @Html.HiddenFor(m => m.Virus3Label)
+                @Html.HiddenFor(m => m.Virus4Label)
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control " } })
+                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GenusName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.GenusId, (IEnumerable<SelectListItem>)ViewBag.genus, "", new { @class = "form-control col-md-2" })
+                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Report" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+}
+

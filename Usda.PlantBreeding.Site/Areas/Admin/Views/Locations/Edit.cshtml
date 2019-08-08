@@ -1,0 +1,33 @@
+﻿@model Usda.PlantBreeding.Core.Models.LocationViewModel
+
+@{
+    ViewBag.Title = "Edit Location";
+    ViewBag.IndexTitle = Request.Url.Segments.Last();
+}
+
+@section scripts{
+
+    @Scripts.Render("~/Scripts/js/Polyfill.js")
+    @Scripts.Render("~/Scripts/js/usda.location-page.js")
+    <script>
+        addEventListener("load", function () {
+            EntryPoint.initLocationEditPage(@Html.Raw(Json.Encode(Model)));
+        });
+    </script>
+}
+@section styles {
+    <link href="~/Content/location-page.css" rel="stylesheet" />
+    <link href="~/Content/autocomplete.css" rel="stylesheet" />
+}
+
+<div class="row"></div>
+<h4>Edit Location</h4>
+<hr />
+
+<div class="row"></div>
+<div id="locations-page"></div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

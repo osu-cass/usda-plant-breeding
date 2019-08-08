@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Genus>
+
+<div class="row"></div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <br />
+        
+        <table class="table table-hover table-striped" style="width: 36% !important; margin-left:32%">
+            <thead>
+                <tr class="primary">
+                    <th>
+                        <h3><font color="white">Select Genus</font></h3>
+                    </th>
+                </tr>
+            </thead>
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.Value, "Details", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+</table>
+    </div>
+</div>

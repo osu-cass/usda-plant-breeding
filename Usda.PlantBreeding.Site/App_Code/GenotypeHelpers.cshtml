@@ -1,0 +1,181 @@
+﻿@*
+    TODO: comment
+*@
+@helper GenotypeDataList(System.Web.Mvc.UrlHelper url, string id, string name, int genusId, int? initialId = null, string initialName = "", int? mapId = null, bool mapOnly = false, bool disabled = false)
+{
+    <input id="text-@id" list="genotypelist-@id" class="form-control" autocomplete="off" name="filter" value="@initialName" @if (disabled) { <text> disabled="disabled" </text>              } />
+    <input id="hidden-@id" name="@name" type="hidden" value="@initialId" />
+    <input id="hidden-genusId" name="genusId" type="hidden" value="@genusId" />
+    <datalist id="genotypelist-@id"></datalist>
+    <script type="text/javascript" language="javascript">
+        "use strict";
+        $(document).ready(function () {
+            // HTML encoded string map
+            var encodeMap = {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': '&quot;', "'": '&#39;', "/": '&#x2F;'};
+
+            // returns case insensitive and HTML encoded term
+            function getTerm() {
+                return $("#text-@id").val().toLowerCase().replace(/[&<>"'\/]/g, function (c) {
+                    return encodeMap[c];
+                });
+            }
+
+            // returns case insensitive attribute selector that selects options with values that exactly match term as substring
+            function getSelector1(term) {
+                return function(index, element) {
+                    return $(this).attr('value').toLowerCase().indexOf(term) === term;
+                };
+            }
+
+            // returns case insensitive attribute selector that selects options with values that begin with given term as substring
+            function getSelector2(term) {
+                return function(index, element) {
+                    return $(this).attr('value').toLowerCase().indexOf(term) === 0;
+                };
+            }
+
+            // returns case insensitive attribute selector that selects options with values that contain given term as substring
+            function getSelector3(term) {
+                return function(index, element) {
+                    return $(this).attr('value').toLowerCase().indexOf(term) > -1;
+                };
+            }
+
+            // set input to genotype name and id
+            function setBoth(term) {
+                var options = $("#genotypelist-@id > option");
+                var matches1 = options.filter(getSelector1(term)); // or $("#genotypelist-@id > option[value='" + term + "']");
+                var matches2 = options.filter(getSelector2(term)); // or $("#genotypelist-@id > option[value^='" + term + "']");
+                var matches3 = options.filter(getSelector3(term)); // or $("#genotypelist-@id > option[value*='" + term + "']");
+                if (term.length == 0) {
+                    $("#hidden-@id").val('');
+                } else if (matches1.length > 0) {
+                    $("#hidden-@id").val(matches1[0].id);
+                    $("#text-@id").val(matches1[0].value);
+                } else if (matches2.length > 0) {
+                    $("#hidden-@id").val(matches2[0].id);
+                    $("#text-@id").val(matches2[0].value);
+                } else if (matches3.length > 0) {
+                    $("#hidden-@id").val(matches3[0].id);
+                    $("#text-@id").val(matches3[0].value);
+                } else {
+                    $("#hidden-@id").val("@initialId");
+                    $("#text-@id").val("@initialName");
+                }
+            }
+
+            // set input to genotype id
+            function setGenotypeId(term) {
+                var matches = $("#genotypelist-@id > option[value='" + term + "']");
+                if (matches.length > 0) {
+                    $("#hidden-@id").val(matches[0].id);
+                } else {
+                    $("#hidden-@id").val("@initialId");
+                }
+            }
+
+            // get genotypes by search term
+            function getCallAjax(term, setter) {
+                var url = '@url.Action("Search", "Default")';
+                var mOnly = @mapOnly.ToString().ToLower();
+                var mId = @(!mapId.HasValue ? "null" : mapId.ToString());
+                var data = {
+                    'term': term,
+                    'genusId': @genusId,
+                    'mapId': mId,
+                    'mapOnly':  mOnly
+                };
+                var successHandler = function(data, textStatus, jqXHR) {
+                    // clear datalist options
+                    $("#genotypelist-@id").empty();
+                    // add new options to datalist
+                    for (var i = 0; i < data.length; i++) {
+                        var option = $(document.createElement('option'));
+                        option.attr("id", data[i].value);
+                        option.attr("value", data[i].label);
+                        $("#genotypelist-@id").append(option);
+                    }
+                    // check for internet explorer
+                    if (navigator.userAgent.match(/Trident\/7\./)) {
+                        $("#text-@id").focus().click();
+                    }
+                    // set term
+                    if (setter) {
+                        setter(term);
+                    }
+                };
+                //var errorHandler = function(jqXHR, textStatus, errorThrown) {
+                //    console.log("errorHandler called");
+                //    console.log(jqXHR);
+                //    console.log(textStatus);
+                //    console.log(errorThrown);
+                //};
+                return function() {
+                    $.ajax({
+                        url: url,
+                        method: "get",
+                        dataType: "json",
+                        data: data,
+                        // error: errorHandler,
+                        success: successHandler
+                    });
+                };
+            }
+
+            // trigger given callback after given delay within closure that contains timeout id
+            var delay = (function(){
+                var timer = 0;
+                return function(callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+
+            // check if browser supports html5 datalist
+            if(document.createElement("datalist").options) {
+                // TODO: on form submit or enter also set both
+                // set handler for when textbox loses focus
+                $("#text-@id").on("blur", function () {
+                    var term = getTerm();
+                    if ($("#genotypelist-@id > option").length == 0) {
+                        delay(getCallAjax(term, setBoth), 0);
+                    } else {
+                        setBoth(term);
+                    }
+                });
+                // set handler for input
+                $("#text-@id").on("input", function () {
+                    var term = getTerm();
+                    setGenotypeId(term);
+                    delay(getCallAjax(term), 400);
+                });
+            }
+        });
+    </script>
+}
+
+@*
+    Depreciated, use GenotypeDataList instead.
+*@
+@helper Search(System.Web.Mvc.UrlHelper url, string id, string name)
+{
+    <input id="text-@id" type="text" />
+    <input id="hidden-@id" name="@name" type="hidden" />
+    <script type="text/javascript" language="javascript">
+        "use strict";
+        $(document).ready(function () {
+            var url = '@url.Action("Search", "Default")';
+            var handler = function(event, ui) {
+                event.preventDefault();
+                $("#text-@id").val(ui.item.label);
+                $("#hidden-@id").val(ui.item.value);
+            };
+            // TODO: doesn't handle case were name is fully typed (don't use autocomplete at all)
+            $('#text-@id').autocomplete({
+                source: url,
+                select: handler,
+                focus: handler
+            });
+        });
+    </script>
+}

@@ -1,0 +1,73 @@
+﻿@using Usda.PlantBreeding.Core.Models;
+@model List<MapQuestionViewModel>
+
+@{
+    MapQuestionViewModel question = new MapQuestionViewModel();
+}
+
+<script type="text/javascript">
+    //Script to toggle all required checkboxes
+    function toggleChecked(status) {
+        $("#checkboxes input").each(function () {
+            // Set the checked status of each to match the checked status of the check all checkbox:
+            $(this).prop("checked", status);
+        });
+    }
+
+    $(document).ready(function () {
+        // grab a reference to the check all box:
+        var checkAllBox = $("#checkAll");
+
+        //Set the default value of the global checkbox to true:
+        checkAllBox.prop('checked', false);
+
+        //Attach the call to toggleChecked to the click event of the global checkbox:
+        checkAllBox.click(function () {
+            var status = checkAllBox.prop('checked');
+            toggleChecked(status);
+        });
+    });
+</script>
+
+<div>
+    <input type="checkbox" id="checkAll" />Check All
+</div>
+
+<div id="checkboxes">
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(q => question.isChecked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(q => question.Label)
+            </th>
+            <th>
+                @Html.DisplayNameFor(q => question.Text)
+            </th>
+            
+        </tr>
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => Model[i].Text)
+                @Html.HiddenFor(modelItem => Model[i].Label)
+                @Html.HiddenFor(modelItem => Model[i].Id)
+                <td>
+                    @Html.EditorFor(modelItem => Model[i].isChecked, new { @class = "autocheck" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Label)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Text)
+                </td>
+                
+            </tr>
+        }
+
+    </table>
+</div>

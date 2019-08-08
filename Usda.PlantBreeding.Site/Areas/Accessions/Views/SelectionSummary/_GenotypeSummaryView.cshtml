@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Core.Models.GenotypeUseSummaryViewModel>
+
+<table class="table">
+        <tr class="primary">
+            <div class="col-md-offset-10">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+              
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+            </div>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <div class="row">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+            </div>
+        </tr>
+    }
+</table>
+
+
+

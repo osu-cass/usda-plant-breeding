@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Usda.Lib.Models.Genotype>
+
+<table class="table table-striped table-hover" style="width:62%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.originalName)
+        </th>
+   
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+
+        <th>
+            Action
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "DetailsModal", "Genotypes", new { id = item.Id }, new { data_modal = "" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.originalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Genotypes", new { id = item.Id }, htmlAttributes: "")
+                |
+                @Html.ActionLink("Pedigree", "Tree", "Pedigree", new { id = item.Id }, htmlAttributes: "")
+                |
+                @Html.ActionLink("Details", "Details", "Genotypes", new { id = item.Id }, htmlAttributes: "")
+
+            </td>
+        </tr>
+    }
+</table>

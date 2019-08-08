@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Map>
+
+
+@{
+    ViewBag.Title = "Maps by Genus";
+}
+
+<style>
+    .body-content {
+        width: 100%;
+    }
+
+
+    table tbody, table thead {
+        display: block;
+    }
+
+    table tbody {
+        overflow: auto;
+        height: 60vh;
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    th, td {
+        width: 125px;
+    }
+
+    table .table-name, table .table-actions {
+        width: 350px;
+    }
+</style>
+
+
+<div class="container-fluid">
+
+    <div class="form-inline">
+        @*copy style and class in the following <p> to maintain styling*@
+        <div class="row">
+            <p class="pull-right" style="margin-right:150px;">
+                @Html.ActionLink("+ Create New", "Create", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+    </div>
+
+    <div id="tablecontainer">
+        @Html.DisplayFor(m => m, "MapsSummary")
+    </div>
+</div>

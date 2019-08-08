@@ -1,0 +1,9 @@
+﻿@helper VirusEditor(string id, string name, bool virus, string onchange)
+{
+    <input type="checkbox" id="@id" name="@name" onchange="@onchange"
+           @if (virus)
+           {
+               <text> checked="checked" </text>
+           }
+           />
+}

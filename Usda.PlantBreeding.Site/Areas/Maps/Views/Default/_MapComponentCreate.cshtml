@@ -1,0 +1,11 @@
+﻿@model Usda.PlantBreeding.Data.Models.MapComponent
+
+@using (Html.BeginForm("CreateMapComponent", "Maps", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

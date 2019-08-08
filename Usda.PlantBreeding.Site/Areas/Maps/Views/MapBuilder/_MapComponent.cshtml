@@ -1,0 +1,102 @@
+﻿@model Usda.PlantBreeding.Core.Models.MapComponentViewModel
+<tr>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id)
+
+
+    <td class="col-md-1">
+        <div>
+            <div>
+                @Html.EditorFor(model => model.Row, new { htmlAttributes = new { @class = "form-control", @id = "RowNew", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Row, "", new { @class = "text-danger", @id = "RowValidation" })
+            </div>
+        </div>
+    </td>
+
+    <td class="col-md-1">
+        <div>
+            <div>
+                @Html.EditorFor(model => model.PlantNum, new { htmlAttributes = new { @class = "form-control", @id = "PlantNumNew" } })
+                @Html.ValidationMessageFor(model => model.PlantNum, "", new { @class = "text-danger", @id = "PlantNumValidation" })
+            </div>
+        </div>
+    </td>
+
+    <td class="col-md-2">
+        <div>
+            <div>
+                @SearchHelpers.Search(@Url.Action("Search", "MapBuilder", new { area = "Maps" }), "GenotypeNew", @ViewBag.GenusId, "GenotypeNew", "GenotypeNameNew", Model.GenotypeId.ToString(), Model.GenotypeName, false, "Accession")
+                @Html.ValidationMessageFor(model => model.GenotypeId, "", new { @class = "text-danger", @id = "GenotypeIdValidation" })
+            </div>
+        </div>
+    </td>
+
+    <td class="col-md-1">
+        <div>
+            <div>
+                @Html.EditorFor(model => model.Rep, new { htmlAttributes = new { @class = "form-control", @id = "RepNew" } })
+                @Html.ValidationMessageFor(model => model.Rep, "", new { @class = "text-danger", @id = "RepValidation" })
+            </div>
+        </div>
+    </td>
+
+    <td class="col-md-1">
+        <div>
+            <div>
+                @Html.EditorFor(model => model.PlantsInRep, new { htmlAttributes = new { @class = "form-control", @id = "PlantsInRepNew" } })
+                @Html.ValidationMessageFor(model => model.PlantsInRep, "", new { @class = "text-danger", @id = "PlantsInRepValidation" })
+            </div>
+        </div>
+    </td>
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus1)))
+    {
+        <td class="col-md-1">
+            <div>
+                <div>
+                    @Html.EditorFor(model => model.Virus1, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Virus1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </td>
+    }
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus2)))
+    {
+        <td class="col-md-1">
+            <div>
+                <div>
+                    @Html.EditorFor(model => model.Virus2, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Virus2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </td>
+    }
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus3)))
+    {
+        <td class="col-md-1">
+            <div>
+                <div>
+                    @Html.EditorFor(model => model.Virus3, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Virus3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </td>
+    }
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus4)))
+    {
+        <td class="col-md-1">
+            <div>
+                <div>
+                    @Html.EditorFor(model => model.Virus4, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Virus4, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </td>
+    }
+    <td>
+        <div>
+            <div>
+                <button onclick="AddMapComp(this)" class="btn btn-success" id="AddPlotButton">Add Plot</button>
+            </div>
+        </div>
+    </td>
+</tr>

@@ -1,0 +1,56 @@
+﻿@model Usda.PlantBreeding.Data.Models.Genotype
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Genotype</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Family.CrossNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Family.CrossNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purpose.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purpose.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SelectionNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SelectionNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GivenName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GivenName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,134 @@
+﻿@model Usda.PlantBreeding.Data.Models.Map
+
+<div class="row mapsummary-small">
+
+    <div class="col-md-2">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PicklistPrefix)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PicklistPrefix)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlantingYear)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PlantingYear)
+            </dd>
+
+          
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="dl-horizontal">
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LocationSuffix)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LocationSuffix)
+            </dd>
+
+
+        </dl>
+
+    </div>
+
+    <div class="col-md-2">
+        <dl class="dl-horizontal">
+         
+            <dt>
+                @Html.DisplayNameFor(model => model.CrossType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CrossType)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DefaultPlantsInRep)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DefaultPlantsInRep)
+            </dd>
+
+        </dl>
+
+    </div>
+    <div class="col-md-2">
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+
+            <dd>
+                @if (Model.Note != null && Model.Note.Length > 6)
+                {
+                    @Html.DisplayFor(model => model.Note).ToString().Substring(0, 6)
+                    <span>...</span>
+                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-placement="bottom" title="" data-content="@Model.Note"><span class="glyphicon glyphicon-new-window"></span></a>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Note)
+                }
+            </dd>
+            
+
+           
+            <dt>
+                @Html.DisplayNameFor(model => model.StartCorner)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StartCorner)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-2">
+        <dl class="dl-horizontal">
+
+            <dt class="evalYear">
+                <strong>@Html.DisplayNameFor(model => model.EvaluationYear)</strong>
+            </dt>
+
+            <dd class="evalYear">
+                <strong>
+                    @Html.DisplayFor(model => model.EvaluationYear)
+                </strong>
+            </dd>
+
+          
+        </dl>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        //initialize bootstrap popovers
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+
+
+    })
+ </script>

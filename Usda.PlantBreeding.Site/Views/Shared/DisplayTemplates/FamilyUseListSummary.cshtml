@@ -1,0 +1,50 @@
+﻿@using Usda.PlantBreeding.Core.Models;
+
+@model IEnumerable<FamilyUseViewModel>
+
+<div style="height:650px;">
+    <table id="crossuse" class="table table-striped table-hover table-bordered table-font-small table-condensed" cellspacing="0" width="100%">
+        <thead>
+            <tr class="primary">
+                <th>
+                    @Html.DisplayNameFor(model => model.OriginName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CrossWithName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurposeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SelectionCount)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (FamilyUseViewModel item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(m => item.OriginName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.CrossWithName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.PurposeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.SelectionCount)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

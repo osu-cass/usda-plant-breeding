@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Question>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Label)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+        </tr>
+    }
+
+</table>

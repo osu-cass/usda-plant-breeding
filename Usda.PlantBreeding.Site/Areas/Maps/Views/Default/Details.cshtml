@@ -1,0 +1,91 @@
+﻿@model Usda.PlantBreeding.Data.Models.Map
+
+@{
+    ViewBag.Title = @Model.FullName + " Details";
+}
+<script>
+
+    function MapViewReport() {
+
+        var MapID = @Model.Id;
+        var str =  "@Url.Action("MapView", "Default", new { area = "Reporting", mapId="mapIdplace"})";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+
+    }
+    function MapComponentsReport() {
+
+        var MapID = @Model.Id;
+        var str =  "@Url.Action("MapComponents", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+
+    function PhenotypeReport() {
+
+        var MapID = @Model.Id;
+        var str =  "@Url.Action("PhenotypeEntry", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+
+    function MapInventoryReport() {
+
+        var MapID = @Model.Id;
+        var str =  "@Url.Action("MapInventory", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+
+</script>
+<ul class="nav nav-pills nav-pills-sm pull-right">
+    <li>
+        @Html.ActionLink("Edit", "Edit", new { Id = Model.Id })
+    </li>
+
+    <li>
+        @Html.ActionLink("Map Builder", "MapBuilder", new { area = "Maps", controller = "MapBuilder", Id = Model.Id }, null)
+    </li>
+
+    <li>
+       @Html.ActionLink("Phenotype Entry", "PhenotypeEntryYear", new { area = "Maps", controller = "PhenotypeEntry", mapId = Model.Id }, null)
+    </li>
+
+    <li role="presentation">
+        <a onclick="MapViewReport()" class="btn">Map View Print</a>
+    </li>
+    <li role="presentation">
+        <a onclick="MapComponentsReport()" class="btn">Map Components</a>
+    </li>
+    <li role="presentation">
+        <a onclick="MapInventoryReport()" class="btn">Map Inventory</a>
+    </li>
+    <li role="presentation">
+        <a onclick="PhenotypeReport()" class="btn">Print Phenotype</a>
+    </li>
+</ul>
+
+<div class="row"></div>
+
+<div class="container">
+    <div class="row">
+        <div>
+            <hr />
+            @Html.DisplayFor(m => m, "MapDetails")
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div>
+            <h4>Traits</h4>
+            <hr />
+            @Html.DisplayFor(m => m.Questions, "QuestionsSummary")
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <h4>Plots</h4>
+        <hr />
+        @Html.DisplayFor(m => m.MapComponents, "MapComponents")
+    </div>
+</div>

@@ -1,0 +1,148 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Usda.Lib.Models;
+
+@model PagedList<Usda.Lib.Models.Family>
+
+@{
+
+    Family family = new Family();
+}
+
+<div class="row"></div>
+<div class="form-inline">
+    <div class="row">
+        <p class="pull-right" style="margin-right:25px;">
+            @Html.ActionLink("Generate Report", "IndexReport", new { genusId = Session["genusId"] }, new { @class = "btn btn-success" })
+        </p>
+        <p class="pull-right" style="margin-right:25px;">
+            @Html.ActionLink("+ Create New", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+</div>
+
+@using (Html.BeginForm("Index", "Families", FormMethod.Get))
+{
+    <div class="form-group form-inline">
+        <div class="col-sm-offset-4 col-sm-4">
+            @SearchHelpers.Search(Url.Action("Search", "Families"), "FamilySearch", (Nullable<int>)ViewBag.GenusId, "FamilyId")
+            <input type="hidden" name="pageSize" value="@Model.PageSize" />
+            <input type="submit" class="btn" value="Find" />
+        </div>
+    </div>
+}
+
+<div class="row"></div>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { pageSize = Model.PageSize, page = page }))
+
+@using (Html.BeginForm("Index", "Families", FormMethod.Get))
+{
+    <text>Page Size:</text>
+    @Html.DropDownList("pageSize", (IEnumerable<SelectListItem>)ViewBag.PageSize, @Model.PageSize)
+    <input type="hidden" name="page" value="1" />
+    <input type="submit" value="Update" />
+}
+
+<br />
+<div class="container">
+    <table class="table table-hover table-striped table-condensed">
+        <thead style="display:block; position:relative;">
+            <tr class="primary">
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.Name)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.Origin)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.CrossNum)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.CrossType)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.Genus)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.FemaleParent)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.MaleParent)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.Year)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.FieldPlantedNum)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.TransplantedNum)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.IsReciprocal)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.SeedNum)
+                </th>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(m => family.Note)
+                </th>
+                <th class="col-md-1">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody style="display:block; height:400px; overflow:auto;">
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-md-1">
+                        @Html.ActionLink(item.Name, "Details", new { id = item.Id })
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.Origin.Name)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.CrossNum)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.CrossType.Name)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.Genus.Name)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.FemaleGenotype.Name)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.MaleGenotype.Name)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.Year)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.FieldPlantedNum)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.TransplantedNum)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.IsReciprocal)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.SeedNum)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.DisplayFor(m => item.Note)
+                    </td>
+                    <td class="col-md-1">
+                        @Html.ActionLink("Edit", "IndexEdit", new { id = item.Id, pageSize = Model.PageSize })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

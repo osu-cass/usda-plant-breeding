@@ -1,0 +1,16 @@
+﻿
+.selection-summary-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: space-between;
+}
+
+.selection-summary-detail .accession-search-form .input-search{
+    max-width: 125px;
+
+}
+.selection-summary-detail .genotype-note-form{
+    width: 300px;
+}

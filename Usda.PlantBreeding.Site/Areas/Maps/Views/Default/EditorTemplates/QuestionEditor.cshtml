@@ -1,0 +1,21 @@
+﻿@model Usda.PlantBreeding.Data.Models.Question
+
+<tr>
+    @Html.HiddenFor(m => m.Id)
+    <td>
+
+        @{
+            if (Model.Required)
+            {
+                @Html.EditorFor(m => m.Required, new { @class = "checkbox checkbox-primary col-md-1", @checked = "checked" })
+            }
+            else
+            {
+                @Html.EditorFor(m => m.Required, new { @class = "checkbox checkbox-primary col-md-1" })
+            }
+        }
+
+    </td>
+    <td> @Html.DisplayFor(m => m.Text) </td>
+    <td> @Html.DisplayFor(m => m.Label) </td>
+</tr>

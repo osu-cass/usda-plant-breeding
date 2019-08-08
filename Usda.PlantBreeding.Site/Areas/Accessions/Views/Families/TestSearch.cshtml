@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "TestSearch";
+}
+
+<div class="row"></div>
+
+<h2>TestSearch</h2>
+
+<hr />
+
+@using (Html.BeginForm("Index", "Genotypes", FormMethod.Get))
+{
+    <div class="form-group form-inline">
+        <div class="col-sm-offset-4 col-sm-4">
+            @SearchHelpers.Search(Url.Action("Search", "Families"), "search", (Nullable<int>)ViewBag.GenusId)
+            <input type="submit" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<div class="row"></div>

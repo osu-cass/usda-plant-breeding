@@ -1,0 +1,22 @@
+﻿@model  IEnumerable<Usda.Lib.Models.Fate>
+
+@{
+    string fates_inline = string.Empty;
+    foreach (Usda.Lib.Models.Fate fate in Model)
+    {
+        fates_inline += fate.Name;
+        fates_inline += ",";
+    }
+
+    //removes last ','
+    if (!string.IsNullOrEmpty(fates_inline))
+    {
+        fates_inline = fates_inline.Remove(fates_inline.Length - 1);
+    }
+
+    fates_inline += ".";
+}
+
+<div>
+    @Html.Raw(fates_inline)
+</div>

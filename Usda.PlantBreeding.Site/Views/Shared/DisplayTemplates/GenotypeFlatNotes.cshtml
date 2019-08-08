@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.FlatNote>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Other)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Other)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+        </tr>
+    }
+</table>

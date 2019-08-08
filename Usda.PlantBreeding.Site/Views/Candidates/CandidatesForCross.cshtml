@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Candidate>
+
+@{
+    ViewBag.Title = "Candidates For Cross";
+    var candidateList = new SelectList(Model, "Id", "Genotype.Name");
+}
+
+<h2 class="text-center">Candidates For Cross</h2>
+<hr />
+<br />
+<div class="panel panel-default">
+    <div class=" panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-2">
+                    <h3 class="text-center">Male</h3>
+                    @Html.ListBox("Candidate1", candidateList, new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    <h3 class="text-center">Female</h3>
+                    @Html.ListBox("Candidate2", candidateList, new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+            <input type="submit" value="+ Create" class="btn btn-primary col-sm-offset-5" />
+        }
+    </div>
+    <br />
+</div>
+<br />

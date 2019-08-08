@@ -1,0 +1,91 @@
+﻿@model Usda.PlantBreeding.Core.Models.MapComponentViewModel
+
+
+<tr id="@Model.PlantNum">
+    @{
+        string prefix = Model.PlantNum.ToString() + ".";
+        string onblurevent = "GenotypeChange(this, " + Model.Id + "," + Model.PlantNum.Value + ")";
+        string rowChangeEvent = "OnRowChange(" + Model.Id + "," + Model.PlantNum.Value + ")";
+    }
+    @Html.HiddenFor(model => model.MapId, new { @id = prefix + "MapId" })
+    @Html.HiddenFor(model => model.Id, new { @id = prefix + "Id" })
+    @Html.HiddenFor(model => model.Row, new { @id = prefix + "Row" })
+    @Html.HiddenFor(model => model.PlantNum, new { @id = prefix + "PlantNum" })
+
+    <td class="col-md-1">
+        @Html.DisplayFor(model => model.Row)
+    </td>
+    <td class="col-md-1">
+        @Html.DisplayFor(model => model.PlantNum)
+    </td>
+    <td class="col-md-1">
+
+        @SearchHelpers.Search(@Url.Action("Search", "MapBuilder", new { area = "Maps" }), prefix + "GenotypeId" , @ViewBag.GenusId,
+                    prefix + "Genotype", prefix + "GenotypeName", Model.GenotypeId.ToString(), Model.GenotypeName, false,
+            "Accession", null, null, null, @onblurevent)
+
+    </td>
+
+    <td class="col-md-1">
+        @Html.EditorFor(model => model.Rep,
+             new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Rep"} })
+    </td>
+
+    <td class="col-md-1">
+        @Html.EditorFor(model => model.PlantsInRep,
+                               new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "PlantsInRep" } })
+    </td>
+
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus1)))
+    {
+        <td class="col-md-1">
+            <div style="width:6em;">
+                @Html.EditorFor(model => model.Virus1,
+            new { htmlAttributes = new { @class = "form-control", onchange = @rowChangeEvent, @id = prefix + "Virus1" } })
+            </div>
+        </td>
+    }
+
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus2)))
+    {
+        <td class="col-md-1">
+            <div style="width:6em;">
+                @Html.EditorFor(model => model.Virus2,
+            new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Virus2" } })
+            </div>
+        </td>
+    }
+
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus3)))
+    {
+        <td class="col-md-1">
+            <div style="width:6em;">
+
+                @Html.EditorFor(model => model.Virus3,
+        new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Virus3" } })
+            </div>
+        </td>
+    }
+
+    @if (!(string.IsNullOrEmpty(@ViewBag.Virus4)))
+    {
+        <td class="col-md-1">
+            <div style="width:6em;">
+
+                @Html.EditorFor(model => model.Virus4,
+        new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Virus4" } })
+            </div>
+        </td>
+    }
+
+    <td class="col-md-2">
+        @Html.DisplayFor(model => model.PickingNumber)
+    </td>
+
+    <td class="col-md-1 AdminMode" style="display: none;">
+        <button id="@Model.Id" class="btn btn-danger btn-sm" onclick="RemoveMapComponent(this)">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+    </td>
+</tr>
+

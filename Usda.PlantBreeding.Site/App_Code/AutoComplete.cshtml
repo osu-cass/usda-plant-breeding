@@ -1,0 +1,41 @@
+﻿@*
+    Generates HTML for autocomplete search.
+
+    The given url is for the action method that returns search results.
+    This url can be generated from Url.Action method for example.
+
+    The given id is used to generate unique id's for the generated HTML elements.
+
+    The given genusId is an optional genus id used to filter results.
+    If this is provided by the ViewBag, it should be cast as Nullable<int>.
+
+    The given key is an optional name given to the selected key from the search results.
+    This parameter should be provided when the autocomplete search is included in a form for example.
+
+    The given value is an optional name given to the selected value from the search results.
+    This parameter should be provided when the autocomplete search is included in a form for example.
+
+    The given initial key and value are the default or initial key and value for search results.
+*@
+@helper Search(string url, int? genusId, string inputId, string inputName = "", string key = "", string value = "", bool disabled = false, string placeholder = "", object valuebind = null, object keybind = null, string onblurevent = null, string idChangeEvent = null)
+{
+
+    var onblurstring = "";
+    if (onblurevent != null)
+    {
+        onblurstring = onblurevent;
+    }
+
+        <input id="@inputName" name="@inputName" value="@value"
+               placeholder="@placeholder" class="form-control input-search"
+               data-url="@url" data-genus-id="@genusId" data-init-val="@value" data-init-key="@key"
+               @valuebind onblur="@onblurstring"
+               @if (disabled) { <text> disabled="disabled" </text>            } />
+        <input id="@inputId" name="@inputId" type="hidden" value="@key" data-init-val="@value" data-init-key="@key" onchange="@idChangeEvent" @keybind />
+
+
+<script>
+    CreateAutoComplete("@inputId", "@inputName", "@genusId", "@url");
+
+</script>
+    }

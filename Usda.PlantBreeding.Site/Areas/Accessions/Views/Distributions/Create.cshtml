@@ -1,0 +1,25 @@
+﻿@model Usda.PlantBreeding.Core.Models.CreateOrderViewModel
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.IndexTitle = "New Distribution";
+
+}
+<div class="row"></div>
+
+@section scripts{
+
+    @Scripts.Render("~/Scripts/js/Polyfill.js")
+    @Scripts.Render("~/Scripts/js/usda.create-distribution-page.js")
+    <script>
+        addEventListener("load", function () {
+            EntryPoint.initCreateDistributionPage(@Html.Raw(Json.Encode(Model)));
+        });
+    </script>
+}
+
+@section styles {
+    <link href="~/Content/order-page.css" rel="stylesheet" />
+    <link href="~/Content/autocomplete.css" rel="stylesheet" />
+}
+<div id="orders-page"></div>

@@ -1,0 +1,28 @@
+﻿@helper CheckEditor(string id, string name, bool? check, bool disabled = false)
+{
+    <input type="checkbox" id="checkbox-@id"
+           @if (check.HasValue && check.Value)
+           {
+               <text> checked="checked" </text>
+           }
+           @if (disabled)
+           {
+               <text> disabled="disabled" </text>
+           }
+           />
+    <input type="hidden" id="@id" name="@name" />
+    <script type="text/javascript" language="javascript">
+        "use strict";
+        $(document).ready(function () {
+            function helper() {
+                return $("#checkbox-@id").prop("checked");
+            }
+
+            $("#@id").val(helper());
+
+            $("#checkbox-@id").on("change", function () {
+                $("#@id").val(helper()).trigger("change");
+            });
+        });
+    </script>
+}

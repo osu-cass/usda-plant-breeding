@@ -1,0 +1,38 @@
+﻿@using Usda.PlantBreeding.Core.Models
+@using Usda.PlantBreeding.Data.Models;
+@model FlatNotesViewModel
+
+    <table id="flat-notes" class="table table-striped table-condensed table-font-small tab-pane fade in">
+    <thead>
+        <tr class="primary">
+            <th>
+                @Html.LabelFor(m => m.NewNote.Date)
+            </th>
+            <th>
+                @Html.LabelFor(m => m.NewNote.Text)
+            </th>
+            <th>
+                @Html.LabelFor(m => m.NewNote.FlatTypeId)
+            </th>
+            <th>
+                @Html.LabelFor(m => m.NewNote.Other)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr id="new-flat">
+            @Html.EditorFor(m => m.NewNote, "EditNewFlatNote", "")
+        </tr>
+
+        @foreach (FlatNote note in Model.Notes.OrderByDescending(m => m.Date).ThenByDescending(m => m.Id))
+        {
+            <tr id="flat-@note.Id">
+                @Html.EditorFor(m => note, "EditFlatNote", "")
+            </tr>
+        }
+
+    </tbody>
+</table>
+

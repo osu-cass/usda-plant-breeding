@@ -1,0 +1,24 @@
+﻿@model Usda.PlantBreeding.Data.Models.Answer
+
+@if (Model.GenotypeId <= 0)
+{
+    @Html.TextBoxFor(m => m.Text, new
+{
+    disabled = "disabled",
+    @class = "form-control mapAnswer",
+    @style = "min-width: 5em"
+});
+}
+else
+{
+    @Html.TextBoxFor(m => m.Text, new
+{
+    data_id = Model.Id,
+    data_questionid = Model.QuestionId,
+    data_mapcomponentyearsid = Model.MapComponentYearsId,
+    data_genotypeid = Model.GenotypeId,
+    @class = "form-control mapAnswer",
+    @style = "min-width: 5em",
+});
+}
+

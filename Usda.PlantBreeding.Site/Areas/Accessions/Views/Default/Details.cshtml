@@ -1,0 +1,101 @@
+﻿@model Usda.PlantBreeding.Core.Models.AccessionViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.IndexTitle = Model.Name;
+}
+
+<script src="~/Scripts/autocomplete/auto-complete.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+    function CreateSelection(){
+        var URL = '@Url.Action("CreateSelection", "Default")';
+        if (confirm('Are you sure?')) {
+            $.ajax({
+                url: URL,
+                type: 'post',
+                data: { "id": @Model.Id} ,
+                success: function (data) {
+                    if(data.Error){
+                        NotyMessage(data.Message);
+                    }else{
+                        NotyMessage(data.Message);
+                    }
+                },
+                failure: function (data) {
+                    //add notify error
+                    NotyMessage("Bad Network");
+                }
+            });
+        }
+
+    }
+
+
+    
+</script>
+<div>
+    <ul class="nav nav-pills nav-pills-sm pull-right">
+        <li>
+            @Html.ActionLink("Return", "Index", "Default", new { genotypeId = Model.Id }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Summary", "Detail", "SelectionSummary", new { area = "Accessions", id = Model.Id }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Pedigree", "Tree", new { Area = "Accessions", Controller = "Pedigree", id = Model.Id }, null)
+        </li>
+        <li>
+            @Html.ActionLink("New Accession", "Create", "Default", new { area = "Accessions" }, new { target = "_blank" })
+        </li>
+        @if(!Model.IsRoot){ 
+
+            <li>
+                <a href="@Url.Action("CreatePopulationFromSelection", "Default", new { id=Model.Id})" onclick="return confirm('Are you sure you would like to create a population?')">Create Population</a>
+            </li>
+            <li>
+                <a href="@Url.Action("DeleteSelection", "Default", new { id=Model.Id})" onclick="return confirm('Do you have everything saved before deleting?')">Delete Selection</a>
+            </li>
+
+        }
+        <li>
+            <button type="button" class="btn btn-link" onclick="CreateSelection()">Create Selection</button>
+        </li>
+  
+
+    </ul>
+</div>
+
+
+@using (Html.BeginForm("Details", "Default", FormMethod.Post))
+{
+    @Html.EditorFor(m => m)
+}
+
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#ActiveMapComps" data-toggle="tab">@Html.DisplayNameFor(m => m.MapComponents)</a></li>
+        <li><a href="#RetiredMapComps" data-toggle="tab">@Html.DisplayNameFor(m => m.MapComponentsRetired)</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="ActiveMapComps">
+
+            @if (Model.MapComponents != null)
+            {
+                <div class="row">
+                    @Html.DisplayFor(m => m.MapComponents, "MapComponentsSummary")
+                </div>
+            }
+        </div>
+        <div role="tabpanel" class="tab-pane" id="RetiredMapComps">
+            @if (Model.MapComponentsRetired != null)
+            {
+                <div class="row">
+                    @Html.DisplayFor(m => m.MapComponentsRetired, "MapComponentsSummary")
+                </div>
+            }
+        </div>
+    </div>

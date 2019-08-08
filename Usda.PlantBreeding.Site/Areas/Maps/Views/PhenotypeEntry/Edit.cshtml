@@ -1,0 +1,64 @@
+﻿@model Usda.PlantBreeding.Core.Models.PhenotypeEntryVM
+@{
+    ViewBag.Title = Model.Map.Name + " Phenotype " + Model.Map.EvaluationYear;
+    ViewBag.IndexTitle = @ViewBag.Title;
+}
+<script>
+
+    function MapViewReport() {
+
+        var MapID = @Model.Map.Id;
+        var str =  "@Url.Action("MapView", "Default", new { area = "Reporting", mapId="mapIdplace"})";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+
+    }
+
+    function PhenotypeReport() {
+
+        var MapID = @Model.Map.Id;
+        var str =  "@Url.Action("PhenotypeEntry", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+
+</script>
+<ul class="nav nav-pills nav-pills-sm pull-right">
+
+    <li role="presentation">
+        @Html.ActionLink("Back to Year", "PhenotypeEntryYear", new { area = "Maps", controller = "PhenotypeEntry", mapId = Model.Map.Id }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Edit", "Edit", "Default", new { area = "Maps", Id = Model.Map.Id }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Map Builder", "MapBuilder", new { area = "Maps", controller = "MapBuilder", Id = Model.Map.Id }, null)
+    </li>
+    <li role="presentation">
+        <a onclick="MapViewReport()" class="btn">Map View</a>
+    </li>
+    <li role="presentation">
+        <a onclick="PhenotypeReport()" class="btn">Print Phenotype</a>
+    </li>
+</ul>
+
+
+<div class="row"></div>
+@section styles {
+    <link href="~/Content/PhenotypeEntry.css" rel="stylesheet" />
+    <link href="~/Content/autocomplete.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+
+    @Scripts.Render("~/Scripts/js/Polyfill.js")
+    @Scripts.Render("~/Scripts/js/usda.phenotype-page.js")
+
+    <script>
+        addEventListener("load", function () {
+            EntryPoint.initializeEntryPage(@Html.Raw(Json.Encode(Model)), document.getElementById("phenotype-entry"));
+        });
+    </script>
+}
+<div id="phenotype-entry"></div>

@@ -1,0 +1,719 @@
+﻿@using Usda.PlantBreeding.Core.Models
+
+
+@model CrossPlanIndexViewModel
+
+@{
+    ViewBag.IndexTitle = "Crosses";
+    //ViewBag.Title = "CrossPlan";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/noty")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/table")
+    @Scripts.Render("~/bundles/datatable")
+
+    @Styles.Render("~/Content/datatablecss")
+}
+<style>
+    .body-content {
+        width: 100%;
+    }
+
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 2px 2px;
+    }
+
+
+    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody td {
+        vertical-align: top;
+    }
+
+    .tdReadOnly input {
+        font-size: 10px;
+    }
+
+    .tdReadOnly {
+        font-size: 10px;
+        vertical-align: middle !important;
+    }
+
+    .table-font-small input, .table-font-small textarea, .table-font-small button, .table-font-small .form-control {
+        font-size: 11px;
+    }
+</style>
+
+<script>
+    var crossTypesDictionary;
+
+    $(document).ready(function () {
+        //$(window).bind('beforeunload', function(){
+        //    return 'Are you sure you want to leave?';
+        //});
+        crossTypesDictionary = @Html.Raw(Json.Encode(@Model.CrossTypesOrder));
+
+        $('#crossPlanTable').DataTable({
+            scrollY: '50vh',
+            "scrollX": true,
+
+            "scrollCollapse": true,
+            fixedHeader: true,
+            "autoWidth": true,
+
+            "paging": false,
+            "ordering": true,
+            "info": false,
+            "searching": false,
+            "columnDefs":  [
+                { "orderable": false, "targets": [-1, 2, 3, 5, 6, 8, 12] },
+                { "orderDataType": "dom-checkbox", "targets" : [9, 10] },
+                { "orderDataType": "dom-text-numeric", "targets" : [13, 14, 15, 16] },
+                { "orderDataType": "dom-text", "targets" : [1,  4] } ,
+                { "orderDataType": "dom-crosstype-select", "targets": [7] },
+                { "type": "dom-text-date", "targets": [11]},
+                { "visible": false, "targets": [0]},
+            ],
+
+            
+            "preDrawCallback": function (settings) {
+                pageScrollPos = $('div.dataTables_scrollBody').scrollTop();
+            },
+            "drawCallback": function (settings) {
+                $('div.dataTables_scrollBody').scrollTop(pageScrollPos);
+            }
+        });
+        OrderTableByDefault();
+
+        bindArrowKeyEvents();
+
+    });
+
+</script>
+
+<script>
+    var lastAddedId;
+    var rowCount;
+
+    $.fn.dataTable.ext.order['dom-crosstype-select'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+            var value = $('select option:selected', td).text();
+            return value;
+        });
+    }
+
+
+    $(document).ready(function () {
+        lastAddedId = $('#crossPlanTable tr')[1].id;
+        rowCount = @Model.CrossPlans.Count;
+        document.getElementById("rowCount").innerHTML = String(rowCount);
+
+    });
+
+    function upRowElement(element){
+        var row = $(element).closest('tr').prev('tr');
+        var name = $(element).attr('name');
+        var findname = "[name='" + name + "']";
+        var item = $(row).find(findname);
+        if(item != null){
+            FocusOnItem(item);
+        }
+
+    }
+
+    function downRowElement(element){
+        var row = $(element).closest('tr').next('tr');
+        var name = $(element).attr('name');
+        var findname = "[name='" + name + "']";
+        var item = $(row).find(findname);
+        if(item != null){
+            FocusOnItem(item);
+        }
+    }
+
+    function leftRowElement(element){
+        var tabletd = $(element).closest('td').prev('td');
+        var item = $(tabletd).children(".arrowKey");
+        FocusOnItem(item);
+
+    }
+    function rightRowElement(element){
+        var tabletd = $(element).closest('td').next('td');
+        //$(tabletd).children().focus(); goes to next element, but only should look for the next class
+        var item =  $(tabletd).children(".arrowKey");
+        FocusOnItem(item);
+
+    }
+    function bindArrowKeyEvents(){
+        $(".arrowKey").keyup(function(e){
+            var code = e.keyCode || e.which;
+            //arrow up
+            if(code == 40){
+                downRowElement($(this));
+            }
+            //arrow down
+            if(code == 38){
+                upRowElement($(this));
+            }
+
+            //arrow right
+            if(code == 39){
+                rightRowElement($(this));
+            }
+
+            //arrow left
+            if(code == 37){
+                leftRowElement($(this));
+            }
+        });
+    }
+
+    function getYear() {
+        return document.getElementById("yearSelector").value;
+    }
+
+    function GetParents(genotype){
+        var id = parseInt($(genotype).val());
+        var femaleParent = $(genotype).closest('td').next('td').children();
+        var maleParent = $(genotype).closest('td').next('td').next('td').children();
+        if(id > 0){
+
+            var url = "@Url.Action("GetParents", "CrossPlanning")";
+
+            getAjaxParents(url, id, femaleParent, maleParent);
+        }
+        else{
+            setParentValues("", "", femaleParent, maleParent);
+
+        }
+
+    }
+
+
+    function setParentValues(femaleParentValue, maleParentValue, femaleField, maleField){
+        $(femaleField).val(femaleParentValue);
+        $(maleField).val(maleParentValue);
+
+    }
+
+
+    function getAjaxParents(url, gid, femaleParent, maleParent) {
+
+        $.ajax({
+            url: url,
+            method: "get",
+            dataType: "json",
+            data: { 'genotypeId': gid},
+
+            success: function (data, textStatus, jqXHR) {
+                var femaleName = data.FemaleParentName;
+                var maleName = data.MaleParentName;
+                setParentValues(femaleName, maleName, femaleParent, maleParent)
+
+            }
+
+        });
+
+    }
+
+
+    function AddRowFirst(objectId){
+        return function(){
+            var firstId = $('#crossPlanTable tr')[1].id;
+
+            if(objectId == firstId && firstId == lastAddedId){
+                $.when(AddRow()).then(
+                    function thenFunc(){
+                        var row = document.getElementById(objectId);
+                        var maleParent = getRowFieldGenotypeElement(row, objectId, "MaleParent");
+                        FocusOnItem(maleParent);
+                    });
+            }
+        }
+
+    }
+
+    function AddRowFirstDelay(objectId){
+        var timer = 200;
+        setTimeout(AddRowFirst(objectId), timer);
+    }
+
+
+    function YearHandler() {
+        var Year = "@Model.CurrentYear";
+        var Genus = @Model.GenusId.ToString();
+        var str =  "@Url.Action("CrossPlansByYear", "Default", new { area="Reporting", year="yearplace", genus="genusplace"})";
+        var url = str.replace("yearplace", Year);
+        url = url.replace("genusplace",Genus);
+        url = url.replace(/&amp;/g, '&');
+
+        window.open(url, "_blank");
+
+    }
+    function LocationHandler() {
+        var Year = "@Model.CurrentYear";
+        var Genus = @Model.GenusId;
+        var str =  "@Url.Action("CrossPlanLocation", "Default", new { area = "Reporting", year="yearplace", genus="genusplace"})";
+        var url = str.replace("yearplace", Year).replace("genusplace",Genus);
+        url = url.replace(/&amp;/g, '&');
+        window.open(url, "_blank");
+
+    }
+
+    function AccessionPlanningReport() {
+        var Year = "@Model.CurrentYear";
+        var Genus = @Model.GenusId;
+        var str =  "@Url.Action("AccessionsCrossesMade", "Default", new { area = "Reporting", year = "yearplace", genusId = "genusplace" })";
+        var url = str.replace("yearplace", Year).replace("genusplace",Genus);
+        url = url.replace(/&amp;/g, '&');
+        console.log(url);
+        window.open(url, "_blank");
+
+    }
+
+    function getRowField(row, field){
+        return $(getRowFieldElement(row, field)).val().trim();
+    }
+
+    function getRowFieldElement(row, field){
+        return $(row).find("#" + field);
+    }
+
+    function getRowFieldCheckbox(row, field){
+        var checkVal = $(row).find("#" + field + ':checked').val();
+        if(checkVal === "true"){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    function getRowFieldDate(row, field){
+        let text = $(getRowFieldElement(row, field))[0].innerText;
+        if (text == "-") {
+            text = "01/01/0001";
+        } else if (text == "N/A") {
+            text = "01/01/2017"
+        }
+        return text;
+    }
+
+    function getRowFieldGenotype(row, objectId, field){
+        return getRowFieldGenotypeElement(row, objectId, field).value;
+    }
+    function getRowFieldGenotypeElement(row, objectId, field){
+        var name = "[name='" + objectId + "." + field  + "']";
+        return $(row).find(name)[0];
+    }
+
+    function getRowObject(objectId){
+        var id = objectId;
+        var row = document.getElementById(objectId);
+
+        var femaleParentId = getRowFieldGenotype(row, objectId, "FemaleParentId");
+        var maleParentId = getRowFieldGenotype(row, objectId, "MaleParentId");
+
+        var crossTypeId = getRowField(row, "CrossTypeId");
+        var reciprocal = getRowFieldCheckbox(row, "Reciprocal");
+        var unsuccessful = getRowFieldCheckbox(row, "Unsuccessful");
+        var dateCreated = getRowFieldDate(row, "DateCreated");
+        var note = getRowField(row, "Note");
+        var crossNum = getRowField(row, "CrossNum");
+        var seedNum = getRowField(row, "SeedNum");
+        var transplantedNum = getRowField(row, "TransplantedNum");
+        var fieldPlantedNum = getRowField(row, "FieldPlantedNum");
+        var purpose = getRowField(row, "Purpose");
+
+        var object = {Id : id, FemaleParentId : femaleParentId, MaleParentId : maleParentId, CrossTypeId : crossTypeId,
+            Reciprocal : reciprocal, Unsuccessful : unsuccessful, DateCreated: dateCreated, Note : note, CrossNum: crossNum, SeedNum: seedNum,
+            TransplantedNum : transplantedNum, FieldPlantedNum: fieldPlantedNum, Purpose : purpose }
+        return object;
+    }
+
+    function UpdateCrossPlan(objectId){
+        var postdata = getRowObject(objectId);
+        var url = "@Url.Action("SavePlan", "CrossPlanning")";
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: postdata,
+            success: function (result) {
+                if (result.Error) {
+                    NotyMessage(result.Message);
+                } else if (result.Message.length >= 1) {
+                    $(getRowFieldElement(document.getElementById(objectId), "DateCreated"))[0].innerText = result.Message;
+                }
+            },
+            failure: function (result) {
+                NotyMessage("Save failure");
+            }
+        })
+    }
+
+    function AddRow(){
+        var url = "@Url.Action("AddRow", "CrossPlanning")";
+        var postdata = {year: @Model.CurrentYear, genusId : @Model.GenusId}
+        return $.ajax({
+            url: url,
+            type: 'post',
+            data: postdata,
+            success: function (result) {
+                if(result.Error){
+                    NotyMessage(result.Message);
+                }
+                else{
+                    lastAddedId = $(result)[0].id;
+                    AddItemToTable(result);
+                    //ScrollBottom();
+                    IncreaseRowCount();
+                    bindArrowKeyEvents();
+                }
+            },
+            failure: function (result) {
+                NotyMessage("Save failure");
+            }
+
+        });
+    }
+
+    function IncreaseRowCount(){
+        rowCount++;
+        UpdateRowCount(rowCount)
+    }
+
+    function DecreaseRowCount(){
+        rowCount--;
+        UpdateRowCount(rowCount)
+    }
+
+    function UpdateRowCount(rowCount){
+        document.getElementById("rowCount").innerHTML = String(rowCount);
+    }
+
+    function ScrollBottom(){
+        var objDiv = document.getElementsByClassName('dataTables_scrollBody')[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+    function AddItemToTable(data){
+        //$('#crossPlanTable > tbody:last').append(data);
+        $("#crossPlanTable").DataTable().row.add($(data)).draw();
+        OrderByNewest();
+    }
+
+    function AddRowsToTable(result){
+        var results = $(result);
+        for(var row in $(result)){
+            if(results[row].tagName == 'TR'){
+                AddItemToTable(results[row]);
+            }
+        }
+    }
+
+    function RemoveItemFromTable(objectId){
+        $("#crossPlanTable").DataTable().rows("#" + objectId).remove().draw();
+
+    }
+    function DeleteItemFromTable(objectId){
+        if (confirm('Are you sure you would like to delete?')) {
+
+            var url = "@Url.Action("RemovePlan", "CrossPlanning")";
+            var postdata = {id: objectId}
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: postdata,
+                success: function (result) {
+                    if(result.Error){
+                        NotyMessage(result.Message);
+                    }else{
+                        RemoveItemFromTable(objectId);
+                        DecreaseRowCount();
+                    }
+                },
+                failure: function (result) {
+                    NotyMessage("Save failure");
+                }
+
+            });
+        }
+    }
+
+
+    function CopyItemToNextYear(objectId){
+        var nextYear = parseInt(@Model.CurrentYear);
+        nextYear++;
+        if (confirm('Are you sure you would like to copy to ' + nextYear+'?')) {
+
+            var url = "@Url.Action("CopyPlanToYear", "CrossPlanning")";
+
+            var postdata = {id: objectId}
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: postdata,
+                success: function (result) {
+                    if(result.Error){
+                        NotyMessage(result.Message);
+                    }
+                },
+                failure: function (result) {
+                    NotyMessage("Save failure");
+                }
+
+            });
+        }
+    }
+
+    function DisablePopulationFields(objectId){
+        var row = document.getElementById(objectId);
+        var femaleParent = getRowFieldGenotypeElement(row, objectId, "FemaleParent");
+        var maleParent = getRowFieldGenotypeElement(row, objectId, "MaleParent");
+        var crossTypeId = getRowFieldElement(row, "CrossTypeId");
+        var crossNum = getRowFieldElement(row, "CrossNum");
+
+        var btnPop = getRowFieldElement(row, "btnPop");
+        var btnDelete = getRowFieldElement(row, "btnDelete");
+
+        ToggleField(femaleParent, true);
+        ToggleField(maleParent, true);
+        ToggleField(crossTypeId, true);
+        ToggleField(crossNum, true);
+        ToggleField(btnPop, true);
+        ToggleField(btnDelete, true);
+
+
+    }
+    function EnablePopulationButtons(objectId){
+        var row = document.getElementById(objectId);
+        var btnPop = getRowFieldElement(row, "btnPop");
+        var btnDelete = getRowFieldElement(row, "btnDelete");
+        var crossNum = getRowField(row, "CrossNum");
+        if(crossNum != null && crossNum.trim().length > 0){
+            ToggleField(btnPop, false);
+            ToggleField(btnDelete, true);
+        }
+        else
+        {
+            ToggleField(btnPop, true);
+            ToggleField(btnDelete, false);
+        }
+
+
+    }
+    function ToggleField(field, isDisabled){
+        $(field).prop('disabled', isDisabled);
+    }
+
+    function CreateFamily(objectId){
+        var nextYear = parseInt(@Model.CurrentYear);
+        nextYear++;
+        if (confirm('Are you sure you would like to create a population?')) {
+
+            var url = "@Url.Action("CreateFamily", "CrossPlanning")";
+
+            var postdata = {id: objectId}
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: postdata,
+                success: function (result) {
+                    if(result.Error){
+                        NotyMessage(result.Message);
+                    }
+                    else{
+                        DisablePopulationFields(objectId);
+                    }
+
+                },
+                failure: function (result) {
+                    NotyMessage("Save failure");
+                }
+
+            });
+        }
+    }
+
+    function CreateReciprocals(){
+        var nextYear = parseInt(@Model.CurrentYear);
+        nextYear++;
+        if (confirm('Are you sure you would like to create reciprocals?')) {
+
+            var url = "@Url.Action("GenerateReciprocals", "CrossPlanning")";
+
+            var postdata = {year: @Model.CurrentYear, genusId : @Model.GenusId}
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: postdata,
+                success: function (result) {
+                    if(result.Error){
+                        NotyMessage(result.Message);
+                    }
+                    else{
+                        AddRowsToTable(result);
+                    }
+
+                },
+                failure: function (result) {
+                    NotyMessage("Save failure");
+                }
+
+            });
+        }
+    }
+
+    function OrderTableByDefault(){
+        $("#crossPlanTable").DataTable().order( [ 7, 'asc' ], [1, 'asc'], [4, 'asc'] ).draw();
+    }
+
+    function OrderTableByParents(){
+        $("#crossPlanTable").DataTable().order( [ 1, 'asc' ], [4, 'asc'], [7, 'asc']).draw();
+    }
+
+    function OrderByNewest(){
+        $("#crossPlanTable").DataTable().order( [ 0, 'desc' ]).draw();
+    }
+
+
+
+
+</script>
+
+
+<div>
+    <div class="" style="float:right;">
+        <a onclick="YearHandler()" class="btn">Cross Plan Report</a>
+    </div>
+    <div class="" style="float:right;">
+        <a onclick="LocationHandler()" class="btn">Cross Plan Locations</a>
+    </div>
+    <div class="" style="float:right;">
+        <a onclick="AccessionPlanningReport()" class="btn">Crosses Made</a>
+    </div>
+    <div class="row"></div>
+
+
+
+    <div class="row">
+        <div class="col-md-1"><input type="button" class="button btn btn-sm btn-default" onclick="AddRow()" value="Add"></div>
+        <div class="col-md-1"><input type="button" class="button btn btn-sm btn-default" onclick="CreateReciprocals()" value="Create Reciprocals"></div>
+
+        <div class="col-md-offset-1 col-md-1"><input type="button" class="button btn btn-sm btn-default" onclick="OrderTableByDefault()" value="Order CrossType"></div>
+        <div class="col-md-offset-1 col-md-1"><input type="button" class="button btn btn-sm btn-default" onclick="OrderTableByParents()" value="Order Parents"></div>
+        <div class="col-md-offset-1 col-md-1"><input type="button" class="button btn btn-sm btn-default" onclick="OrderByNewest()" value="Order Newest"></div>
+
+
+        <div class="col-md-offset-1 col-md-2">
+            @using (Html.BeginForm("Index", "CrossPlanning", FormMethod.Get))
+            {
+                <div class="form-group form-inline">
+                    @Html.DropDownList("year", (IEnumerable<SelectListItem>)Model.Years, new { @class = "form-control" })
+                    <input type="submit" class="btn btn-sm  btn-default" value="Change" />
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div class="momentum-scroll-dt">
+        <table class="table table-font-small table-responsive table-striped" id="crossPlanTable" cellspacing="0" width="100%">
+            <caption>
+                <div class="row">
+                    <div class="col-md-offset-0 col-md-2">
+                        Number of Rows:
+                        <span id="rowCount">
+
+                        </span>
+                    </div>
+
+                    <div class="col-md-offset-4 col-md-2">
+                        @Html.DisplayNameFor(m => m.DefaultOriginName) @Model.DefaultOriginName
+
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(m => m.NextCrossNumber) @Model.NextCrossNumber
+
+                    </div>
+                </div>
+            </caption>
+            <thead>
+                <tr class="primary">
+                    <th class="" style="min-width:20px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.Id)
+                    </th>
+                    <th class="" style="min-width:100px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.FemaleParentName)
+                    </th>
+                    <th class="tdReadOnly" style="min-width:60px; ">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.FemaleParentFemaleParentOrDefault)
+                    </th>
+                    <th class="tdReadOnly" style="min-width:60px; ">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.FemaleParentMaleParentOrDefault)
+                    </th>
+                    <th class="" style="min-width:100px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.MaleParentName)
+                    </th>
+                    <th class="tdReadOnly" style="min-width:60px; ">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.MaleParentFemaleParentOrDefault)
+                    </th>
+                    <th class="tdReadOnly" style="min-width:60px; ">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.MaleParentMaleParentOrDefault)
+                    </th>
+                    <th style="min-width:50px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.CrossTypeId)
+                    </th>
+
+                    <th class="" style="min-width:210px;">
+
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.Purpose)
+                    </th>
+                    <th class="" style="min-width:30px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.Reciprocal)
+                    </th>
+                    <th class="" style="min-width:20px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.Unsuccessful)
+                    </th>
+                    <th class="" style="max-width:100px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.DateCreated)
+                    </th>
+                    <th class="" style="min-width:180px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.Note)
+                    </th>
+                    <th class="text" style="word-wrap:break-word !important; min-width:40px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.CrossNum)
+                    </th>
+                    <th style="word-wrap:break-word !important; min-width:40px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.SeedNum)
+                    </th>
+                    <th style="word-wrap:break-word !important; min-width:40px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.TransplantedNum)
+                    </th>
+                    <th style="word-wrap:break-word !important; min-width:40px;">
+                        @Html.DisplayNameFor(m => m.NewCrossPlan.FieldPlantedNum)
+                    </th>
+
+                    <th style="min-width:200px">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial("_CrossPlanRows", Model.CrossPlans)
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<div class="row">
+    @*<div class="col-md-1">@ko.Html.HyperlinkButton("Add", "AddRow", "CrossPlanning", null, new { @class = "btn btn-default addRow" })</div>*@
+
+</div>
+
+
+

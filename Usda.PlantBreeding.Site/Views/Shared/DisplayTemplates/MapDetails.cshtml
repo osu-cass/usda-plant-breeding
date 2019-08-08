@@ -1,0 +1,90 @@
+﻿@model Usda.PlantBreeding.Data.Models.Map
+
+<div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PlantingYear)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PlantingYear)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.GenusId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Genus)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsSeedlingMap)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsSeedlingMap)
+            </dd>
+        </dl>
+
+    </div>
+
+    <div class="col-md-6" >
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PicklistPrefix)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PicklistPrefix)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Retired)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Retired)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DefaultPlantsInRep)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DefaultPlantsInRep)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CrossTypeId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CrossType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StartCorner)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StartCorner)
+            </dd>
+        </dl>
+    </div>
+</div>

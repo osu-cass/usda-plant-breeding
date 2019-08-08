@@ -1,0 +1,63 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Usda.PlantBreeding.Core.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ExceptionInvalidPage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Invalid Page</Value>
+    </Setting>
+    <Setting Name="ExceptionAccessionsInvalidSearch" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Could not find Accession</Value>
+    </Setting>
+    <Setting Name="ExceptionCrossPlanInvalidYear" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Invalid Year</Value>
+    </Setting>
+    <Setting Name="ExceptionCrossPlanAccessionNoId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Accession failed to update</Value>
+    </Setting>
+    <Setting Name="ExceptionPhenotypeInvalidYear" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No phenotype data for given year</Value>
+    </Setting>
+    <Setting Name="ExceptionMapComponentYear" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Plot has information for given year</Value>
+    </Setting>
+    <Setting Name="ExceptionMapComponentInvalid" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Map Component year does not exist</Value>
+    </Setting>
+    <Setting Name="ReportNameMapComponent" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MapComponents</Value>
+    </Setting>
+    <Setting Name="ReportNameMapView" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MapView</Value>
+    </Setting>
+    <Setting Name="ReportNamePhenotype" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">GetPhenotypeEntry</Value>
+    </Setting>
+    <Setting Name="ReportNameCrossPlanLocation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CrossPlanLocation</Value>
+    </Setting>
+    <Setting Name="ReportNameAccession" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Accession</Value>
+    </Setting>
+    <Setting Name="ReportNameAccessionCross" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AccessionCrosses</Value>
+    </Setting>
+    <Setting Name="ReportNameMapInventory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MapInventory</Value>
+    </Setting>
+    <Setting Name="ReportNameCrossPlans" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CrossPlans</Value>
+    </Setting>
+    <Setting Name="ReportNameMapComponentFates" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MapComponentFates</Value>
+    </Setting>
+    <Setting Name="ReportNameBreedingSummary" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">BreedingSummary</Value>
+    </Setting>
+    <Setting Name="ReportNameSelectionSummary" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">GetSummaryPhenotype</Value>
+    </Setting>
+    <Setting Name="ReportNameAccessionParents" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AccessionParents</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

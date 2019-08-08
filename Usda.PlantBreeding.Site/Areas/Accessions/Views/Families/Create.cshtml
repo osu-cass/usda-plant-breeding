@@ -1,0 +1,26 @@
+﻿@model Usda.Lib.Models.Family
+
+@{
+    ViewBag.Title = "Create";
+
+    var modelname = new Usda.Lib.Models.Family();
+}
+
+<div class="row"></div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.EditorFor(m => m, "Family")
+        <div class="row">
+            <div class="col-md-1">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <div class="col-md-1">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning"})
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,36 @@
+﻿@model Usda.PlantBreeding.Core.Models.OrdersEditViewModel
+
+@{
+    ViewBag.Title = @Model.Order.Name;
+    ViewBag.IndexTitle = @Model.Order.Name;
+
+}
+
+@section scripts{
+
+    @Scripts.Render("~/Scripts/js/Polyfill.js")
+    @Scripts.Render("~/Scripts/js/usda.order-page.js")
+    <script>
+        addEventListener("load", function () {
+            EntryPoint.initOrdersPage(@Html.Raw(Json.Encode(Model)));
+        });
+        function DistributionReport() {
+            var locationId = @Model.Order.LocationId;
+            var year = @Model.Order.Year;
+            var str = "@Url.Action("Distributions", "Default", new { area = "Reporting", locationId = "locationIdplace", year = "yearplace" })";
+            var url = str.replace("locationIdplace", locationId);
+            var year = str.replace("yearplace", year);
+            window.open(url, "_blank");
+        }
+    </script>
+}
+
+@section styles {
+    <link href="~/Content/order-page.css" rel="stylesheet" />
+    <link href="~/Content/autocomplete.css" rel="stylesheet" />
+}
+<div style="float:right;">
+    <a onclick="DistributionReport()" class="btn">Distribution Report</a>
+</div>
+<div class="row"></div>
+<div id="orders-page"></div>

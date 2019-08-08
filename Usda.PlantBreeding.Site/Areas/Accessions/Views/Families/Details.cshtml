@@ -1,0 +1,183 @@
+﻿@model Usda.Lib.Models.Family
+
+@{
+    ViewBag.Title = @Model.Name;
+
+    var geno = new Usda.Lib.Models.Genotype();
+}
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<div>
+    
+    <div class="row"></div>
+    <div class="row">
+        <p class="pull-right">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+                <div class=" row">
+                    <dl class="dl-horizontal col-md-4 col-md-offset-1">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OriginId)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Origin.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GivenName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.GivenName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CrossNum)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CrossNum)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CrossTypeId)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CrossType.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GenusId)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Genus.Name)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PloidyId)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Ploidy.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Purpose)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Purpose)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Year)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Year)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Note)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Note)
+                        </dd>
+                    </dl>
+                    <dl class="dl-horizontal col-md-4 col-md-offset-1">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FieldPlantedNum)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.FieldPlantedNum)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TransplantedNum)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TransplantedNum)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayFor(model => model.IsReciprocal)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.IsReciprocal)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SeedNum)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SeedNum)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MaleParent)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MaleGenotype.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayFor(model => model.FemaleParent)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.FemaleGenotype.Name)
+                        </dd>
+
+                    </dl>
+                </div>
+
+                    <ul class="nav nav-tabs col-md-offset-3">
+                        <li class="active"><a href="#selections" data-toggle="tab">Selections</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Actions <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Create Selection", "Create", "Genotypes", new { familyId = Model.Id }, new { })</li>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Generate Report", "DetailsReport", "Families", new { familyId = Model.Id }, null)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                <div id="DetailsTab" class="tab-content col-md-offset-3">
+                    <div class="tab-pane fade active in" id="selections">
+                       @Html.DisplayFor(m => m.Genotypes, "GenotypesSummary")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
+}

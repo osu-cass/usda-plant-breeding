@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Fate>
+
+<div class="row"></div>
+<p class="text-center">
+    @Html.ActionLink("+ Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#active" aria-controls="Active" role="tab" data-toggle="tab">Active</a></li>
+            <li role="presentation" class="retired"><a href="#retired" aria-controls="Retired" role="tab" data-toggle="tab">Retired</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="active">
+                <br />
+                <table class="table table-striped table-hover " style="width: 36% !important; margin-left:32%">
+                    <thead>
+                        <tr class="primary">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Order)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Label)
+                            </th>
+
+                          
+
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                   
+
+                    @foreach (var item in Model.Where(i => i.Retired == false))
+                    {
+                        
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Order)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Label)
+                            </td>
+
+                      
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink(item.Retired ? "Unretire" : "Retire", "Retire", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="retired">
+                <br />
+                <table class="table table-striped table-hover " style="width: 36% !important; margin-left:32%">
+                    <thead>
+                        <tr class="primary">
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                    </thead>
+
+                        @foreach (var item in Model.Where(i => i.Retired == true))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink(item.Retired ? "Unretire" : "Retire", "Retire", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+
+</table>
+            </div>
+        </div>
+    </div>
+</div>

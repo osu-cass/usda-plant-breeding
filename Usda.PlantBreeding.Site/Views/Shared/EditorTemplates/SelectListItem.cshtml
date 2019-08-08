@@ -1,0 +1,10 @@
+﻿@*@model IEnumerable<SelectListItem>
+
+<div class="text-nowrap pre-scrollable" style="text-align:left;">
+    @foreach (SelectListItem item in this.Model)
+    {
+        @Html.CheckBoxFor(t => item.Selected, new { value = item.Value })
+        @Html.LabelForModel(item.Text);
+        <br />
+    }
+</div>*@

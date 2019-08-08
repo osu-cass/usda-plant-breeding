@@ -1,0 +1,13 @@
+﻿@model Usda.PlantBreeding.Core.Models.AccessionViewModel
+
+@{
+    ViewBag.Title = "Create Family from Cross Plan";
+    ViewBag.IndexTitle = "Accession From Planning";
+
+}
+
+@using (Html.BeginForm("CreateFamily", "CrossPlanning"  , FormMethod.Post))
+{
+    @Html.EditorFor(m => m)
+    @*@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })*@
+}

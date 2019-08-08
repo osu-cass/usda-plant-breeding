@@ -1,0 +1,13 @@
+﻿@model Usda.PlantBreeding.Data.Models.Note
+
+@Html.HiddenFor(m => m.GenotypeId, new { id = "new-note-genotype" })
+
+<td>
+    @Html.EditorFor(m => m.Date, new { htmlAttributes = new { id = "new-note-date", @class = "datepicker" } })
+    @Html.ValidationMessageFor(m => m.Date, "", new { @class = "text-danger" })
+</td>
+<td>
+    @Html.EditorFor(m => m.Text, new { htmlAttributes = new { id = "new-note-text", rows = "2", @class = "ss-note", onchange = "CreateNewNote()" } })
+    @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger", id = "new-note-text-validation" })
+</td>
+

@@ -1,0 +1,130 @@
+﻿@model Usda.Lib.Models.Family
+
+@{
+    ViewBag.Title = "Delete";
+
+}
+
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    <div class=" row">
+        <dl class="dl-horizontal col-md-4 col-md-offset-1">
+            <dt>
+                @Html.DisplayNameFor(model => model.CrossType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CrossType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Genus)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Genus.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Origin)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Origin.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Ploidy)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ploidy.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Purpose)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Purpose)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CrossNum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CrossNum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Year)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal col-md-4 col-md-offset-1">
+            <dt>
+                @Html.DisplayNameFor(model => model.FieldPlantedNum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FieldPlantedNum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TransplantedNum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TransplantedNum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsReciprocal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsReciprocal)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SeedNum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SeedNum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MaleGenotype)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaleGenotype.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FemaleGenotype)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FemaleGenotype.Name)
+            </dd>
+
+        </dl>
+    </div>
+
+                @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-danger" /> |
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+    }
+    </div>

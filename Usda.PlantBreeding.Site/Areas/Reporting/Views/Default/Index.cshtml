@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "USDA Reports";
+}
+<div class="row">
+</div>
+<div class="row">
+</div>
+<div class="row">
+    <div class="panel panel-default col-md-12">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <table class="table table-bordered table-condensed table-striped">
+                    <caption>General Reports</caption>
+
+                    <thead>
+                        <tr>
+                            <th class="col-md-4">Report</th>
+                            <th class="col-md-8">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.ActionLink("Accessions", "Accessions")</td>
+                            <td>Displays Crosses, Selections, or Both</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Accession Parents", "AccessionParents")</td>
+                            <td>Diplays Accession and related parents</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Crosses by Location", "CrossPlanLocation")</td>
+                            <td>Displays Crosses locations for Cross Plans</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Cross Planning", "CrossPlansByYear")</td>
+                            <td>Displays Cross Planning worksheet</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Crosses Made", "AccessionsCrossesMade")</td>
+                            <td>Displays Crosses with field information for Cross Plans</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Breeding Summary", "BreedingSummary")</td>
+                            <td>Displays Selections with breeding information, # times used as female/male, and total selections</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Map Component Fates", "MapComponentFates")</td>
+                            <td>Displays Map Component Fates for a given year and map type</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Distributions", "Distributions")</td>
+                            <td>Displays Distributions with sent accession selection information</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <table class="table table-bordered table-condensed table-striped">
+                   <caption>Reports only accessible from Maps</caption>
+                    <thead>
+                       
+                        <tr>
+                            <th class="col-md-4">Report</th>
+                            <th class="col-md-8">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Map Components</td>
+                            <td>Displays a list of Map Components (plots) in a given map for the specified year</td>
+                        </tr>
+                        <tr>
+                            <td>Map View</td>
+                            <td>Displays a visual map of Map Components (plots) in a given map for the specified year</td>
+                        </tr>
+                        <tr>
+                            <td>Map Inventory</td>
+                            <td>Displays unique accessions for the given map and year</td>
+                        </tr>
+                        <tr>
+                            <td>Phenotype Entry</td>
+                            <td>Displays a worksheet for phenotype entry for a given map for the specified year</td>
+                        </tr>
+                      
+
+                     
+                    </tbody>
+
+                </table>
+
+                <table class="table table-bordered table-condensed table-striped">
+                    <caption>Reports accessible from Phenotype Entry</caption>
+                    <thead>
+
+                        <tr>
+                            <th class="col-md-4">Report</th>
+                            <th class="col-md-8">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                        <tr>
+                            <td>Map View</td>
+                            <td>Displays a visual map of Map Components (plots) in a given map for the specified year</td>
+                        </tr>
+                      
+                        <tr>
+                            <td>Phenotype Entry</td>
+                            <td>Displays a worksheet for phenotype entry for a given map for the specified year</td>
+                        </tr>
+
+
+
+                    </tbody>
+
+                </table>
+
+                <table class="table table-bordered table-condensed table-striped">
+                    <caption>Reports accessible from Cross Planning</caption>
+                    <thead>
+
+                        <tr >
+                            <th class="col-md-4">Report</th>
+                            <th class="col-md-8">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>@Html.ActionLink("Crosses Made", "AccessionsCrossesMade")</td>
+                            <td>Displays Crosses with field information for Cross Plans</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Crosses by Location", "CrossPlanLocation")</td>
+                            <td>Displays Crosses locations for Cross Plans for a given year</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("Cross Planning", "CrossPlansByYear")</td>
+                            <td>Displays Cross Planning worksheet for a given year</td>
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

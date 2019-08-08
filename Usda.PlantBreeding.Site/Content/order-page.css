@@ -1,0 +1,264 @@
+﻿.date-sent {
+    position: relative;
+    max-width: 170px;
+    width: 170px;
+}
+
+.parents {
+    text-overflow: ellipsis;
+    width: 100px;
+    max-width: 100px;
+    position: relative;
+}
+
+.cross-type {
+    width: 95px;
+    max-width: 95px;
+    position: relative;
+}
+
+.parents.row {
+    font-size: x-small;
+}
+
+#orders-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.summary.grower {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.text-label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.order-table {
+    text-overflow: ellipsis;
+}
+
+.table-wrapper {
+    display: block;
+    width: 100% !important;
+    /*overflow-x: scroll;*/
+}
+
+table {
+    border-collapse: separate !important;
+    table-layout: fixed;
+    width: 1379px;
+    overflow-x: auto;
+}
+
+    table tr:last-child td:first-child {
+        border-bottom-left-radius: 5px;
+    }
+
+    table tr:last-child td:last-child {
+        border-bottom-right-radius: 5px;
+    }
+
+    table th:last-child {
+        border-top-right-radius: 5px;
+    }
+
+    table th:first-child {
+        border-top-left-radius: 5px;
+    }
+
+thead tr{
+    display: block;
+    position: relative;
+}
+
+tbody {
+    display: block;
+    overflow: auto;
+    height: 60vh;
+}
+
+th {
+    background-color: #0066cc;
+    color: white;
+    text-align: left;
+}
+
+tr {
+    border-bottom-color: black;
+    width: 100%;
+    display: table;
+    vertical-align: top;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    align-content: flex-end;
+}
+
+td {
+    text-align: center;
+}
+
+.genotype {
+    position: relative;
+    min-width: 175px;
+    width: 175px;
+}
+
+.quantity {
+    position: relative;
+    min-width: 75px;
+    width: 75px;
+}
+
+.material {
+    position: relative;
+    min-width: 140px;
+    width: 140px;
+}
+
+.actions {
+    position: relative;
+    min-width: 200px;
+    width: 200px;
+}
+
+.virus-tested-date {
+    position: relative;
+    min-width: 170px;
+    width: 170px;
+}
+
+.notes {
+    position: relative;
+    min-width: 250px;
+    width: 250px;
+}
+
+tr:nth-child(odd) {
+    background-color: #ddd;
+}
+
+tr:nth-child(even) {
+    background-color: #f3f2f2;
+}
+
+.confirm {
+    background-color: #e60000;
+    border: none;
+    width: 60px;
+    display: inline-block;
+}
+
+    .confirm:hover {
+        background-color: #cc0000;
+    }
+
+.cancel {
+    background-color: #404040;
+    width: 60px;
+    display: inline-block;
+}
+
+    .cancel:hover {
+        background-color: #262626;
+    }
+
+.modify {
+    width: 120px;
+}
+
+.location {
+    width: 200px;
+    margin-right: 15px;
+}
+
+.year {
+    width: 55px;
+    margin-right: 15px;
+}
+
+.name {
+    width: 200px;
+    margin-right: 15px;
+}
+
+.grower {
+    width: 250px;
+    margin-right: 15px;
+}
+
+.notes {
+    margin-right: 15px;
+}
+
+.mta-requested-prop {
+    margin-right: 15px;
+}
+
+.mta-requested-test {
+    margin-right: 15px;
+}
+
+.mta-complete {
+    margin-right: 15px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.orders-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+
+.dl-horizontal {
+    display: inline;
+}
+
+.summary {
+    display: flex;
+    align-self: flex-start;
+    padding-bottom: 20px;
+    width: 1150px;
+}
+
+textarea {
+    resize: none;
+    max-height: 200px;
+    height: auto;
+    text-overflow: ellipsis;
+}
+
+.outer {
+    width: 100%;
+    text-align: center;
+}
+
+.inner {
+    display: inline-block;
+}
+
+.create {
+    padding-top: 17px;
+}
+
+#notes:focus {
+    height: 200px;
+}

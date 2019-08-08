@@ -1,0 +1,660 @@
+﻿@model Usda.PlantBreeding.Core.Models.MapBuilderViewModel
+
+@{
+    //ViewBag.Title = @Model.Map.Name;
+    ViewBag.IndexTitle = @Model.Map.FullName;
+
+
+    var mapcomp = new Usda.PlantBreeding.Data.Models.MapComponent();
+    var rownum = Model.Rows.Max().Value + 1;
+    var isSeedlingMap = Model.Map.IsSeedlingMap;
+}
+@section scripts{
+    @Scripts.Render("~/bundles/noty")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<style>
+    .body-content {
+        width: 100%;
+    }
+</style>
+
+<script src="~/Scripts/jquery.floatThead.min.js" type="text/javascript">
+</script>
+<script>
+    $(document).ready(function () {
+        var $table = $('#mapcomptable');
+        $table.floatThead(
+            {
+                top: 40
+            });
+
+
+        GetNextPlantNumberFromLastRow();
+
+    });
+    function MapViewReport() {
+
+        var MapID = @Model.Map.Id;
+        var str =  "@Url.Action("MapView", "Default", new { area = "Reporting", mapId="mapIdplace"})";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+
+    }
+    function MapComponentsReport() {
+
+        var MapID = @Model.Map.Id;
+        var str =  "@Url.Action("MapComponents", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+    function MapInventoryReport() {
+
+        var MapID = @Model.Map.Id;
+        var str =  "@Url.Action("MapInventory", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+
+    function PhenotypeReport() {
+
+        var MapID = @Model.Map.Id;
+        var str =  "@Url.Action("PhenotypeEntry", "Default", new { area = "Reporting", mapId = "mapIdplace" })";
+        var url = str.replace("mapIdplace", MapID);
+        window.open(url, "_blank");
+    }
+
+</script>
+
+<script type="text/javascript">
+    var rownum = @rownum;
+    tableheader = 0;
+    tablewidth = 0;
+    rowselector = 0;
+    navbar = 0;
+    $( document ).ready(function() {
+        navbar = $('.navbar').height();
+        tableheader = $('#tableheader').offset();
+        tablewidth = $('#tablecontainer').width();
+        tablecontainer = $('#tablecontainer').offset();
+
+        rowselector = $('#rowselector').offset();
+    });
+
+    $(window).scroll(function(){
+        if($(window).scrollTop() >  (tableheader.top - navbar)  ){
+            $('#rowselector').css('position','fixed').css('top','54px');
+
+        } else {
+
+            $('#rowselector').css('position','static').css('top', '');
+
+        }
+
+    });
+
+    function GetNextPlantNumberFromLastRow(){
+        var rowId = $("#ColumnPartial tr").last().attr("Id");
+        var nextNumber = 1;
+
+        if(rowId){
+            var PlantsInRep = getRowElement(rowId, "PlantsInRep");
+            var PlantNum = getRowElement(rowId, "PlantNum");
+            nextNumber = GetNextPlantNumber(PlantsInRep, PlantNum);
+        }
+       
+        document.getElementById("PlantNumNew").value = nextNumber;
+    }
+
+    function GetNextPlantNumber(plantRep, plantNum){
+        if(plantRep == null || plantNum == null){
+            console.log("error setting plant number");
+            return null;
+        }
+        var nextPlantNumber = parseInt(plantNum);
+
+        if("@isSeedlingMap" === "True"){
+            nextPlantNumber +=  parseInt(plantRep);
+        } else {
+            nextPlantNumber++;
+        }
+        return nextPlantNumber;
+
+    }
+
+    function AddMapComp(obj) {
+
+        var url = '@Url.Action("AddMapComponent", "MapBuilder")';
+        var plotAddBtn = document.getElementById("AddPlotButton");
+        $(plotAddBtn).prop("disabled", true);
+
+        var selects = document.getElementById("RowSelect");
+        var selectedValue = selects.options[selects.selectedIndex].value;
+        var SYears = document.getElementById("SelectedYear").value;
+
+        var genotypeName =  document.getElementsByName("GenotypeNameNew")[0].value
+        var genotype =  document.getElementsByName("GenotypeNewId")[0].value; 
+        var plantNum = document.getElementById("PlantNumNew").value;
+        var pRep =  document.getElementById("PlantsInRepNew").value; 
+        var rep = document.getElementById("RepNew").value;
+
+
+        var defaultPlantsPerPlot = @Model.Map.DefaultPlantsInRep;
+        var nextPlantNumber = GetNextPlantNumber(pRep, plantNum);
+
+        var postdata = {
+            GenotypeId : genotype,
+            GenotypeName: genotypeName,
+            MapId : "@Model.Map.Id",
+            PlantsInRep: pRep,
+            Row: selectedValue,
+            Rep: rep,
+            isSeedling : "@isSeedlingMap",
+            PlantNum : plantNum,
+            YearsId : SYears
+        };
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: { mapcomp : postdata} ,
+            success: function (result) {
+                result = $(result)[0];
+                if ($(result).find('#Id').val() === "0") {
+                    //Model state is invalid, display validation errors
+                    $("#SeedlingSelection").html(result.innerHTML);
+                    ReplaceValidationErrors(plantNum, pRep, rep);
+                    document.getElementsByName("Row")[0].value = '';
+                } else {
+                    AppendItemToTable($(result), postdata.PlantNum);
+                    ReplaceNewItem(nextPlantNumber,defaultPlantsPerPlot);
+                }
+                $(plotAddBtn).prop("disabled", false);
+
+            },
+            failure: function (request, status, error) {
+                NotyMessage("Save failure");
+                console.log(status);
+                console.log(error);
+                $(plotAddBtn).prop("disabled", false);
+
+            },
+            error: function (request, status, error) {
+                NotyMessage("Save failure");
+                console.log(status);
+                console.log(error);
+                $(plotAddBtn).prop("disabled", false);
+
+            }
+        })
+    }
+
+    function AppendItemToTable(results, rowId){
+        $('#ColumnPartial').append(results);
+        $("#" + rowId).animate({backgroundColor: '#0099ff'}, 1000).animate({backgroundColor: ''}, 1000);
+    }
+
+
+    function ReplaceNewItem(plantNum, plantsPerPlot){
+        document.getElementById("RowNew").value = '';
+        document.getElementById("RowValidation").innerHTML  = '';
+
+        document.getElementsByName("GenotypeNameNew")[0].value = '';
+        document.getElementsByName("GenotypeNewId")[0].value = '';
+        document.getElementById("GenotypeIdValidation").innerHTML  = '';
+
+        document.getElementById("RepNew").value = '0';
+        document.getElementById("RepValidation").innerHTML  = '';
+        document.getElementById("PlantsInRepNew").value = plantsPerPlot;
+        document.getElementById("PlantsInRepValidation").innerHTML  = '';
+        document.getElementById("Id").value = '0';
+
+        document.getElementById("PlantNumNew").value = plantNum;
+        document.getElementById("PlantNumValidation").innerHTML  = '';
+        var item =  document.getElementById("PlantNumNew");
+        FocusOnItem(item);
+        window.scrollBy(0, 200);
+    }
+
+    function ReplaceValidationErrors(plantnum, prep, rep){
+
+        document.getElementById("PlantNumValidation").innerHTML  = 'Plant# is required';
+        window.scrollBy(0, 200);
+
+    }
+
+
+
+    function RemoveMapComponent(obj) {
+        var id = $(obj).attr('id');
+        var url = '@Url.Action("DeleteMapComponentYear", "MapBuilder")';
+        var year = document.getElementById("SelectedYear").value;
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: { id: id, yearId : year} ,
+            success: function (result) {
+                if(result.Error){
+                    NotyMessage(result.Message);
+                }else{
+                    //success, remove the row element
+                    $(obj).closest('tr').remove();
+                }
+            },
+            failure: function (result) {
+                //add notify error
+                NotyMessage("Bad Network");
+            }
+        })
+
+    }
+
+    function RowSelect() {
+        var URL = '@Url.Action("MapComponents", "MapBuilder")';
+        var selects = document.getElementById("RowSelect");
+        var selectedValue = selects.options[selects.selectedIndex].value;
+        var SYears = document.getElementById("SelectedYear").value;
+        $.get(URL, { "mapId": @Model.Map.Id, "row": selectedValue, "yearId": SYears}, function (data) {
+            $("#ColumnPartial").html(data);
+            GetNextPlantNumberFromLastRow();
+
+        });
+
+        $("#mapcomptable").trigger('reflow');
+    }
+
+    function AddRow(){
+        var rowElement = document.getElementById("RowSelect");
+        $(rowElement).append($('<option/>', {
+            value: rownum,
+            text: rownum
+        }));
+        rownum++;
+        $(rowElement).scrollTop(rownum * 20);
+        $(rowElement).val(rownum -1).click();
+
+    }
+
+    function YearChange(){
+        var URL = '@Url.Action("MapComponents", "MapBuilder")';
+        var selects = document.getElementById("RowSelect");
+        var selectedValue = selects.options[0].value;
+        selects.selectedIndex = 0;
+        var SYears = document.getElementById("SelectedYear").value;
+        $.get(URL, { "mapId": @Model.Map.Id, "row": selectedValue, "yearId": SYears}, function (data) {
+            $("#ColumnPartial").html(data);
+            GetNextPlantNumberFromLastRow();
+
+        });
+
+        $("#mapcomptable").trigger('reflow');
+
+    }
+
+    function AddYear(){
+        var URL = '@Url.Action("MapComponentsAddYear", "MapBuilder")';
+        var yearVal = $("#NewYearId").val();
+
+        $.ajax({
+            url: URL,
+            type: 'post',
+            data: { "mapId": @Model.Map.Id, "newyear": yearVal},
+            success: function (data) {
+                if(data.Error){
+                    NotyMessage(data.Message);
+                }else{
+                    //success
+                    var newyear = $('<option></option>').val(data.YearsId).html(data.Year)
+                    $("#SelectedYear").prepend(newyear);
+                    $("#SelectedYear").val(data.YearsId);
+                    YearChange();
+                    GetNextPlantNumberFromLastRow();
+                    $("#mapcomptable").trigger('reflow');
+
+                }
+            },
+            failure: function (data) {
+                //add notify error
+                NotyMessage("Bad Network");
+            }
+        })
+
+    }
+
+    function GenotypeChange(row, id, i){
+        delay(OnRowGenotypeChange(id, i), 500);
+    }
+
+    function getRowDomElement(i, elem){
+        var idarg = i + "." + elem;
+        return document.getElementById(idarg);
+    }
+    function getRowElement(i, elem){
+        return getRowDomElement(i, elem).value;
+    }
+
+    function getRowElementByName(i, elem){
+        var idarg = i + "." + elem;
+        return document.getElementsByName(idarg)[0].value;
+    }
+
+
+    function OnRowChange(id, i) {
+        var SYears = document.getElementById("SelectedYear").value;
+        var data = {
+            id: id,
+            GenotypeId: getRowElementByName(i, "GenotypeId"),
+            GenotypeName: getRowElementByName(i, "GenotypeName"),
+            Rep: getRowElement( i, "Rep"),
+            PlantsInRep: getRowElement(i, "PlantsInRep"),
+            PlantNum: getRowElement(i, "PlantNum"),
+            YearsId : SYears,
+            Row: getRowElement(i, "Row"),
+            MapId: getRowElement(i, "MapId"),
+            Virus1: getRowElement(i, "Virus1"),
+            Virus2: getRowElement(i, "Virus2"),
+            Virus3: getRowElement(i, "Virus3"),
+            Virus4: getRowElement(i, "Virus4")
+        };
+        var url = '@Url.Action("UpdateMapComponent", "MapBuilder")';
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: { mapcomp : data} ,
+            success: function (result) {
+                if(result.Error){
+                    NotyMessage(result.Message);
+                }else{
+
+                }
+            },
+            failure: function (result) {
+                //add notify error
+                NotyMessage("Bad Network");
+            }
+        })
+
+        $("#mapcomptable").trigger('reflow');
+    }
+
+    function OnRowGenotypeChange(id, i) {
+        var SYears = document.getElementById("SelectedYear").value;
+        var data = {
+            id: id,
+            GenotypeId: getRowElementByName(i, "GenotypeId"),
+            GenotypeName: getRowElementByName(i, "GenotypeName")
+           
+        };
+        var url = '@Url.Action("UpdateMapComponentGenotype", "MapBuilder")';
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: { mapcomp : data} ,
+            success: function (result) {
+                if(result.Error){
+                    NotyMessage(result.Message);
+                }else{
+
+                }
+            },
+            failure: function (result) {
+                //add notify error
+                NotyMessage("Bad Network");
+            }
+        })
+
+        $("#mapcomptable").trigger('reflow');
+    }
+
+
+
+    function ToggleAdmin(){
+        $(".AdminMode").toggle();
+    }
+
+</script>
+
+<div>
+    <ul class="nav nav-pills navbar-right">
+        <li role="presentation">
+            @Html.ActionLink("Details", "Details", new { area = "Maps", controller = "Default", Id = Model.Map.Id }, null)
+        </li>
+        <li role="presentation">
+            @Html.ActionLink("Edit", "Edit", new { area = "Maps", controller = "Default", Id = Model.Map.Id }, null)
+        </li>
+        <li role="presentation">
+            @Html.ActionLink("Phenotype Entry", "PhenotypeEntryYear", new { area = "Maps", controller = "PhenotypeEntry", mapId = Model.Map.Id }, null)
+        </li>
+        <li role="presentation">
+            <a onclick="MapViewReport()" class="btn">Map View</a>
+        </li>
+        <li role="presentation">
+            <a onclick="MapComponentsReport()" class="btn">Map Components</a>
+        </li>
+        <li role="presentation">
+            <a onclick="MapInventoryReport()" class="btn">Map Inventory</a>
+        </li>
+        <li role="presentation">
+            <a onclick="PhenotypeReport()" class="btn">Print Phenotype</a>
+        </li>
+    </ul>
+    <br />
+
+</div>
+
+<div class="row"></div>
+<div class="container-fluid">
+
+    <div class="row">
+        <div>
+            <hr />
+            <div>
+                <div class="col-md-5">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.FullName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.PlantingYear)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.PlantingYear)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.IsSeedlingMap)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.IsSeedlingMap)
+                        </dd>
+                    </dl>
+
+                </div>
+
+                <div class="col-md-3">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.PicklistPrefix)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.PicklistPrefix)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.DefaultPlantsInRep)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.DefaultPlantsInRep)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.Location)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.Location.Name)
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="col-md-3">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.StartCorner)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Map.StartCorner)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Map.EvaluationYear)
+                        </dt>
+                        <dd>
+                            @Html.DropDownList("Years", null, new { id = "SelectedYear", onchange = "YearChange()", name = "EvaluationYear" })
+                        </dd>
+                        <dd>
+                            <button class="btn btn-link" data-toggle="modal" data-target="#yearModal">
+                                Add Year
+                            </button>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            @Html.HiddenFor(model => Model.Map.Id)
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-1">
+                <div class="form-group col-xs-2" id="rowselector" style="width:inherit">
+                    <label class="control-label" style="margin-left:30px!important;">Rows</label>
+                    <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:30px!important; width:60%" size="5" title="Rows" onclick="RowSelect()">
+
+                        @foreach (int? row in Model.Rows)
+                        {
+                            if (row == 1)
+                            {
+                                <option selected="selected">1</option>
+                            }
+                            else
+                            {
+                                <option>@row.Value</option>
+                            }
+                        }
+                    </select>
+                    <button class="btn btn-success" onclick="AddRow()" style="margin-left:30px!important; margin-right:30px!important">Add Row</button>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="container col-md-12" id="tablecontainer">
+                    <table class="table table-responsive text-center" id="mapcomptable">
+                        <caption>
+                            <button class="btn btn-link pull-right" onclick="ToggleAdmin()">
+                                Modify Plots
+                            </button>
+                        </caption>
+                        <thead id="tableheader">
+                            <tr class="primary">
+                                <th class="col-md-1">
+                                    @Html.LabelFor(m => mapcomp.Row, htmlAttributes: new { @class = "control-label col-md-1" })
+                                </th>
+                                <th class="col-md-1">
+                                    @Html.LabelFor(model => mapcomp.PlantNum, htmlAttributes: new { @class = "control-label col-md-1" })
+                                </th>
+
+                                <th class="col-md-2">
+                                    @Html.LabelFor(model => mapcomp.GenotypeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                                </th>
+
+                                <th class="col-md-1">
+                                    @Html.LabelFor(model => mapcomp.Rep, htmlAttributes: new { @class = "control-label col-md-1" })
+                                </th>
+
+                                <th class="col-md-1">
+                                    @Html.LabelFor(model => mapcomp.PlantsInRep, htmlAttributes: new { @class = "control-label col-md-1" })
+                                </th>
+
+                                @if (!(@Model.Map.Genus.VirusLabel1.IsEmpty()))
+                                {
+                                    <th class="col-md-1">
+                                            @Html.DisplayFor(m => Model.Map.Genus.VirusLabel1)
+                                    </th>
+                                }
+
+                                @if (!(@Model.Map.Genus.VirusLabel2.IsEmpty()))
+                                {
+                                    <th class="col-md-1">
+                                        @Html.DisplayFor(m => Model.Map.Genus.VirusLabel2)
+                                    </th>
+                                }
+
+                                @if (!(@Model.Map.Genus.VirusLabel3.IsEmpty()))
+                                {
+                                    <th class="col-md-1">
+                                        @Html.DisplayFor(m => Model.Map.Genus.VirusLabel3)
+                                    </th>
+                                }
+
+                                @if (!(@Model.Map.Genus.VirusLabel4.IsEmpty()))
+                                {
+                                    <th class="col-md-1">
+                                        @Html.DisplayFor(m => Model.Map.Genus.VirusLabel4)
+                                    </th>
+                                }
+
+                                @*<th class="col-md-1">
+                                        @Html.DisplayFor(model => mapcomp.isRemoved)
+                                    </th>*@
+
+                                <th class="col-md-2">
+                                    @Html.LabelFor(model => mapcomp.PickingNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="ColumnPartial">
+                            @if (Model.MapComponentsRow.Count > 0)
+                            {
+                                Html.RenderPartial("_MapComponents", Model.MapComponentsRow);
+                            }
+                        </tbody>
+                       <tbody>
+                           <div id="NewComponent">
+                               @Html.Partial("_MapComponent", Model.NewMapComponent)
+                           </div>
+                       </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="yearModal" tabindex="-1" role="dialog" aria-labelledby="yearModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create Year</h4>
+            </div>
+            <div class="modal-body">
+                @Html.DropDownList("NewYear", Model.NewYears, new { @id = "NewYearId" })
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="AddYear()">Create</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

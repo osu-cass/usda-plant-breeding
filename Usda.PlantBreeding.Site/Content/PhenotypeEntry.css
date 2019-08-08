@@ -1,0 +1,334 @@
+﻿.body-content {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.phenotype-tables .headers {
+    display: flex;
+    flex-flow: row;
+}
+
+.phenotype-tables  .scrolling-headers {
+    overflow: hidden;
+    width: 100%;
+}
+
+.mapcomponent-table div {
+    display: inline-block;
+    width: 40px;
+    line-height: 12px;
+    max-height: 24px;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+}
+
+.spacer-cell td {
+    width: 50px;
+}
+
+.phenotype-tables td {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.phenotype-table {
+    margin-bottom: 0px;
+    table-layout: fixed;
+}
+
+.table > tbody > tr.row-selected > td {
+    vertical-align: top !important;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.phenotype-table td {
+    height: 36px;
+    width: 55px;
+    text-align: center;
+}
+.phenotype-table .plot-info {
+    width: 40px;
+}
+
+.phenotype-table .map-eval-year{
+    width: 100px;
+}
+
+.phenotype-table .map-name {
+    width: 240px;
+}
+
+.phenotype-table .accession {
+    width: 125px;
+}
+
+.phenotype-table .accession, .phenotype-table .parents, .phenotype-table tbody .parents, .phenotype-table .map-name
+{
+    text-align: left;
+    text-indent: 3px;
+}
+
+.phenotype-table .parents {
+    width: 60px;
+    text-align: left;
+}
+
+.phenotype-table .picking-number {
+    width: 80px;
+}
+
+.phenotype-table tbody .parents {
+    font-size:10px;
+}
+
+.phenotype-table .created-date {
+   width: 80px;
+   text-align: left;
+   font-size:10px;
+}
+
+.phenotype-table .created-date .form-control {
+    padding:0;
+    font-size: 10px;
+}
+
+.mapcomponent-table {
+    text-align: center;
+    width: 450px;
+    position: relative;
+    background-color: white;
+    z-index: 4;
+    border: 1px solid darkgray;
+}
+.mapcomponent-table tbody .row-selected{
+    border-color: royalblue;
+    border-style: solid;
+}
+
+.bodies {
+    max-height: 50vh;
+    height: 50vh;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-flow: row;
+    position: relative;
+}
+
+.selection-summary .bodies {
+     max-height: 40vh;
+    height: 40vh;
+}
+
+.question-table {
+    width: fit-content;
+    width: -webkit-fit-content;
+    border-left: none;
+    column-width: 40px;
+    z-index: 3;
+}
+
+.question-table thead > tr > td {
+    min-width: 40px;
+}
+
+.question-table td {
+    border: 1px solid;
+}
+
+.question-table td.fates {
+    width: 200px;
+}
+
+.question-table td.comments {
+    width: 200px;
+}
+
+.question-table td.comments p {
+    width: 200px;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fates-summary {
+    display: block;
+}
+
+.question-table td div, .question-table td input.form-control {
+    padding:0px 1px;
+}
+
+.phenotype-tables  thead {
+    color: white;
+}
+
+.map-summary {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   width:100%;
+}
+
+.map-summary .ms-row {
+   padding:5px;
+   min-width:250px;
+}
+.map-summary p {
+    font-size:11px;
+    margin-right: 25px;
+}
+
+.map-summary .text-label{
+   font-weight: bold;
+}
+
+.map-summary .important{
+   font-weight: bold;
+   font-size: 14px;
+}
+
+.map-summary .text-value.note {
+  width: 175px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fates {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.phenotype-tables  .active {
+    background: gray;
+    color: white;
+}
+
+.question-table .fates .fate-options {
+    user-select: none;
+    position: absolute;
+    top: 100%;
+    align-items: center;
+    text-align: center;
+    width: auto;
+    right: 20px;
+    margin: 4px 0;
+    background-color: #ffffff;
+    border: 1px solid #808080;
+    padding: 8px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    max-height: 240px;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 150px;
+    z-index: 4;
+}
+
+.question-table .fates .fate-options.flipped {
+    top: inherit;
+    bottom: 100%;
+}
+
+.fates:focus {
+    outline: none;
+}
+
+
+.fates .fate-options div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: #dddddd;
+    cursor: pointer;
+}
+
+.fates .fate-options .active {
+    background-color: gray;
+    color: white;
+}
+
+.previous-fates{
+    width: 200px;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
+
+.previous-fates p, .comments p {
+    text-align: left;
+    text-indent: 4px;
+}
+
+.phenotype-tables input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+.phenotype-tables  input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.phenotype-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.clear-sort {
+    margin-right: 20px;
+}
+
+.map-summary {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.map-summary .map-note{
+    width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.comments-selected.form-control, .comments-selected {
+    height: 150px;
+    width: 200px;
+    /*position: absolute;
+    top: 0;
+    z-index: 999;*/
+}
+.new-row {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    width: 600px;
+    margin-left: 100px;
+}
+
+.new-row .plant-num, .new-row .row-num {
+    width: 50px;
+}
+
+
+.spin {
+    position: absolute; 
+    z-index: 10; 
+    padding-left: 600px; 
+    padding-top: 150px;
+}

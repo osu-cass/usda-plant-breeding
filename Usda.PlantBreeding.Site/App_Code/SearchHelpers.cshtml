@@ -1,0 +1,86 @@
+﻿@*
+    Generates HTML for autocomplete search.
+
+    The given url is for the action method that returns search results.
+    This url can be generated from Url.Action method for example.
+
+    The given id is used to generate unique id's for the generated HTML elements.
+
+    The given genusId is an optional genus id used to filter results.
+    If this is provided by the ViewBag, it should be cast as Nullable<int>.
+
+    The given key is an optional name given to the selected key from the search results.
+    This parameter should be provided when the autocomplete search is included in a form for example.
+
+    The given value is an optional name given to the selected value from the search results.
+    This parameter should be provided when the autocomplete search is included in a form for example.
+
+    The given initial key and value are the default or initial key and value for search results.
+*@
+@helper Search(string url, string dataListId, int? genusId, string key = "", string value = "", string initialKey = "", string initialValue = "", bool disabled = false, string placeholder = "", object valuebind = null, object keybind = null, object listbind = null, string onblurevent = null, string idChangeEvent = null)
+{
+
+    var onblurstring = "findTermAfterBlur(this)";
+    if (onblurevent != null)
+    {
+        onblurstring = onblurstring + ", " + onblurevent;
+    }
+    var listId = "listid9112" + dataListId;
+    var hiddenName = key + "Id";
+
+
+    <input id="textId9112" name="@value" list="@listId" value="@initialValue" class="form-control input-search"
+           placeholder="@placeholder" autocomplete="off" data-url="@url" data-genus="@genusId"
+           @valuebind onblur="@onblurstring" onkeyup="findTerm(this, event)"
+           @if (disabled) { <text> disabled="disabled" </text>          } />
+    <input id="hiddenid9112" name="@hiddenName" type="hidden" onchange="@idChangeEvent" value="@initialKey" @keybind />
+    <input name="genusId" type="hidden" value="@genusId" />
+    <datalist name="listid9112" id="@listId" @listbind></datalist>
+
+
+}
+
+@*
+    TODO: comment
+*@
+@helper DropDownList(string id, string name, IEnumerable<System.Web.Mvc.SelectListItem> options, string selected = "", bool disabled = false)
+{
+    <select id="@id" name="@name" class="form-control"
+            @if (disabled) { <text> disabled="disabled" </text>   }>
+        <option value=""
+                @if (selected.Length == 0) { <text> selected="selected" </text>   }></option>
+        @foreach (System.Web.Mvc.SelectListItem option in options)
+        {
+            <option value="@option.Value"
+                    @if (option.Disabled) { <text> disabled="disabled" </text>   }
+                    @if (selected == option.Value) { <text> selected="selected" </text>   }>
+                @option.Text
+            </option>
+        }
+    </select>
+}
+
+@*
+    TODO: comment
+*@
+@helper CheckEditor(string id, string name, bool? check, bool disabled = false)
+{
+    <input type="checkbox" id="checkbox-@id"
+           @if (check.HasValue && check.Value) { <text> checked="checked" </text>   }
+           @if (disabled) { <text> disabled="disabled" </text>   } />
+    <input type="hidden" id="hidden-@id" name="@name" />
+    <script type="text/javascript" language="javascript">
+        "use strict";
+        $(document).ready(function () {
+            function helper() {
+                return $("#checkbox-@id").prop("checked");
+            }
+
+            $("#hidden-@id").val(helper());
+
+            $("#checkbox-@id").on("change", function () {
+                $("#@id").val(helper()).trigger("change");
+            });
+        });
+    </script>
+}

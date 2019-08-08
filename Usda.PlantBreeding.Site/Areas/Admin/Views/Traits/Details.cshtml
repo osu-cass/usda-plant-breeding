@@ -1,0 +1,120 @@
+﻿@model Usda.PlantBreeding.Core.Models.TraitViewModel
+
+@{
+    ViewBag.Title = @Model.Genus.Value  + " Traits" ;
+    ViewBag.IndexTitle = ViewBag.Title;
+
+}
+
+
+<div class="row"></div>
+<div>
+    <h4>@ViewBag.Title</h4>
+</div>
+
+@{
+    ViewBag.Title ="";
+    List<SelectListItem> items = new List<SelectListItem>
+    {
+         new SelectListItem() { Text = "Yes", Value = "true" , Selected = true},
+         new SelectListItem() { Text = "No", Value = "false"},
+    };
+}
+
+
+<script type="text/javascript">
+    function RedirectQuestionCreate() {
+        var qtext = $('#inputQuestion').val();
+        var ltext = $('#inputQLabel').val();
+        window.location.href = '@Url.Action("QuestionCreate", "Traits")' + '?questiontext=' + encodeURIComponent(qtext) + '&GenusId=' + encodeURI(@Model.Genus.Id)
+                + '&required=' + encodeURIComponent($('#required').val()) + '&labelText=' + encodeURIComponent(ltext);
+    }
+
+    function OpenQUpdateModal() {
+        $('#CreateQuestionModal').modal('show').trigger('shown');
+        $('#inputQuestion').focus();
+    }
+
+    $(document).ready(function () {
+        $('#CreateQuestionModalContent').on('modal.bs.shown', function () {
+            $('#inputQuestion').focus();
+        });
+        $('#myModal').on('shown.bs.modal', function () {
+            $(this).find('input[type=text]:visible:first').focus();
+        });
+    });
+</script>
+
+<!-- modal placeholder-->
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+
+    <hr />
+    <div class="row">
+        <div class="col-sm-4">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#active" data-toggle="tab">Active @Model.ActiveQuestions.Count()</a></li>
+                <li><a href="#retired" data-toggle="tab">Retired @Model.RetiredQuestions.Count()</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-8">
+            <a href="#" class="btn btn-primary pull-right" onclick="OpenQUpdateModal()">+ Create New</a>
+        </div>
+    </div>
+    <div id="QuestionsTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="active">
+            @Html.DisplayFor(m => m.ActiveQuestions, "Questions")
+        </div>
+        <div class="tab-pane fade" id="retired">
+            @Html.DisplayFor(m => m.RetiredQuestions, "Questions")
+        </div>
+    </div>
+
+
+<div id='CreateQuestionModal' class='modal fade in'>
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div id='CreateQuestionModalContent'>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="QuestionUpdateModalLabel">Create Trait</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div>
+                            <label for="inputQuestion">Question</label>
+                            <input id="inputQuestion" type="text" style="width:50%; padding-right:10px" class="form-control">
+                        </div>
+                        <br />
+                        <div>
+                            <label for="inputQLabel">Label</label>
+                            <input id="inputQLabel" type="text" style="width:50%; padding-right:10px" class="form-control">
+                        </div>
+                        <br />
+                        <div>
+                            <label for="required">Required</label>
+                            @Html.DropDownList("required", items, new { @class = "form-control" })
+                        </div>
+                        <br />
+                        <div>
+                            <button class="btn btn-primary" onclick="RedirectQuestionCreate()">+ Create Question</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row"></div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modalform")
+}

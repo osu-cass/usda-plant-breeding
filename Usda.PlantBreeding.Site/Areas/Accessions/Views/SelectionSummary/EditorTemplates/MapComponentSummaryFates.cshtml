@@ -1,0 +1,13 @@
+﻿@using Usda.PlantBreeding.Site.Models.Helpers
+@model Usda.PlantBreeding.Core.Models.PhenotypeDisplayComponentViewModel
+
+@{
+    foreach (SelectListItem item in Model.PossibleFates)
+    {
+        item.Selected = this.Model.Fates.SingleOrDefault(t => t.Id.ToString() == item.Value) != null;
+    }
+}
+
+<div class="fateDropdown" data-id="@Model.Id">
+    @Html.DropDownList("FatesDropDown", Model.PossibleFates, new { id = string.Format("fates_dropdown_{0}", @Model.Id), selected = "selected", multiple = "multiple", @class = "mcFate invisible" })
+</div>

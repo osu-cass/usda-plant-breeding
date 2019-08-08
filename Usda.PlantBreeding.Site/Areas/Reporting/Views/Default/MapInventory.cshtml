@@ -1,0 +1,59 @@
+﻿@model Usda.PlantBreeding.Core.Models.MapInventoryReportViewModel
+
+@{
+    ViewBag.Title = @Model.MapName;
+    ViewBag.IndexTitle = @Model.MapName;
+}
+<div class="row"></div>
+<h2>Map Inventory</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            @Html.HiddenFor(m => m.MapId)
+            @Html.HiddenFor(m => m.MapName)
+            @Html.HiddenFor(m => m.MapFullName)
+
+
+            @Html.HiddenFor(m => m.MapIsSeedling)
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MapName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.MapFullName, new { htmlAttributes = new { @class = "form-control ", @disabled = "true" } })
+                        @Html.ValidationMessageFor(model => model.MapFullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MapPlantedYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.MapPlantedYear, new { htmlAttributes = new { @class = "form-control ", @disabled = "true" } })
+                        @Html.ValidationMessageFor(model => model.MapPlantedYear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MapYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.MapYear, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                        @Html.ValidationMessageFor(model => model.MapYear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Report" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

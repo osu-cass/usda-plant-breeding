@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var firstLoad = '@ViewBag.firstLoad';
+        if (firstLoad == "false") {
+            alert("Genus has not been set, please choose one to continue");
+        }
+
+        $('.carousel').each(function () {
+            $(this).carousel({
+                interval: false
+            });
+        });
+      
+        $('.carousel').carousel(@ViewBag.SelectedGenusId -1);
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-6">
+                    @Html.DropDownList("genusId", null, string.Empty, new { @class = "form-control", onchange = "this.form.submit();" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active" ></li>
+                        <li data-target="#myCarousel" data-slide-to="1" ></li>
+                        <li data-target="#myCarousel" data-slide-to="2" ></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <a href="@Url.Action( "GeneraImage", "Home", new {name = "Actinidia"})">
+                                <img src="~/Content/Images/Actinidia.jpg" class="img-responsive" style="max-height:400px; max-width:600px" alt="Actinidia slide">
+                            </a>
+                            <div class="carousel-caption">
+                                <p><strong>Actinidia</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <a href="@Url.Action("GeneraImage", "Home", new { name = "Fragaria" })">
+                                <img src="~/Content/Images/Fragaria.jpg" class="img-responsive" style="max-height:400px; max-width:600px" alt="Fragaria slide">
+                            </a>
+                            <div class="carousel-caption">
+                                <p><strong>Fragaria</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <a href="@Url.Action("GeneraImage", "Home", new { name = "Rubus" })">
+                                <img src="~/Content/Images/Rubus.jpg" class="img-responsive" style="max-height:400px; max-width:600px" alt="Rubus slide">
+                            </a>
+                            <div class="carousel-caption">
+                                <p><strong>Rubus</strong></p>
+                            </div>
+
+                        </div>
+
+                        <div class="item">
+                            <a href="@Url.Action("GeneraImage", "Home", new { name = "Vaccinium" })">
+                                <img src="~/Content/Images/Vaccinium3.jpg" class="img-responsive" style="max-height:400px; max-width:600px" alt="Vaccinium slide">
+                            </a>
+                            <div class="carousel-caption">
+                                <p><strong>Vaccinium</strong></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,26 @@
+﻿@model Usda.PlantBreeding.Core.Models.AccessionViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.IndexTitle = Model.Name;
+}
+
+<ul class="nav nav-pills nav-pills-sm pull-right">
+    <li>
+        @Html.ActionLink("Return", "Index" , "Default" , new { genotypeId = Model.Id }, null)
+    </li>
+@*
+    <li>
+        @Html.ActionLink("Summary", "Detail", "SelectionSummary", new { Area = "", id = Model.Id }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Generate Report", "Details", new { Id = Model.Id })
+    </li>
+*@
+</ul>
+
+
+@using (Html.BeginForm("Edit", "Default", FormMethod.Post))
+{
+    @Html.EditorFor(m => m)
+}

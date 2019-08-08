@@ -1,0 +1,10 @@
+﻿
+<div class="row"></div>
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    @using ReportViewerForMvc;
+
+    @Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+</div>

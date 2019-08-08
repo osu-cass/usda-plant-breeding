@@ -1,0 +1,105 @@
+﻿@model Usda.PlantBreeding.Data.Models.Map
+
+
+<div class="container">
+    <h4>Map</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.GenusId)
+
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.Genus, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Genus.Value, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.Genus, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.PlantingYear, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.PlantingYear, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PlantingYear, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.IsSeedlingMap, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.IsSeedlingMap, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IsSeedlingMap, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.Retired, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Retired, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Retired, "", new { @class = "text-danger" })
+        </div>
+    
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger control-label" })
+        </div>
+
+        <div class="form-group col-md-1">
+            @Html.LabelFor(model => model.PicklistPrefix, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.PicklistPrefix, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.PicklistPrefix, "", new { @class = "text-danger" })
+        </div>
+
+
+
+        <div class="form-group col-md-2">
+            @{
+                string locationIdSt = (Model.LocationId.HasValue) ? Model.LocationId.ToString() : "";
+                string locationName = (Model.Location != null) ? Model.Location.Name : "";
+
+            }
+            @Html.LabelFor(model => model.LocationId, htmlAttributes: new { @class = "control-label" })
+            @SearchHelpers.Search(Url.Action("SearchLocations", "Default", new { area = "Maps" }), "Map_Location", null, "Map.Location", "Map.LocationName", @locationIdSt, @locationName)
+            @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.LocationSuffix, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.LocationSuffix, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LocationSuffix, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.CrossTypeId, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.CrossTypeId, (IEnumerable<SelectListItem>)ViewBag.CrossTypes, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CrossTypeId, "", new { @class = "text-danger" })
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.StartCorner, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.StartCorner, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StartCorner, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group col-md-2">
+            @Html.LabelFor(model => model.DefaultPlantsInRep, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.DefaultPlantsInRep, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DefaultPlantsInRep, "", new { @class = "text-danger" })
+        </div>
+     
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label" })
+            @Html.TextAreaFor(model => model.Note, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+        </div>
+
+
+    </div>
+
+
+</div>

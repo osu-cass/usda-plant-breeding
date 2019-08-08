@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Genotype>
+
+@{
+    ViewBag.Title = "Genotypes by Genus";
+}
+
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-center"></h2>
+
+<p class="text-center">
+    @Html.ActionLink("+ Create New", "CreateModal", null, new { @class = "btn btn-primary", data_modal = "" })
+</p>
+<table class="table table-hover table-striped">
+    <tr>
+        <th>
+            Family #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SelectionNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+  
+        <th>
+            @Html.DisplayNameFor(model => model.Family.CrossNum)
+        </th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Family.Name, "Details", "Families", new { id = item.Family.Id }, null)
+        </td>
+        <td>
+            @Html.ActionLink(item.SelectionNum.ToString(), "Details", new { id = item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.GivenName)
+        </td>
+    
+        <td>
+            @Html.DisplayFor(model => item.Family.CrossNum)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>

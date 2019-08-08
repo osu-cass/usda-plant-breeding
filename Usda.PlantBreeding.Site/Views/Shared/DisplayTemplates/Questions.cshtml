@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Question>
+
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr class="primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Label)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Required)
+            </th>
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.Required)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "QuestionUpdate", new { id = item.Id }, new { data_modal = "", @class = "btn btn-primary" })
+                @if (item.Retired == true)
+                {
+                    @Html.ActionLink("UnRetire", "QuestionUnRetire", new { id = item.Id }, new { @class = "btn btn-warning" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("Retire", "QuestionRetire", new { id = item.Id }, new { @class = "btn btn-warning" })
+
+                }
+                
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,33 @@
+﻿@model Usda.PlantBreeding.Core.Models.MapQuestionListViewModel
+
+@{
+    ViewBag.Title = "Map Editor";
+}
+
+<div class="row"></div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default btn-primary" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default "})
+            
+        </div>
+    </div>
+    <div class="row" id="EditorMap">
+        @Html.EditorFor(m => m.Map, "Map")
+    </div>
+    <div class="row">
+        <div class="container">
+            <h4>Traits</h4>
+            <hr />
+            <div class="row" id="QuestionEditor">
+                @Html.EditorFor(m => m.Questions, "MapQuestionViewModel")
+            </div>
+        </div>
+    </div>
+
+}

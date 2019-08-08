@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.MapComponent>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GenotypeId)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PickingNumber)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Row)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PlantsInRep)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genotype)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PickingNumber)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Row)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlantsInRep)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

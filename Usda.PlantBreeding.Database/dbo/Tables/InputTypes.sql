@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[InputTypes]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Text] NVARCHAR(50) NOT NULL
+)

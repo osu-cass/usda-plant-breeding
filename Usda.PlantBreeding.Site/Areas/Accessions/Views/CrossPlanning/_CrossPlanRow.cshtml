@@ -1,0 +1,131 @@
+﻿@model Usda.PlantBreeding.Core.Models.CrossPlanViewModel
+@{
+    string prefixFemale = Model.Id + ".FemaleParent";
+    string prefixMale = Model.Id + ".MaleParent";
+    string updateEvent = string.Format("UpdateCrossPlan({0})", Model.Id.ToString());
+    string populationChangeEvent = string.Format("{0}, EnablePopulationButtons({1})", updateEvent, Model.Id.ToString());
+
+    string parentChangeEvent = string.Format("GetParents(this), AddRowFirstDelay({0}), {1}", Model.Id.ToString(), updateEvent);
+    bool hasPopulation = @Model.GenotypeId.HasValue;
+}
+
+<tr id="@Model.Id">
+    <td>
+        @Html.DisplayFor(m => m.Id)
+    </td>
+    <td>
+
+        @SearchHelpers.Search(@Url.Action("SearchAccessions", "CrossPlanning", new { area = "Accessions" }), prefixFemale, @ViewBag.GenusId,
+                                               prefixFemale, prefixFemale, Model.FemaleParentId.ToString(), Model.FemaleParentName, hasPopulation,
+                     "Accession", null, null, null, null, parentChangeEvent)
+
+    </td>
+    <td class="tdReadOnly" data-toggle="tooltip" data-placement="top" title="@Html.DisplayTextFor(m => m.FemaleParentFemaleParent)">
+        @Html.TextBoxFor(m => m.FemaleParentFemaleParentOrDefault, new { disabled = "disabled" })
+
+    </td>
+    <td class="tdReadOnly" data-toggle="tooltip" data-placement="top" title="@Html.DisplayTextFor(m => m.FemaleParentMaleParent)">
+        @Html.TextBoxFor(m => m.FemaleParentMaleParentOrDefault, new { disabled = "disabled" })
+    </td>
+    <td>
+        @SearchHelpers.Search(@Url.Action("SearchAccessions", "CrossPlanning", new { area = "Accessions" }), prefixMale, @ViewBag.GenusId,
+                                                        prefixMale, prefixMale, Model.MaleParentId.ToString(), Model.MaleParentName, hasPopulation,
+                              "Accession", null, null, null, null, parentChangeEvent)
+    </td>
+    <td class="tdReadOnly" data-toggle="tooltip" data-placement="top" title="@Html.DisplayTextFor(m => m.MaleParentFemaleParent)">
+        @Html.TextBoxFor(m => m.MaleParentFemaleParentOrDefault, new { disabled = "disabled" })
+    </td>
+    <td class="tdReadOnly" data-toggle="tooltip" data-placement="top" title="@Html.DisplayTextFor(m => m.MaleParentMaleParent)">
+        @Html.TextBoxFor(m => m.MaleParentMaleParentOrDefault, new { disabled = "disabled" })
+    </td>
+    <td>
+        @if (hasPopulation)
+        {
+            @Html.DropDownListFor(m => m.CrossTypeId, (IEnumerable<SelectListItem>)ViewBag.CrossTypes, new { @class = "form-control", @onchange = updateEvent, @disabled = "disabled"})
+
+        }
+        else
+        {
+            @Html.DropDownListFor(m => m.CrossTypeId, (IEnumerable<SelectListItem>)ViewBag.CrossTypes, new { @class = "form-control", @onchange = updateEvent })
+
+        }
+    </td>
+    <td>
+        @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control text-area-2", @onchange = updateEvent })
+    <td class="tdReadOnly">
+        @Html.CheckBoxFor(m => m.Reciprocal, new { @class = "form-control", @disabled = "disabled" })
+    </td>
+    <td>
+        @Html.CheckBoxFor(m => m.Unsuccessful, new { @class = "form-control", @onchange = updateEvent })
+    </td>
+    <td class="tdReadOnly" id="DateCreated" data-toggle="tooltip" data-placement="top" title="@Html.DisplayTextFor(m => m.DateCreated)">
+        @if (Model.DateCreated.ToString("MM/dd/yyyy") == "01/01/2017")
+        {
+            @String.Format("N/A")
+        }
+        else if (Model.DateCreated == DateTime.MinValue)
+        {
+            @String.Format("-")
+        }
+        else
+        {
+            @Model.DateCreated.ToString("MM/dd/yyyy")
+        }
+    </td>
+
+</td>
+<td>
+    @Html.TextAreaFor(m => m.Note, new { @class = "form-control text-area-2", @style = "width:15em;", @onchange = updateEvent })
+</td>
+<td>
+    @if (hasPopulation)
+    {
+        @Html.TextBoxFor(m => m.CrossNum, new { @class = "form-control arrowKey input-number-5", @disabled = "disabled" })
+
+    }
+    else
+    {
+        @Html.TextBoxFor(m => m.CrossNum, new { @class = "form-control arrowKey input-number-5", @onchange = populationChangeEvent })
+
+    }
+</td>
+<td>
+    @Html.TextBoxFor(m => m.SeedNum, new { @class = "form-control arrowKey input-number-5", @onchange = updateEvent })
+</td>
+<td>
+    @Html.TextBoxFor(m => m.TransplantedNum, new { @class = "form-control arrowKey input-number-5", @onchange = updateEvent })
+
+</td>
+<td>
+    @Html.TextBoxFor(m => m.FieldPlantedNum, new { @class = "form-control arrowKey input-number-5", @onchange = updateEvent })
+
+</td>
+
+<td>
+    <div>
+        @if (hasPopulation)
+        {
+            <input type="button" id="btnDelete" class="button btn btn-danger btn-sm" onclick="DeleteItemFromTable(@Model.Id)" value="Delete" disabled="disabled" />
+            <input type="button" id="btnPop" class="btn btn-sm btn-default sm-col-1" onclick="CreateFamily(@Model.Id)" value="Create Pop" disabled="disabled" />
+
+
+        }
+        else if (!Model.CrossNum.IsEmpty() && Model.CrossNum.Trim().Length > 0)
+        {
+            <input type="button" id="btnDelete" class="button btn btn-danger btn-sm" onclick="DeleteItemFromTable(@Model.Id)" value="Delete" disabled="disabled" />
+            <input type="button" id="btnPop" class="btn btn-sm btn-default sm-col-1" onclick="CreateFamily(@Model.Id)" value="Create Pop" />
+
+        }
+        else
+        {
+            <input type="button" id="btnDelete" class="button btn btn-danger btn-sm" onclick="DeleteItemFromTable(@Model.Id)" value="Delete" />
+            <input type="button" id="btnPop" class="btn btn-sm btn-default sm-col-1" onclick="CreateFamily(@Model.Id)" value="Create Pop" disabled="disabled" />
+        }
+        <input type="button" id="btnCopy" class="btn btn-sm btn-default sm-col-1" onclick="CopyItemToNextYear(@Model.Id)" value="Copy" />
+
+
+    </div>
+</td>
+
+</tr>
+

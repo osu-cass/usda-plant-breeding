@@ -1,0 +1,36 @@
+﻿@model Usda.PlantBreeding.Core.Models.BreedingSummaryReportViewModel
+
+@{
+    ViewBag.Title = "Breeding Summary";
+    ViewBag.IndexTitle = "Breeding Summary";
+}
+<div class="row"></div>
+<h2>Breeding Summary</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GenusId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.GenusId, (IEnumerable<SelectListItem>)ViewBag.Genus, "", new { @class = "form-control col-md-2" })
+                        @Html.ValidationMessageFor(model => model.GenusId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Report" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

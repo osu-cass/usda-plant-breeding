@@ -1,0 +1,192 @@
+﻿<div>
+    <ul class="nav nav-pills nav-pills-sm pull-right">
+        <li>
+            @Html.ActionLink("Return", "Index", "Default", new { genotypeId = ViewBag.Genotype.Id }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Details", "Details", "Default", new { id = ViewBag.Genotype.Id }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Summary", "Detail", "SelectionSummary", new { area = "Accessions", id = ViewBag.Genotype.Id }, null)
+        </li>
+
+    </ul>
+</div>
+
+<div class="row"></div>
+
+<canvas id="pedigreeTree" width="900" height="600" style="border:solid !important">
+    Canvas isn't Rendering, Please refresh the page
+</canvas>
+
+<script type="text/javascript">
+
+    //Converts viewbag data to json list usable by javascript
+    var genotypes = @Html.Raw(
+        Json.Encode(
+            ((IEnumerable<Usda.PlantBreeding.Data.Models.Genotype>)ViewBag.genotypeList).Select(g => new
+                {
+                    Name = g.GivenName,
+                    oName = g.OriginalName
+                })
+            )
+       );
+
+    //Constants needed by HTML5 Canvas to draw the pedigree tree.
+    var lineLength = 175;
+    var lineHeight = 50;
+    var cLocation = [(pedigreeTree.width * .1), (pedigreeTree.height / 2)]; //current location array
+    var depth = 2; //layers deep after root
+
+    var canvas = document.getElementById('pedigreeTree'); //set up canvas element
+    var index = 0; //variable for tracking current branch index
+
+    //Create canvas context, else throw alert error
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+    } else {
+        alert('Failed to get Canvas Context');
+    }
+
+    //Function made for tracking current cursor location on the canvas element
+    function updateLocation(xCord, yCord) {
+        cLocation[0] = xCord;
+        cLocation[1] = yCord;
+    }
+
+    //Draw straight line up from location
+    function drawUp(yDif) {
+        ctx.lineTo(cLocation[0], cLocation[1] - yDif);
+        updateLocation(cLocation[0], cLocation[1] - yDif);
+    }
+
+    //Draw straight line down from location
+    function drawDown(yDif) {
+        ctx.lineTo(cLocation[0] + yDif, cLocation[1]);
+        updateLocation(cLocation[0] + yDif, cLocation[1]);
+    }
+
+    //Draw straight line left from location
+    function drawLeft(xDif) {
+        ctx.lineTo(cLocation[0] - xDif, cLocation[1]);
+        updateLocation(cLocation[0] - xDif, cLocation[1]);
+    }
+
+    //Draw straight line right from location
+    function drawRight(xDif) {
+        ctx.lineTo(cLocation[0] + xDif, cLocation[1]);
+        updateLocation(cLocation[0] + xDif, cLocation[1]);
+    }
+
+    //Draws the root of the entire tree and the first set of parents
+    function drawRoot() {
+        ctx.moveTo(cLocation[0], cLocation[1]);
+        drawRight(lineLength);
+
+        drawGeno();
+
+        drawUp(lineHeight * depth);
+        drawRight(lineLength);
+
+        drawGeno();
+
+        ctx.moveTo(cLocation[0], cLocation[1] + lineHeight * 2 *depth);
+        updateLocation(cLocation[0], cLocation[1] + lineHeight * 2 * depth);
+
+        drawGeno();
+
+        drawLeft(lineLength);
+        drawUp(lineHeight * depth);
+        ctx.stroke();
+    }
+
+    //New move function to track current cursor location
+    function move(xCord, yCord) {
+        ctx.moveTo(xCord, yCord);
+        updateLocation(xCord, yCord);
+    }
+
+    /*
+    Function for drawing each branch
+    Understanding the draw order for this function is important:
+        1. Draw upper branch
+        2. Render Genotype name
+        3. Move to lower branch
+        4. Render Genotype name
+        5. Draw lower branch
+        6. Return to branch root
+        7. Render branch
+    */
+    function drawBranch(lineH) {
+
+        //Draw upper branch
+        drawUp(lineH);
+        drawRight(lineLength);
+
+        //Render female parent name
+        drawGeno();
+
+        //Move to lower branch
+        ctx.moveTo(cLocation[0], cLocation[1] + lineH*2);
+        updateLocation(cLocation[0], cLocation[1] + lineH * 2);
+
+        //Render male parent name
+        drawGeno();
+
+        //Draw lower branch
+        drawLeft(lineLength);
+
+        //Complete branch, return to branch root location
+        drawUp(lineH);
+
+        //Draw lines and names
+        ctx.stroke();
+    }
+
+    //Gets the current genotype name from list, renders object and returns to starting location.
+    function drawGeno() {
+        var gtype = genotypes[index];
+        var displayName = (gtype.Name == null) ? gtype.oName : gtype.Name;
+
+        if(index == 0){
+            ctx.fillText(gtype.oName + (gtype.Name != null ? ' ' +gtype.Name  : '') , cLocation[0] - (lineLength - 10), cLocation[1] - 5);
+        }else if(displayName != undefined){
+            ctx.fillText((displayName), cLocation[0] - (lineLength - 10), cLocation[1] - 5);
+        }else{
+            ctx.fillText(("-"), cLocation[0] - (lineLength - 10), cLocation[1] - 5);
+        }
+
+        index++;
+        ctx.moveTo(cLocation[0], cLocation[1]); //return to starting location
+    }
+
+    /*
+        **Main Function**
+        This function calls all required functions and renders the tree.
+    */
+    function draw() {
+
+        drawRoot(ctx);
+
+        //branch one
+        move(cLocation[0] + lineLength, cLocation[1] - (lineHeight * depth));
+        drawBranch(lineHeight);
+
+        move(cLocation[0], cLocation[1] + lineHeight*4);
+        drawBranch(lineHeight);
+
+        //branch two
+        move(cLocation[0] + lineLength, cLocation[1] - lineHeight * 5);
+        drawBranch(lineHeight - 20);
+
+        for (var i = 0; i < 3; i++) {
+            move(cLocation[0], cLocation[1] + lineHeight * 2);
+            drawBranch(lineHeight - 20);
+        }
+
+        ctx.fillText("Legend: Original Name Given Name", pedigreeTree.width * .80, pedigreeTree.height * .075);
+    }
+
+    //Call main function
+    draw();
+</script>

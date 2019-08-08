@@ -1,0 +1,17 @@
+﻿@model Usda.PlantBreeding.Data.Models.Note
+
+@Html.HiddenFor(m => m.Id, new { id = "note-id-" + Model.Id })
+@Html.HiddenFor(m => m.GenotypeId, new { id = "note-genotype-" + Model.Id })
+@{
+    
+    var changeEvent = string.Format("UpdateNote({0})", @Model.Id);   
+}
+
+<td>
+    @Html.EditorFor(m => m.Date, new { htmlAttributes = new { id = "note-date-" + Model.Id, onchange = @changeEvent, @class="datepicker" } })
+</td>
+<td >
+    @Html.EditorFor(m => m.Text, new { htmlAttributes = new { id = "note-text-" + Model.Id, rows = "2", @class="ss-note", onchange = @changeEvent } })
+
+</td>
+<td></td>

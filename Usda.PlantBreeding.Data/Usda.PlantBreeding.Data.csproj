@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{188F0D10-0CAD-472E-9D75-DBD0AFBD840D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Usda.PlantBreeding.Data</RootNamespace>
+    <AssemblyName>Usda.PlantBreeding.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Stage|AnyCPU'">
+    <OutputPath>bin\Stage\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BSGUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BSGUtils.1.0.0\lib\net45\BSGUtils.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Answer.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BreedingSummary_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Candidate.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CrossPlan.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CrossType.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__RefactorLog.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\IPlantBreedingContext.cs" />
+    <Compile Include="DataAccess\IPlantBreedingRepo.cs" />
+    <Compile Include="DataAccess\PlantBreedingContext.cs" />
+    <Compile Include="DataAccess\PlantBreedingRepo.cs" />
+    <Compile Include="Family.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fate.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlatNote.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlatType.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Genotype.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Genus.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAccessionParent_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAccessions1_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAccessions_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCrossPlanLocations1_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCrossPlanLocations_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCrossPlans1_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetCrossPlans_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMapComponentFates_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMapComponents_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMapInventory_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMapViewComponents_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOrders_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPhenotypeEntry_Result.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Grower.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InputType.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Map.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MapComponent.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MapComponentYears.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Material.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\CrossPlan.cs" />
+    <Compile Include="Models\CrossType.cs" />
+    <Compile Include="Models\Family.cs" />
+    <Compile Include="Models\Fate.cs" />
+    <Compile Include="Models\FlatNote.cs" />
+    <Compile Include="Models\Genotype.cs" />
+    <Compile Include="Models\Genus.cs" />
+    <Compile Include="Models\Grower.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderProduct.cs" />
+    <Compile Include="Models\Years.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Purpose.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\QuestionComparer.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\MapComponent.cs" />
+    <Compile Include="Models\Origin.cs" />
+    <Compile Include="Models\Ploidy.cs" />
+    <Compile Include="Models\SelectionSummaryData.cs" />
+    <Compile Include="Note.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderProduct.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Origin.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlantBreedingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlantBreedingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlantBreedingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ploidy.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PlantBreedingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlantBreedingModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Purpose.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Question.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionsCPY.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repetition.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPreference.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Util\CacheManager.cs" />
+    <Compile Include="Util\Extensions.cs" />
+    <Compile Include="Util\TreeNode.cs" />
+    <Compile Include="Years.cs">
+      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="PlantBreedingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PlantBreedingModel.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Usda.PlantBreeding.Data.Models</CustomToolNamespace>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="PlantBreedingModel.edmx.diagram">
+      <DependentUpon>PlantBreedingModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PlantBreedingModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PlantBreedingModel.Context.cs</LastGenOutput>
+      <DependentUpon>PlantBreedingModel.edmx</DependentUpon>
+      <CustomToolNamespace>Usda.PlantBreeding.Data.Models</CustomToolNamespace>
+    </Content>
+    <Content Include="PlantBreedingModel.edmx.sql" />
+    <Content Include="PlantBreedingModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PlantBreedingModel.cs</LastGenOutput>
+      <DependentUpon>PlantBreedingModel.edmx</DependentUpon>
+      <CustomToolNamespace>Usda.PlantBreeding.Data.Models</CustomToolNamespace>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

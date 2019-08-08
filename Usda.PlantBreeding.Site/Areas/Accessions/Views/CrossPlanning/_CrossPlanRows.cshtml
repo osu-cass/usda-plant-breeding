@@ -1,0 +1,11 @@
+﻿@using Usda.PlantBreeding.Core.Models
+
+
+@model IEnumerable<CrossPlanViewModel>
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_CrossPlanRow", item)
+}
+
+

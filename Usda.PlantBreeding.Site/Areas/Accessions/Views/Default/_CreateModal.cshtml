@@ -1,0 +1,54 @@
+﻿@model Usda.PlantBreeding.Data.Models.Genotype
+
+@{
+    ViewBag.Title = "_CreateModal";
+
+    var modelname = new Usda.PlantBreeding.Data.Models.Genotype();
+    }
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+</div>
+
+@using (Html.BeginForm())
+{
+<div class="modal-body">
+    <div class="form-horizontal">
+        <div class="form-group row">
+            <h4 class="modal-title text-center" id="QuestionUpdateModalLabel">New Selection</h4>
+        </div>
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GivenName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GivenName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GivenName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+         
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FamilyId, "FamilyId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("FamilyId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FamilyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+      </div>
+</div>
+
+<div class="modal-footer">
+    <input type="submit" value="Create" class="btn btn-default" /> 
+    <button class="btn" data-dismiss="modal">Close</button>
+</div>
+}
+
+  

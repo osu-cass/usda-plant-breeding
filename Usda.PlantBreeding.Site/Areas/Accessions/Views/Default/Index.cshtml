@@ -1,0 +1,395 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Usda.PlantBreeding.Core.Models;
+
+@model PagedList<Usda.PlantBreeding.Core.Models.AccessionIndexViewModel>
+@{
+    AccessionIndexViewModel accession = new AccessionIndexViewModel();
+    bool isPopDefault = false;
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/noty")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/table")
+    @Scripts.Render("~/bundles/datatable")
+
+    @Styles.Render("~/Content/datatablecss")
+}
+
+
+
+<style>
+    .body-content {
+        width: 100%;
+    }
+
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 2px 2px;
+    }
+
+
+    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody td {
+        vertical-align: top;
+    }
+
+    .tdReadOnly input {
+        font-size: 10px;
+    }
+
+    .tdReadOnly {
+        font-size: 10px;
+        vertical-align: middle !important;
+    }
+
+    .table-font-small input, .table-font-small textarea, .table-font-small button, .table-font-small .form-control {
+        font-size: 11px;
+    }
+    /*table tbody, table thead {
+        display: block;
+    }
+
+    table tbody {
+        overflow: auto;
+        height: 60vh;
+        -webkit-overflow-scrolling: touch;
+    }*/
+
+
+    /*th, td {
+        width: auto;
+    }
+
+        td, td div {
+            text-overflow: ellipsis;
+        }*/
+
+
+    /*table .table-name, table .table-actions {
+        width: 250px;
+    }
+
+
+    table .table-number {
+        width: auto;
+    }
+
+    table .table-crosstype {
+        width: auto;
+    }
+
+    table .table-checkbox {
+        width: auto;
+    }*/
+
+
+    .table-control {
+        padding: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        align-items: stretch;
+        align-content: space-around;
+        padding-bottom: 10px;
+    }
+
+        .table-control .form-group {
+            margin-bottom: 0px;
+        }
+
+    table .table-note {
+        width: 200px;
+        text-overflow: ellipsis;
+    }
+
+    .action-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: space-around;
+    }
+
+        .action-wrapper input {
+            margin-left: 5px;
+        }
+</style>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var date = Date.parse('@System.Configuration.ConfigurationManager.AppSettings["PopulationDisabledDate"]');
+        var dateCurrent = Date.parse("@ViewBag.CurrentDate");
+        if (dateCurrent > date) {
+            $("#item_IsPopulation.form-control").each(function () {
+                $(this).attr('disabled', true);
+            });
+        }
+
+        $('#accessionTable').DataTable({
+            scrollY: '50vh',
+            "scrollX": true,
+
+            "scrollCollapse": true,
+            fixedHeader: true,
+            "autoWidth": true,
+
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "searching": false,
+            "preDrawCallback": function (settings) {
+                pageScrollPos = $('div.dataTables_scrollBody').scrollTop();
+            },
+            "drawCallback": function (settings) {
+                $('div.dataTables_scrollBody').scrollTop(pageScrollPos);
+            }
+        });
+
+        // display noty if failed to find accession or go to page
+        var text =  "@ViewBag.SearchErrorMessage";
+        var layout = "top";
+        var theme = "btn-warning";
+        var timeout = 5000;
+        var successfulSearch = @ViewBag.SuccessfulSearch.ToString().ToLower();
+
+        if (text != null && text != "") {
+            NotyMessage(text, 2);
+        }
+        else{
+            var baseId = @ViewBag.BaseId;
+            var genotypeId = @ViewBag.GenotypeId;
+            var searchtr = document.getElementById("genotype-"+genotypeId);
+
+            if (searchtr) {
+                $(searchtr).css("border", "solid").css("border-color", '#0099ff');
+
+                //scroll to self or pop
+                var basetr = document.getElementById("genotype-"+baseId);
+                var scrollToPos = (basetr) ? $(basetr).offset().top : $(searchtr).offset().top;
+                var tableTop = $('#accessionsTable').offset().top;
+
+                $('#accessionsTable tbody').scrollTop(scrollToPos - tableTop - 40);
+            }
+        }
+    });
+
+    function getRowFieldElement(row, field) {
+        return $(row).find("#" + field);
+    }
+
+    function getRowField(row, field) {
+        return $(getRowFieldElement(row, field)).val().trim();
+    }
+    function getRowP(row, field) {
+        return $(getRowFieldElement(row, field))[0].innerText.trim();
+    }
+    function getRowFieldCheckbox(row, field) {
+        var checkVal = $(row).find("#" + field + ':checked').val();
+        if (checkVal === "true") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function getRowObject(objectId) {
+        var id = objectId;
+        var row = document.getElementById(`genotype-${objectId}`);
+        var name = getRowP(row, "item_Name");
+        var originalName = getRowP(row, "item_OriginalName");
+        var familyFemaleGenotypeName = getRowField(row, "item_FamilyFemaleGenotypeName");
+        var familyMaleGenotypeName = getRowField(row, "item_FamilyMaleGenotypeName");
+        var year = getRowField(row, "item_Year");
+        var isPopulation = getRowFieldCheckbox(row, "item_IsPopulation");
+        var familyCrossTypeName = getRowField(row, "item_FamilyCrossTypeName");
+        var familyPurpose = getRowField(row, "item_FamilyPurpose");
+        var note = getRowField(row, "item_Note");
+        var ploidyName = getRowP(row, "item_PloidyName");
+        var object = {
+            Id: id,
+            Name: name,
+            OriginalName: originalName,
+            FamilyFemaleGenotypeName: familyFemaleGenotypeName,
+            FamilyMaleGenotypeName: familyMaleGenotypeName,
+            Year: year,
+            IsPopulation: isPopulation,
+            FamilyCrossTypeName: familyCrossTypeName,
+            FamilyPurpose: familyPurpose,
+            Note: note,
+            PloidyName: ploidyName
+        }
+        return object;
+    }
+    function UpdateIsPopulation(accessionId) { //TODO: fix one way binding
+        var postdata = {
+            IsPopulation: getRowObject(accessionId).IsPopulation,
+            Id: accessionId
+        }
+        console.log(postdata);
+        var url = "@Url.Action("UpdateIsPopulation", "Default")";
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: postdata,
+            success: function (result) {
+                if(result.Error){
+                    NotyMessage(result.Message);
+                }
+            },
+            failure: function (result) {
+                NotyMessage("Save failure");
+            }
+        })
+    }
+</script>
+
+
+
+<div class="row"></div>
+
+<div class="container">
+    <div class="table-control">
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { pageSize = Model.PageSize, page = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        </div>
+        <div>
+            @using (Html.BeginForm("Index", "Default", FormMethod.Get))
+            {
+                <div class="action-wrapper">
+                    @SearchHelpers.Search(@Url.Action("Search", "Default", new { area = "Accessions" }), "search", ViewBag.GenusId, "genotype", "filter", ViewBag.GenotypeId.ToString(), ViewBag.Filter, false, "Accession")
+                    <input type="hidden" name="pageSize" value="@Model.PageSize" />
+                    <input type="submit" class="btn btn-default" value="Find" />
+                </div>
+            }
+        </div>
+        <div>
+            @using (Html.BeginForm("Index", "Default", FormMethod.Get))
+            {
+                <div class="action-wrapper" style="white-space: nowrap;">
+                    @Html.DropDownList("pageSize", (IEnumerable<SelectListItem>)ViewBag.PageSizeList, (string)ViewBag.PageSize, new { @class = "form-control" })
+                    <input type="hidden" name="page" value="1" class="form-control" />
+                    <input type="submit" class="btn btn-default" value="Update" />
+                </div>
+            }
+        </div>
+        <div>
+            @using (Html.BeginForm("Index", "Default", FormMethod.Get))
+            {
+                <div class="action-wrapper">
+                    <input type="number" name="page" style="width: 70px" placeholder="Page" class="form-control" />
+                    <input type="hidden" name="pageSize" value="@Model.PageSize" />
+                    <input type="submit" class="btn btn-default" value="Go" />
+                </div>
+            }
+        </div>
+        <div>
+            @Html.ActionLink("Create New", "Create", "Default", htmlAttributes: new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>
+<div class="momentum-scroll-dt">
+    <table class="table table-font-small table-responsive table-striped" id="accessionTable" cellspacing="0" width="100%">
+        <thead>
+            <tr class="primary">
+                <th class="tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.Name)
+                </th>
+                <th class="tdReadOnly" style="word-wrap:break-word !important;">
+                    @Html.DisplayNameFor(m => accession.OriginalName)
+                </th>
+                <th class="tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.FamilyFemaleGenotypeName)
+                </th>
+                <th class="tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.FamilyMaleGenotypeName)
+                </th>
+                <th class="tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.Year)
+                </th>
+                <th class="">
+                    @Html.DisplayNameFor(m => accession.IsPopulation)
+                </th>
+                <th class="tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.FamilyCrossTypeName)
+                </th>
+                <th class="table-note">
+                    @Html.DisplayNameFor(m => accession.FamilyPurpose)
+                </th>
+                <th class="table-note tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.Note)
+                </th>
+                <th class="tdReadOnly">
+                    @Html.DisplayNameFor(m => accession.PloidyName)
+                </th>
+                <th class="tdReadOnly">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string updateIsPopEvent = string.Format("UpdateIsPopulation({0})", item.Id.ToString());
+                <tr id="genotype-@item.Id">
+                    <td class="">
+                        @Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { id = "item_Name" })
+                    </td>
+                    <td style="word-wrap:break-word !important;" id="item_OriginalName">
+                        @Html.DisplayFor(m => item.OriginalName)
+                    </td>
+                    <td>
+                        @if (item.FamilyFemaleParent.HasValue)
+                        {
+                            @Html.ActionLink(item.FamilyFemaleGenotypeName, "Index", new { pageSize = Model.PageSize, genotypeId = item.FamilyFemaleParent, filter = item.FamilyFemaleGenotypeName }, new { id = "item_FamilyFemaleGenotypeName" });
+                        }
+                        else
+                        {
+                            <p id="item_FamilyFemaleGenotypeName"></p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.FamilyMaleParent.HasValue)
+                        {
+                            @Html.ActionLink(item.FamilyMaleGenotypeName, "Index", new { pageSize = Model.PageSize, genotypeId = item.FamilyMaleParent, filter = item.FamilyMaleGenotypeName }, new { id = "item_FamilyMaleGenotypeName" });
+                        }
+                        else
+                        {
+                            <p id="item_FamilyMaleGenotypeName"></p>
+                        }
+                    </td>
+                    <td id="item_Year">
+                        @Html.DisplayFor(m => item.Year)
+                    </td>
+                    <td class="popCheck">
+                        @Html.CheckBoxFor(m => item.IsPopulation, new { @class = "form-control", @onchange = updateIsPopEvent })
+                    </td>
+                    <td class="" id="item_FamilyCrossTypeName">
+                        @Html.DisplayFor(m => item.FamilyCrossTypeName)
+                    </td>
+                    <td class="table-note">
+                        <p id="item_FamilyPurpose">
+                            @Html.DisplayFor(m => item.FamilyPurpose)
+                        </p>
+                    </td>
+                    <td class="table-note">
+                        <p id="item_Note">
+                            @Html.DisplayFor(m => item.Note)
+                        </p>
+                    </td>
+                    <td class="" id="item_PloidyName">
+                        @Html.DisplayFor(m => item.PloidyName)
+                    </td>
+                    <td class="">
+                        @Html.ActionLink("Details", "Details", "Default", new { id = item.Id }, null)
+
+                        @Html.ActionLink("Summary", "Detail", "SelectionSummary", new { Area = "Accessions", id = item.Id }, null)
+
+                        @Html.ActionLink("Pedigree", "Tree", new { Area = "Accessions", Controller = "Pedigree", id = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

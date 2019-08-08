@@ -1,0 +1,184 @@
+﻿@model IEnumerable<Usda.PlantBreeding.Core.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    h2 {
+    }
+
+    table {
+        width: 1150px;
+        border-collapse: separate !important;
+        table-layout: fixed;
+        text-overflow: ellipsis;
+    }
+
+        table tr:last-child td:first-child {
+            border-bottom-left-radius: 5px;
+        }
+
+        table tr:last-child td:last-child {
+            border-bottom-right-radius: 5px;
+        }
+
+        table th:last-child {
+            border-top-right-radius: 5px;
+        }
+
+        table th:first-child {
+            border-top-left-radius: 5px;
+        }
+
+    thead tr {
+        display: block;
+        position: relative;
+    }
+
+    tbody {
+        display: block;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 60vh;
+    }
+
+    .scrollable {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        width: 100%;
+        height: 60vh;
+    }
+
+    th {
+        background-color: #0066cc;
+        color: white;
+        text-align: left;
+    }
+
+    tr {
+        border-bottom-color: black;
+        width: 100%;
+        display: table;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ddd;
+        padding: 15px;
+        align-content: flex-end;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #ddd;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f3f2f2;
+    }
+
+    .name {
+        position: relative;
+        max-width: 200px;
+        width: 200px;
+    }
+
+    .year {
+        position: relative;
+        max-width: 100px;
+        width: 100px;
+    }
+
+    .genus-id {
+        position: relative;
+        max-width: 200px;
+        width: 200px;
+    }
+
+    .grower-id {
+        position: relative;
+        max-width: 200px;
+        width: 200px;
+    }
+
+    .edit {
+        position: relative;
+        max-width: 200px;
+        width: 200px;
+    }
+
+    button {
+        text-decoration: none;
+        border: none;
+        background-color: #0066cc;
+        padding: 5px;
+        margin-bottom: 10px;
+        color: white;
+        border-radius: 2px;
+        display: inline;
+    }
+
+        button:hover {
+            background-color: #0059b3;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
+    .create-link {
+        color: white;
+        text-decoration: none;
+    }
+
+    .name a {
+        color: black;
+    }
+
+</style>
+<div class="row">
+</div>
+<h2>Distributions</h2>
+<button class="create-button  button">
+    @Html.ActionLink("Create New", "Create")
+</button>
+<table class="table">
+    <tr>
+        <th class="name">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="year">
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th class="genus-id">
+            @Html.DisplayNameFor(model => model.GenusId)
+        </th>
+        <th class="grower-id">
+            @Html.DisplayNameFor(model => model.GrowerId)
+        </th>
+        <th class="edit">
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="name">
+                @Html.ActionLink(@item.Name, "Edit", new { id = item.Id })
+            </td>
+            <td class="year">
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td class="genus-id">
+                @Html.DisplayFor(modelItem => item.GenusId)
+            </td>
+            <td class="grower-id">
+                @Html.DisplayFor(modelItem => item.GrowerId)
+            </td>
+            <td class="edit">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
