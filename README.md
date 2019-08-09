@@ -7,6 +7,10 @@ This development environment is not required to run or contribute to the applica
 
 ### To begin, open the `Usda.PlanBreeding.sln` file with Visual Studio. 
 
+#### Missing .NET Framework 4.8
+This project uses .NET Framework 4.8. If you do not have this framework installed, Visual Studio will be unable to open some projects in the application. Select the option to install the framework 
+when prompted, and reopen the solution file in Visual Studio after following the steps. 
+
 ### 1. Setting Up the Database
 By default, this application is configured to use a local SQL database named `PlantBreeding`. The `Usda.PlantBreeding.Data` 
 project contains a publish profile which will create this database, along with the default values necessary for the program to run. 
