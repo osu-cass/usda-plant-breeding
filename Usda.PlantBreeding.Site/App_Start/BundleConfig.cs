@@ -37,7 +37,7 @@ namespace Usda.PlantBreeding.Site
                       "~/node_modules/respond.js/src/respond.js"));
             bundles.Add(new ScriptBundle("~/bundles/search").Include(
                      "~/Scripts/PlantBreedingSearch.js",
-                     "~/node_modules/js-autocomplete/auto-complete.js"));
+                     "~/Scripts/autocomplete/auto-complete.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                 "~/node_modules/jquery-ui/ui/*.js",
