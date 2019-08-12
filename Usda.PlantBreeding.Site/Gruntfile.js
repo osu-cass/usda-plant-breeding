@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='webpack:prod' AfterBuild='copy' />
+/// <binding BeforeBuild='webpack:prod' />
 'use strict';
 const webpackConfig = require('./webpack.config');
 
