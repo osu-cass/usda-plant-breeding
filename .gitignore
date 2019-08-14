@@ -361,3 +361,9 @@ Scripts/js/*
 # Production and Stage configuration transformations
 *.Release.config
 *.Stage.config
+
+#Gruntfile copied dependencies
+Scripts/Lib/
+**/Scripts/Lib/
+Stylesheets/Lib/
+**/Stylesheets/Lib/
