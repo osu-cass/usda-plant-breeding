@@ -92,9 +92,9 @@ namespace Usda.PlantBreeding.Site
             bundles.Add(new ScriptBundle("~/bundles/datatable").Include(
                  "~/Scripts/Lib/datatable/jquery.dataTables.min.js",
                   "~/Scripts/Lib/datatable/dataTables.bootstrap.min.js",
-                 "~/Scripts/datatable/dataTables.fixedColumns.min.js",
+                 "~/Scripts/Lib/datatable/dataTables.fixedColumns.min.js",
                  "~/Scripts/Lib/datatable/dataTables.fixedHeader.min.js",
-                 "~/Scripts/Lib/dataTablesExtensions.js"
+                 "~/Scripts/dataTablesExtensions.js"
 
 
 

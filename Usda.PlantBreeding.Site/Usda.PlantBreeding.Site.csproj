@@ -582,5 +582,17 @@
         <DestinationRelativePath>Scripts\js\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
     </ItemGroup>
+    <ItemGroup>
+      <NPMScripts Include="Scripts\Lib\**\*" />
+      <FilesForPackagingFromProject Include="%(NPMScripts.Identity)">
+        <DestinationRelativePath>Scripts\Lib\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+    <ItemGroup>
+      <NPMStyles Include="Stylesheets\Lib\**\*" />
+      <FilesForPackagingFromProject Include="%(NPMStyles.Identity)">
+        <DestinationRelativePath>Stylesheets\Lib\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
   </Target>
 </Project>
