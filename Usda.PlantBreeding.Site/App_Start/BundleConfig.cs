@@ -21,6 +21,7 @@ namespace Usda.PlantBreeding.Site
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/Lib/jquery/jquery.js",
+                        "~/Scripts/jquery-2.2.3.js",
                         "~/Scripts/Lib/jquery/sizzle.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
