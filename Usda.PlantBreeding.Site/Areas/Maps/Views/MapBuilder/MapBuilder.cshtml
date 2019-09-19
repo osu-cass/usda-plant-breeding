@@ -539,7 +539,7 @@
                 <div class="container col-lg-1">
                     <div class="form-group col-xs-2" id="rowselector" style="width:inherit">
                         <label class="control-label" style="margin-left:18px!important;">Rows</label>
-                        <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:18px!important; width:60%" size="5" title="Rows" onclick="RowSelect()">
+                        <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:18px!important; width:60%" size="5" title="Rows" onchange="RowSelect()">
 
                             @foreach (int? row in Model.Rows)
                             {
