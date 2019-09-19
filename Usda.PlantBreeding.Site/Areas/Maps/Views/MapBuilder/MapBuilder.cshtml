@@ -19,8 +19,6 @@
     }
 </style>
 
-<script src="~/Scripts/jquery.floatThead.min.js" type="text/javascript">
-</script>
 <script>
     $(document).ready(function () {
         var $table = $('#mapcomptable');
@@ -90,6 +88,7 @@
             $('#rowselector').css('position','static').css('top', '');
 
         }
+        
 
     });
 
@@ -442,7 +441,6 @@
 
 </div>
 
-<div class="row"></div>
 <div class="container-fluid">
 
     <div class="row">
@@ -535,30 +533,32 @@
 
     <br />
 
-    <div class="form-horizontal">
+    
         <div class="row">
             <div class="col-lg-1">
-                <div class="form-group col-xs-2" id="rowselector" style="width:inherit">
-                    <label class="control-label" style="margin-left:30px!important;">Rows</label>
-                    <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:30px!important; width:60%" size="5" title="Rows" onclick="RowSelect()">
+                <div class="container col-lg-1">
+                    <div class="form-group col-xs-2" id="rowselector" style="width:inherit">
+                        <label class="control-label" style="margin-left:18px!important;">Rows</label>
+                        <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:18px!important; width:60%" size="5" title="Rows" onclick="RowSelect()">
 
-                        @foreach (int? row in Model.Rows)
-                        {
-                            if (row == 1)
+                            @foreach (int? row in Model.Rows)
                             {
-                                <option selected="selected">1</option>
+                                if (row == 1)
+                                {
+                                    <option selected="selected">1</option>
+                                }
+                                else
+                                {
+                                    <option>@row.Value</option>
+                                }
                             }
-                            else
-                            {
-                                <option>@row.Value</option>
-                            }
-                        }
-                    </select>
-                    <button class="btn btn-success" onclick="AddRow()" style="margin-left:30px!important; margin-right:30px!important">Add Row</button>
+                        </select>
+                        <button class="btn btn-success" onclick="AddRow()" style="margin-left:18px!important; margin-right:30px!important">Add Row</button>
+                    </div>
                 </div>
-            </div>
+            </div>                
             <div class="col-md-10">
-                <div class="container col-md-12" id="tablecontainer">
+                <div class="container col-md-12" id="tablecontainer" style="margin:25px!important">
                     <table class="table table-responsive text-center" id="mapcomptable">
                         <caption>
                             <button class="btn btn-link pull-right" onclick="ToggleAdmin()">
@@ -638,7 +638,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 </div>
 
 <div class="modal fade" id="yearModal" tabindex="-1" role="dialog" aria-labelledby="yearModal">
