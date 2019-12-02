@@ -1,4 +1,9 @@
-﻿CREATE PROCEDURE [dbo].[GetDistributions]
+﻿-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetDistributions]
 	@Year INT = NULL,
 	@LocationId INT = NULL,
 	@GenotypeId INT = NULL

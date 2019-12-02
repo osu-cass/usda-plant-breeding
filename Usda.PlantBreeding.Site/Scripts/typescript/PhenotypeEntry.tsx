@@ -9,6 +9,11 @@ import * as PhenotypeAddRow from './PhenotypeAddRow'
 import { post } from "./ApiStateModels";
 import * as MapComponentRow from "./MapComponentRow"
 import * as ApiState from "./ApiStateModels"
+import { entryColumns } from "./SortColumn";
+import { seedlingEntryColumns } from "./SortColumn";
+import { summaryColumns } from "./SortColumn";
+import { sortCookiePrefix } from "./SortColumn";
+
 
 namespace PhenotypeEntry {
 
@@ -44,7 +49,6 @@ namespace PhenotypeEntry {
                     kind: "loading"
                 }
             };
-
             this.loadPhenotypeEntry();
         }
 
@@ -68,6 +72,7 @@ namespace PhenotypeEntry {
         }
 
         componentDidMount() {
+            this.setCookieState();
             this.refBodies.addEventListener("scroll", e => {
                 this.refScrollingHeaders.scrollLeft = this.refBodies.scrollLeft;
                 this.refMCBody.style.left = this.refBodies.scrollLeft + "px";
@@ -97,11 +102,13 @@ namespace PhenotypeEntry {
                 newSorts.push(newSort);
             }
 
+            this.setSortCookie(newSorts);
             this.setState({ sorts: newSorts });
         }
 
         clearSort = () => {
             this.setState({ sorts: [] });
+            this.clearSortCookie();
         }
 
         compareMCRs(lhs: Models.MapComponentSummaryVM, rhs: Models.MapComponentSummaryVM): number {
@@ -124,8 +131,8 @@ namespace PhenotypeEntry {
                 if (this.props.paginate) {
                     mcrs = mcrs.filter(mcr => mcr.Row === this.state.selectedRow);
                 }
-
-                rows = this.state.sorts && this.state.sorts.length !== 0
+                const sorts = this.state.sorts || [];
+                rows = sorts && sorts.length !== 0
                     ? mcrs.stableSort((lhs, rhs) => this.compareMCRs(lhs, rhs))
                     : mcrs;
             }
@@ -144,23 +151,23 @@ namespace PhenotypeEntry {
         }
 
         renderHeader(): JSX.Element {
-                const questionDict = this.props.phenotypeEntryVM.QuestionToQuestion;
-                const headers = this.props.phenotypeEntryVM.QuestionOrder.map(qID => this.renderQuestionHeader(questionDict[qID]));
+            const questionDict = this.props.phenotypeEntryVM.QuestionToQuestion;
+            const headers = this.props.phenotypeEntryVM.QuestionOrder.map(qID => this.renderQuestionHeader(questionDict[qID]));
 
-                return <tr className="primary">
-                    {headers}
+            return <tr className="primary">
+                {headers}
 
-                    <td className="fates">
-                        <div>Fates</div>
-                    </td>
-                    <td className="comments">
-                        <div>MC Comments</div>
-                    </td>
-                    <td className="fates previous-fates">
-                        <div>Prev.Fates</div>
-                    </td>
-                    <td className="spacer-cell"></td>
-                </tr>;
+                <td className="fates">
+                    <div>Fates</div>
+                </td>
+                <td className="comments">
+                    <div>MC Comments</div>
+                </td>
+                <td className="fates previous-fates">
+                    <div>Prev.Fates</div>
+                </td>
+                <td className="spacer-cell"></td>
+            </tr>;
         }
 
         renderPageList() {
@@ -380,9 +387,170 @@ namespace PhenotypeEntry {
                 newModel.MapComponentRows.unshift(row);
                 this.setState({
                     phenotypeRows: { kind: "success", content: newModel },
-                    sorts: [] 
+                    sorts: []
                 });
             }
+        }
+
+        //Set the sorting cookie for the current page. Cookies are set to last for 10 years. Cookies follow the format [pagePrefix]SortCookie.
+        setSortCookie(newSort: SortColumn.HeaderSort[]) {
+            var data = JSON.stringify(newSort);
+            var date = new Date();
+            var combstr = "";
+            const millisecondYear = 365 * 24 * 60 * 60 * 1000;
+            date.setTime(date.getTime() + (10 * millisecondYear));
+            //Check for the created-date column in the phenotype entry table, which is only present on seedling maps
+            if (document.getElementById("phenotype-entry").getElementsByClassName("created-date").length !== 0) {
+                combstr = sortCookiePrefix.Seedling + "SortCookie=" + data + "; expires=" + date.toUTCString();
+            }
+            //Check for the map-name column, which is only present on the selection summary
+            else if (document.getElementById("phenotype-entry").getElementsByClassName("map-name").length !== 0) {
+                combstr = sortCookiePrefix.SelectionSummary + "SortCookie=" + data + "; expires=" + date.toUTCString();
+            }
+            //Default case, which is applied on non-seedling map phenotype entries
+            else {
+                combstr = sortCookiePrefix.PhenotypeEntry + "SortCookie=" + data + "; expires=" + date.toUTCString();
+            }
+            document.cookie = combstr;
+        }
+
+        // Returns the HeaderSort array stored in a cookie for the current page, or null if the cookie does not exist. 
+        getSortCookie(): SortColumn.HeaderSort[] {
+            var data = document.cookie;
+            var split = data.split(';');
+            for (var i = 0; i < split.length; i++) {
+                var s = split[i];
+                //Check for the created-date column in the phenotype entry table, which is only present on seedling maps
+                if (document.getElementById("phenotype-entry").getElementsByClassName("created-date").length !== 0) {
+                    if (s.includes(sortCookiePrefix.Seedling + "SortCookie")) {
+                        //The cookie has the format phenotypeSeedlingEntrySortCookie=[JSONdata]
+                        var subsplit = s.split('=');
+                        let result: SortColumn.HeaderSort[] = [];
+                        var obj = JSON.parse(subsplit[1]);
+
+                        //Parse object to specific SortColumns
+                        for (var i = 0; i < obj.length; i++) {
+                            let col: SortColumn.SortColumn = obj[i].col;
+                            //We cannot store the necessary classes in a cookie (as it is a string), so instead convert based on stored header value
+                            switch (obj[i].col.header) {
+                                case "Accession":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "Accession");
+                                    break;
+                                case "Row":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "Row");
+                                    break;
+                                case "Plot":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "Plot");
+                                    break;
+                                case "Selected":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "Selected");
+                                    break;
+                                case "Picking":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "Picking");
+                                    break;
+                                case "P1":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "P1");
+                                    break;
+                                case "P2":
+                                    col = seedlingEntryColumns.find(({ header }) => header === "P2");
+                                    break;
+                            }
+                            let item: SortColumn.HeaderSort = { col: col, direction: obj[i].direction };
+                            result.push(item);
+                        }
+                        return result;
+                    }
+                }
+                //Check for the map-name column, which is only present on the selection summary
+                else if (document.getElementById("phenotype-entry").getElementsByClassName("map-name").length !== 0) {
+                    if (s.includes(sortCookiePrefix.SelectionSummary + "SortCookie")) {
+                        //The cookie has the format selectionSummarySortCookie=[JSONdata]
+                        var subsplit = s.split('=');
+                        let result: SortColumn.HeaderSort[] = [];
+                        var obj = JSON.parse(subsplit[1]);
+
+                        //Parse object to specific SortColumns
+                        for (var i = 0; i < obj.length; i++) {
+                            let col: SortColumn.SortColumn = obj[i].col;
+                            //We cannot store the necessary classes in a cookie (as it is a string), so instead convert based on stored header value
+                            switch (obj[i].col.header) {
+                                case "Map Name":
+                                    col = summaryColumns.find(({ header }) => header === "Map Name");
+                                    break;
+                                case "Picking":
+                                    col = summaryColumns.find(({ header }) => header === "Picking");
+                                    break;
+                                case "Rep":
+                                    col = summaryColumns.find(({ header }) => header === "Rep");
+                                    break;
+                                case "Eval. Year":
+                                    col = summaryColumns.find(({ header }) => header === "Eval. Year");
+                                    break;
+                            }
+                            let item: SortColumn.HeaderSort = { col: col, direction: obj[i].direction };
+                            result.push(item);
+                        }
+                        return result;
+                    }
+                }
+                //Default case, which is applied on non-seedling map phenotype entries
+                else {
+                    if (s.includes(sortCookiePrefix.PhenotypeEntry + "SortCookie")) {
+
+                        //The cookie has the format phenotypeEntrySortCookie=[JSONdata]
+                        var subsplit = s.split('=');
+                        let result: SortColumn.HeaderSort[] = [];
+                        var obj = JSON.parse(subsplit[1]);
+
+                        //Parse object to specific SortColumns
+                        for (var i = 0; i < obj.length; i++) {
+                            let col: SortColumn.SortColumn = obj[i].col;
+                            //We cannot store the necessary classes in a cookie (as it is a string), so instead convert based on stored header value
+                            switch (obj[i].col.header) {
+                                case "Accession":
+                                    col = entryColumns.find(({ header }) => header === "Accession");
+                                    break;
+                                case "Row":
+                                    col = entryColumns.find(({ header }) => header === "Row");
+                                    break;
+                                case "Plot":
+                                    col = entryColumns.find(({ header }) => header === "Plot");
+                                    break;
+                                case "Rep":
+                                    col = entryColumns.find(({ header }) => header === "Rep");
+                                    break;
+                                case "Picking":
+                                    col = entryColumns.find(({ header }) => header === "Picking");
+                                    break;
+                                case "P1":
+                                    col = entryColumns.find(({ header }) => header === "P1");
+                                    break;
+                                case "P2":
+                                    col = entryColumns.find(({ header }) => header === "P2");
+                                    break;
+                            }
+                            let item: SortColumn.HeaderSort = { col: col, direction: obj[i].direction };
+                            result.push(item);
+                        }
+                        return result;
+                    }
+                }
+            }
+            return null;
+        }
+
+        //Set the sort order based on the sort cookie for the page
+        setCookieState() {
+            var cookieSorts = this.getSortCookie();
+            if (cookieSorts != null) {
+                this.setState({ sorts: cookieSorts });
+            }
+        }
+
+        //Replace the sort cookie for the page with an empty array
+        clearSortCookie() {
+            var data: SortColumn.HeaderSort[] = [];
+            this.setSortCookie(data);
         }
     }
 }
@@ -422,7 +590,7 @@ export function initializeEntryPage(vm: Models.PhenotypeEntryVM, rootDiv: HTMLDi
         containerProps.allowAddRow = true;
         containerProps.columns = SortColumn.seedlingEntryColumns;
 
-    } else if (vm.Type== "observation") {
+    } else if (vm.Type == "observation") {
         containerProps.paginate = true;
         containerProps.allowAddRow = false;
         containerProps.columns = SortColumn.entryColumns;

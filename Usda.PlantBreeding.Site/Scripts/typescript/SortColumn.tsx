@@ -34,13 +34,18 @@ interface GenotypeComparable {
     FamilyName?: string,
     Selection?: number
 }
-   
+
 function compareGenotypeName(a: GenotypeComparable, b: GenotypeComparable): number {
     const familyCompareVal = (a.FamilyName || "").localeCompare(b.FamilyName || "");
     const selectionCompare = (a.Selection || 0) - (b.Selection || 0);
     return familyCompareVal - selectionCompare;
 }
 
+export const sortCookiePrefix = {
+    Seedling: "phenotypeSeedlingEntry",
+    SelectionSummary: "selectionSummary",
+    PhenotypeEntry: "phenotypeEntry",
+}
 export const entryColumns: SortColumn[] = [
     {
         header: "Accession",
@@ -103,7 +108,7 @@ export const seedlingEntryColumns: SortColumn[] = [
     {
         header: "Plot",
         className: "plot-info",
-        accessor: mcs => mcs.PlantNum ,
+        accessor: mcs => mcs.PlantNum,
         compare: (a, b) => a.PlantNum - b.PlantNum,
         cellType: "plant-num"
     },

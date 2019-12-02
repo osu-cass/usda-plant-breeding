@@ -20,6 +20,20 @@
 
 
 <style>
+    #accessionTable .highlighted td {
+        border-bottom: 3px solid #0099ff;
+        border-top: 3px solid #0099ff;
+        margin: -3px -3px -3px -3px;
+    }
+
+        #accessionTable .highlighted td:last-child {
+            border-right: 3px solid #0099ff;
+        }
+
+        #accessionTable .highlighted td:first-child {
+            border-left: 3px solid #0099ff;
+        }
+
     .body-content {
         width: 100%;
     }
@@ -45,43 +59,6 @@
     .table-font-small input, .table-font-small textarea, .table-font-small button, .table-font-small .form-control {
         font-size: 11px;
     }
-    /*table tbody, table thead {
-        display: block;
-    }
-
-    table tbody {
-        overflow: auto;
-        height: 60vh;
-        -webkit-overflow-scrolling: touch;
-    }*/
-
-
-    /*th, td {
-        width: auto;
-    }
-
-        td, td div {
-            text-overflow: ellipsis;
-        }*/
-
-
-    /*table .table-name, table .table-actions {
-        width: 250px;
-    }
-
-
-    table .table-number {
-        width: auto;
-    }
-
-    table .table-crosstype {
-        width: auto;
-    }
-
-    table .table-checkbox {
-        width: auto;
-    }*/
-
 
     .table-control {
         padding: 0px;
@@ -163,14 +140,15 @@
             var searchtr = document.getElementById("genotype-"+genotypeId);
 
             if (searchtr) {
-                $(searchtr).css("border", "solid").css("border-color", '#0099ff');
+                //Highlight found row
+                searchtr.classList.add("highlighted");
 
                 //scroll to self or pop
-                var basetr = document.getElementById("genotype-"+baseId);
+                var basetr = document.getElementById("genotype-" + baseId);
                 var scrollToPos = (basetr) ? $(basetr).offset().top : $(searchtr).offset().top;
-                var tableTop = $('#accessionsTable').offset().top;
+                var tableTop = $('#accessionTable').offset().top;
+                $('.dataTables_scrollBody').scrollTop(scrollToPos - tableTop - 40);
 
-                $('#accessionsTable tbody').scrollTop(scrollToPos - tableTop - 40);
             }
         }
     });

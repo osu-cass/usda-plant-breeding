@@ -38,42 +38,40 @@
 
     @if (!(string.IsNullOrEmpty(@ViewBag.Virus1)))
     {
-        <td class="col-md-1">
-            <div style="width:6em;">
-                @Html.EditorFor(model => model.Virus1,
-            new { htmlAttributes = new { @class = "form-control", onchange = @rowChangeEvent, @id = prefix + "Virus1" } })
+        <td class="col-md-1" style="position:relative">
+            <div style="width:6em;" id="@(prefix+"CheckboxVirus1")">
+                <input type="checkbox" class="virusCheckbox" onclick="OnRowChangeVirus(@Model.Id, @Model.PlantNum.Value,1)">
+                <span style="position:absolute; bottom: 40%; left:40%">@Html.DisplayFor(model => model.Virus1)</span>
             </div>
         </td>
     }
 
     @if (!(string.IsNullOrEmpty(@ViewBag.Virus2)))
     {
-        <td class="col-md-1">
-            <div style="width:6em;">
-                @Html.EditorFor(model => model.Virus2,
-            new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Virus2" } })
+        <td class="col-md-1" style="position:relative">
+            <div style="width:6em;" id="@(prefix+"CheckboxVirus2")">
+                <input type="checkbox" class="virusCheckbox" onclick="OnRowChangeVirus(@Model.Id, @Model.PlantNum.Value,2)">
+                <span style="position:absolute; bottom: 40%; left:40%">@Html.DisplayFor(model => model.Virus2)</span>
             </div>
         </td>
     }
 
     @if (!(string.IsNullOrEmpty(@ViewBag.Virus3)))
     {
-        <td class="col-md-1">
-            <div style="width:6em;">
-
-                @Html.EditorFor(model => model.Virus3,
-        new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Virus3" } })
+        <td class="col-md-1" style="position:relative">
+            <div style="width:6em;" id="@(prefix+"CheckboxVirus3")">
+                <input type="checkbox" class="virusCheckbox" onclick="OnRowChangeVirus(@Model.Id, @Model.PlantNum.Value,3)">
+                <span style="position:absolute; bottom: 40%; left:40%">@Html.DisplayFor(model => model.Virus3)</span>
             </div>
         </td>
     }
 
     @if (!(string.IsNullOrEmpty(@ViewBag.Virus4)))
     {
-        <td class="col-md-1">
-            <div style="width:6em;">
-
-                @Html.EditorFor(model => model.Virus4,
-        new { htmlAttributes = new { @class = "form-control col-md-1", onchange = @rowChangeEvent, @id = prefix + "Virus4" } })
+        <td class="col-md-1" style="position:relative">
+            <div style="width:6em;" id="@(prefix+"CheckboxVirus4")">
+                <input type="checkbox" class="virusCheckbox" onclick="OnRowChangeVirus(@Model.Id, @Model.PlantNum.Value,4)">
+                <span style="position:absolute; bottom: 40%; left:40%">@Html.DisplayFor(model => model.Virus4)</span>
             </div>
         </td>
     }

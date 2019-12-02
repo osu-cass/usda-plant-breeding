@@ -17,16 +17,19 @@
     .body-content {
         width: 100%;
     }
+
+    .DisabledCursor {
+        cursor: not-allowed;
+    }
 </style>
 
 <script>
     $(document).ready(function () {
         var $table = $('#mapcomptable');
-        $table.floatThead(
+        /*$table.floatThead(
             {
                 top: 40
-            });
-
+            });*/
 
         GetNextPlantNumberFromLastRow();
 
@@ -70,16 +73,17 @@
     tablewidth = 0;
     rowselector = 0;
     navbar = 0;
-    $( document ).ready(function() {
+    $(document).ready(function () {
         navbar = $('.navbar').height();
         tableheader = $('#tableheader').offset();
         tablewidth = $('#tablecontainer').width();
         tablecontainer = $('#tablecontainer').offset();
 
         rowselector = $('#rowselector').offset();
+        SetCheckboxes();
     });
 
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         if($(window).scrollTop() >  (tableheader.top - navbar)  ){
             $('#rowselector').css('position','fixed').css('top','54px');
 
@@ -88,7 +92,7 @@
             $('#rowselector').css('position','static').css('top', '');
 
         }
-        
+
 
     });
 
@@ -101,7 +105,7 @@
             var PlantNum = getRowElement(rowId, "PlantNum");
             nextNumber = GetNextPlantNumber(PlantsInRep, PlantNum);
         }
-       
+
         document.getElementById("PlantNumNew").value = nextNumber;
     }
 
@@ -132,9 +136,9 @@
         var SYears = document.getElementById("SelectedYear").value;
 
         var genotypeName =  document.getElementsByName("GenotypeNameNew")[0].value
-        var genotype =  document.getElementsByName("GenotypeNewId")[0].value; 
+        var genotype =  document.getElementsByName("GenotypeNewId")[0].value;
         var plantNum = document.getElementById("PlantNumNew").value;
-        var pRep =  document.getElementById("PlantsInRepNew").value; 
+        var pRep =  document.getElementById("PlantsInRepNew").value;
         var rep = document.getElementById("RepNew").value;
 
 
@@ -256,6 +260,7 @@
         $.get(URL, { "mapId": @Model.Map.Id, "row": selectedValue, "yearId": SYears}, function (data) {
             $("#ColumnPartial").html(data);
             GetNextPlantNumberFromLastRow();
+            SetCheckboxes();
 
         });
 
@@ -280,12 +285,12 @@
         var selectedValue = selects.options[0].value;
         selects.selectedIndex = 0;
         var SYears = document.getElementById("SelectedYear").value;
-        $.get(URL, { "mapId": @Model.Map.Id, "row": selectedValue, "yearId": SYears}, function (data) {
+        $.get(URL, { "mapId": @Model.Map.Id, "row": selectedValue, "yearId": SYears }, function (data) {
             $("#ColumnPartial").html(data);
             GetNextPlantNumberFromLastRow();
+            SetCheckboxes();
 
         });
-
         $("#mapcomptable").trigger('reflow');
 
     }
@@ -350,10 +355,10 @@
             YearsId : SYears,
             Row: getRowElement(i, "Row"),
             MapId: getRowElement(i, "MapId"),
-            Virus1: getRowElement(i, "Virus1"),
-            Virus2: getRowElement(i, "Virus2"),
-            Virus3: getRowElement(i, "Virus3"),
-            Virus4: getRowElement(i, "Virus4")
+            Virus1: document.getElementById(i + ".CheckboxVirus" + 1).childNodes[3].textContent,
+            Virus2: document.getElementById(i + ".CheckboxVirus" + 2).childNodes[3].textContent,
+            Virus3: document.getElementById(i + ".CheckboxVirus" + 3).childNodes[3].textContent,
+            Virus4: document.getElementById(i + ".CheckboxVirus" + 4).childNodes[3].textContent
         };
         var url = '@Url.Action("UpdateMapComponent", "MapBuilder")';
         $.ajax({
@@ -382,7 +387,7 @@
             id: id,
             GenotypeId: getRowElementByName(i, "GenotypeId"),
             GenotypeName: getRowElementByName(i, "GenotypeName")
-           
+
         };
         var url = '@Url.Action("UpdateMapComponentGenotype", "MapBuilder")';
         $.ajax({
@@ -405,6 +410,163 @@
         $("#mapcomptable").trigger('reflow');
     }
 
+    //Set the checkbox and text div when a virus checkbox is clicked. Update the map.
+    //Arguments: id of the MapComponentViewModel, PlantNum of the MapComponenetViewModel, virus number
+    function OnRowChangeVirus(id, i, virus) {
+        //Get the checkbox that was clicked
+        var checkStatus = document.getElementById(i + ".CheckboxVirus" + virus).childNodes[1].checked;
+
+        var SYears = document.getElementById("SelectedYear").value;
+        //Get the selected year-SYears is NOT the year, it's the id of the Year for the map.
+        var select = document.getElementById("SelectedYear");
+        var Year = select.options[select.selectedIndex].text;
+
+        //Get current virus year values
+        var Virus1 = '';
+        var Virus2 = '';
+        var Virus3 = '';
+        var Virus4 = '';
+        //Not all viruses are present on all genera, so check if they exist first
+        if (document.getElementById(i + ".CheckboxVirus" + 1) != null) {
+            Virus1 = document.getElementById(i + ".CheckboxVirus" + 1).childNodes[3].textContent;
+        }
+        if (document.getElementById(i + ".CheckboxVirus" + 2) != null) {
+            Virus2 = document.getElementById(i + ".CheckboxVirus" + 2).childNodes[3].textContent;
+        }
+        if (document.getElementById(i + ".CheckboxVirus" + 3) != null) {
+            Virus3 = document.getElementById(i + ".CheckboxVirus" + 3).childNodes[3].textContent;
+        }
+        if (document.getElementById(i + ".CheckboxVirus" + 4) != null) {
+            Virus4 = document.getElementById(i + ".CheckboxVirus" + 4).childNodes[3].textContent;
+        }
+
+        //Set the virus year and un-hide the year text if necessary (which is when checking a virus on a pervious year when it had been checked in a later year)
+        switch (virus) {
+            case 1:
+                if (checkStatus === true) {
+                    Virus1 = Year;
+                    var textdiv = document.getElementById(i + ".CheckboxVirus" + 1).childNodes[3];
+                    textdiv.textContent = Year;
+                    textdiv.hidden = false;
+                }
+                else {
+                    Virus1 = '';
+                    document.getElementById(i + ".CheckboxVirus" + 1).childNodes[3].textContent = '';
+                }
+                break;
+            case 2:
+                if (checkStatus === true) {
+                    Virus2 = Year;
+                    var textdiv = document.getElementById(i + ".CheckboxVirus" + 2).childNodes[3];
+                    textdiv.textContent = Year;
+                    textdiv.hidden = false;
+                }
+                else {
+                    Virus2 = '';
+                    document.getElementById(i + ".CheckboxVirus" + 2).childNodes[3].textContent = '';
+                }
+                break;
+            case 3:
+                if (checkStatus === true) {
+                    Virus3 = Year;
+                    var textdiv = document.getElementById(i + ".CheckboxVirus" + 3).childNodes[3];
+                    textdiv.textContent = Year;
+                    textdiv.hidden = false;
+                }
+                else {
+                    Virus3 = '';
+                    document.getElementById(i + ".CheckboxVirus" + 3).childNodes[3].textContent = '';
+                }
+                break;
+            case 4:
+                if (checkStatus === true) {
+                    Virus4 = Year;
+                    var textdiv = document.getElementById(i + ".CheckboxVirus" + 4).childNodes[3];
+                    textdiv.textContent = Year;
+                    textdiv.hidden = false;
+                }
+                else {
+                    Virus4 = '';
+                    document.getElementById(i + ".CheckboxVirus" + 4).childNodes[3].textContent = '';
+                }
+                break;
+        }
+
+        //Update the map
+        var data = {
+            id: id,
+            GenotypeId: getRowElementByName(i, "GenotypeId"),
+            GenotypeName: getRowElementByName(i, "GenotypeName"),
+            Rep: getRowElement( i, "Rep"),
+            PlantsInRep: getRowElement(i, "PlantsInRep"),
+            PlantNum: getRowElement(i, "PlantNum"),
+            YearsId : SYears,
+            Row: getRowElement(i, "Row"),
+            MapId: getRowElement(i, "MapId"),
+            Virus1: Virus1,
+            Virus2: Virus2,
+            Virus3: Virus3,
+            Virus4: Virus4
+        };
+        var url = '@Url.Action("UpdateMapComponent", "MapBuilder")';
+
+        //Disable changing year until the request has finished-changing year too quickly will result in mis-displayed viruses
+        var select = document.getElementById("SelectedYear");
+        select.disabled = true;
+        select.title = "Updating Viruses, please wait to change year!";
+        select.classList.add("DisabledCursor");
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: { mapcomp : data} ,
+            success: function (result) {
+                if(result.Error){
+                    NotyMessage(result.Message);
+                } else {
+                    select.disabled = false;
+                    select.title = "";
+                    select.classList.remove("DisabledCursor");
+                }
+            },
+            failure: function (result) {
+                //add notify error
+                NotyMessage("Bad Network");
+            }
+        })
+
+        $("#mapcomptable").trigger('reflow');
+    }
+
+    //Check or disable checkboxes, and hide or show virus text div based on the currently selected year
+    function SetCheckboxes() {
+        //Find all checkboxes on the page
+        var checks = document.getElementsByClassName("virusCheckbox");
+        //Get selected year
+        var select = document.getElementById("SelectedYear");
+        var Year = select.options[select.selectedIndex].text;
+
+        for (i = 0; i < checks.length; i++) {
+
+            var textdiv = checks[i].parentElement.childNodes[3];
+
+            if (textdiv.textContent != '') {
+                //If before the virus was checked, hide the text and don't check the box
+                if (parseInt(Year) < parseInt(textdiv.textContent)) {
+                    textdiv.hidden = true;
+                }
+                //If the year is past when the virus was checked, check the box and disable it
+                else if (parseInt(Year) > parseInt(textdiv.textContent)) {
+                    checks[i].checked = true;
+                    checks[i].disabled = true;
+                }
+                //If on the year the virus was checked, only check it
+                else {
+                    checks[i].checked = true;
+                }
+            }
+        }
+    }
 
 
     function ToggleAdmin(){
@@ -533,112 +695,112 @@
 
     <br />
 
-    
-        <div class="row">
-            <div class="col-lg-1">
-                <div class="container col-lg-1">
-                    <div class="form-group col-xs-2" id="rowselector" style="width:inherit">
-                        <label class="control-label" style="margin-left:18px!important;">Rows</label>
-                        <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:18px!important; width:60%" size="5" title="Rows" onchange="RowSelect()" onclick="RowSelect()">
 
-                            @foreach (int? row in Model.Rows)
+    <div class="row">
+        <div>
+            <div class="container col-lg-1">
+                <div class="form-group col-xs-2" id="rowselector" style="width:inherit">
+                    <label class="control-label" style="margin-left:18px!important;">Rows</label>
+                    <select id="RowSelect" class="form-control text-center" style="min-width:70px; margin:18px!important; width:60%" size="5" title="Rows" onchange="RowSelect()" onclick="RowSelect()">
+
+                        @foreach (int? row in Model.Rows)
+                        {
+                            if (row == 1)
                             {
-                                if (row == 1)
-                                {
-                                    <option selected="selected">1</option>
-                                }
-                                else
-                                {
-                                    <option>@row.Value</option>
-                                }
+                                <option selected="selected">1</option>
                             }
-                        </select>
-                        <button class="btn btn-success" onclick="AddRow()" style="margin-left:18px!important; margin-right:30px!important">Add Row</button>
-                    </div>
-                </div>
-            </div>                
-            <div class="col-md-10">
-                <div class="container col-md-12" id="tablecontainer" style="margin:25px!important">
-                    <table class="table table-responsive text-center" id="mapcomptable">
-                        <caption>
-                            <button class="btn btn-link pull-right" onclick="ToggleAdmin()">
-                                Modify Plots
-                            </button>
-                        </caption>
-                        <thead id="tableheader">
-                            <tr class="primary">
-                                <th class="col-md-1">
-                                    @Html.LabelFor(m => mapcomp.Row, htmlAttributes: new { @class = "control-label col-md-1" })
-                                </th>
-                                <th class="col-md-1">
-                                    @Html.LabelFor(model => mapcomp.PlantNum, htmlAttributes: new { @class = "control-label col-md-1" })
-                                </th>
-
-                                <th class="col-md-2">
-                                    @Html.LabelFor(model => mapcomp.GenotypeId, htmlAttributes: new { @class = "control-label col-md-1" })
-                                </th>
-
-                                <th class="col-md-1">
-                                    @Html.LabelFor(model => mapcomp.Rep, htmlAttributes: new { @class = "control-label col-md-1" })
-                                </th>
-
-                                <th class="col-md-1">
-                                    @Html.LabelFor(model => mapcomp.PlantsInRep, htmlAttributes: new { @class = "control-label col-md-1" })
-                                </th>
-
-                                @if (!(@Model.Map.Genus.VirusLabel1.IsEmpty()))
-                                {
-                                    <th class="col-md-1">
-                                            @Html.DisplayFor(m => Model.Map.Genus.VirusLabel1)
-                                    </th>
-                                }
-
-                                @if (!(@Model.Map.Genus.VirusLabel2.IsEmpty()))
-                                {
-                                    <th class="col-md-1">
-                                        @Html.DisplayFor(m => Model.Map.Genus.VirusLabel2)
-                                    </th>
-                                }
-
-                                @if (!(@Model.Map.Genus.VirusLabel3.IsEmpty()))
-                                {
-                                    <th class="col-md-1">
-                                        @Html.DisplayFor(m => Model.Map.Genus.VirusLabel3)
-                                    </th>
-                                }
-
-                                @if (!(@Model.Map.Genus.VirusLabel4.IsEmpty()))
-                                {
-                                    <th class="col-md-1">
-                                        @Html.DisplayFor(m => Model.Map.Genus.VirusLabel4)
-                                    </th>
-                                }
-
-                                @*<th class="col-md-1">
-                                        @Html.DisplayFor(model => mapcomp.isRemoved)
-                                    </th>*@
-
-                                <th class="col-md-2">
-                                    @Html.LabelFor(model => mapcomp.PickingNumber, htmlAttributes: new { @class = "control-label col-md-1" })
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="ColumnPartial">
-                            @if (Model.MapComponentsRow.Count > 0)
+                            else
                             {
-                                Html.RenderPartial("_MapComponents", Model.MapComponentsRow);
+                                <option>@row.Value</option>
                             }
-                        </tbody>
-                       <tbody>
-                           <div id="NewComponent">
-                               @Html.Partial("_MapComponent", Model.NewMapComponent)
-                           </div>
-                       </tbody>
-                    </table>
+                        }
+                    </select>
+                    <button class="btn btn-success" onclick="AddRow()" style="margin-left:18px!important; margin-right:30px!important">Add Row</button>
                 </div>
             </div>
         </div>
-    
+        <div class="col-md-10">
+            <div class="container col-md-12" id="tablecontainer" style="margin:25px!important">
+                <table class="table table-responsive text-center" id="mapcomptable">
+                    <caption>
+                        <button class="btn btn-link pull-right" onclick="ToggleAdmin()">
+                            Modify Plots
+                        </button>
+                    </caption>
+                    <thead id="tableheader">
+                        <tr class="primary">
+                            <th class="col-md-1">
+                                @Html.LabelFor(m => mapcomp.Row, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </th>
+                            <th class="col-md-1">
+                                @Html.LabelFor(model => mapcomp.PlantNum, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </th>
+
+                            <th class="col-md-2">
+                                @Html.LabelFor(model => mapcomp.GenotypeId, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </th>
+
+                            <th class="col-md-1">
+                                @Html.LabelFor(model => mapcomp.Rep, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </th>
+
+                            <th class="col-md-1">
+                                @Html.LabelFor(model => mapcomp.PlantsInRep, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </th>
+
+                            @if (!(@Model.Map.Genus.VirusLabel1.IsEmpty()))
+                            {
+                                <th class="col-md-1">
+                                    @Html.DisplayFor(m => Model.Map.Genus.VirusLabel1)
+                                </th>
+                            }
+
+                            @if (!(@Model.Map.Genus.VirusLabel2.IsEmpty()))
+                            {
+                                <th class="col-md-1">
+                                    @Html.DisplayFor(m => Model.Map.Genus.VirusLabel2)
+                                </th>
+                            }
+
+                            @if (!(@Model.Map.Genus.VirusLabel3.IsEmpty()))
+                            {
+                                <th class="col-md-1">
+                                    @Html.DisplayFor(m => Model.Map.Genus.VirusLabel3)
+                                </th>
+                            }
+
+                            @if (!(@Model.Map.Genus.VirusLabel4.IsEmpty()))
+                            {
+                                <th class="col-md-1">
+                                    @Html.DisplayFor(m => Model.Map.Genus.VirusLabel4)
+                                </th>
+                            }
+
+                            @*<th class="col-md-1">
+                                    @Html.DisplayFor(model => mapcomp.isRemoved)
+                                </th>*@
+
+                            <th class="col-md-2">
+                                @Html.LabelFor(model => mapcomp.PickingNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="ColumnPartial">
+                        @if (Model.MapComponentsRow.Count > 0)
+                        {
+                            Html.RenderPartial("_MapComponents", Model.MapComponentsRow);
+                        }
+                    </tbody>
+                    <tbody>
+                        <div id="NewComponent">
+                            @Html.Partial("_MapComponent", Model.NewMapComponent)
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="modal fade" id="yearModal" tabindex="-1" role="dialog" aria-labelledby="yearModal">

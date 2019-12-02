@@ -1,4 +1,9 @@
-﻿CREATE PROCEDURE [dbo].[GetDistributionAccessions]
+﻿-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[GetDistributionAccessions]
 	@OrderId int
 AS
 BEGIN
