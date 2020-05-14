@@ -312,7 +312,6 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <Content Include="Scripts\autocomplete\auto-complete.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="webpack.config.js" />
     <Content Include="Areas\Reporting\Views\Default\AccessionParents.cshtml" />
     <Content Include="Areas\Reporting\Views\Default\Distributions.cshtml" />

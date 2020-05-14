@@ -17,13 +17,13 @@ function findTermAfterBlur(textId) {
     var genusId = $(textId).attr('data-genus');
     var term = $(textId).val().trim();
     blurEvent++;
-    if (datalist.children().size() > 0) {
+    if (datalist.children().length > 0) {
         matchTerm(term, datalist, hiddenId, textId, false);
         hiddenId = getHiddenId(textId);
     }
 
     //if the id is not set and there is something in the search box.
-    if ((hiddenId.val().length == 0 || hiddenId.val() == 0 || datalist.children().size() == 0) && term.length > 0) {
+    if ((hiddenId.val().length == 0 || hiddenId.val() == 0 || datalist.children().length == 0) && term.length > 0) {
         $.when(getAjax(term, datalist, textId, url, genusId, hiddenId)).done(function (data) {
                      datalist = getDataList(textId);
                      hiddenId = getHiddenId(textId);
@@ -89,9 +89,9 @@ function findTerm(textId, event) {
         var timer = 400;
         var deleteTimer = 200;
         //if the datalist is empty, get some items
-        if (datalist.children().size() == 0) {
+    if (datalist.children().length == 0) {
             $.when(getAjax(term, datalist, textId, url, genusId, hiddenId)).done(function (data) {
-                        if (getDataList(textId).children().size() == 0) {
+                if (getDataList(textId).children().length == 0) {
                             $(hiddenId).val('');
                         }
                         HighlightFocus(term, textId, false);
