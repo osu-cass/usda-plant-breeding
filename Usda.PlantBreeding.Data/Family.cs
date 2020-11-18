@@ -39,12 +39,12 @@ namespace Usda.PlantBreeding.Data.Models
         public Nullable<int> TransplantedNum { get; set; }
     
         public virtual Genus Genus { get; set; }
-        public virtual Origin Origin { get; set; }
         public virtual CrossType CrossType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Genotype> Genotypes { get; set; }
         public virtual Genotype FemaleGenotype { get; set; }
         public virtual Genotype MaleGenotype { get; set; }
         public virtual Genotype BaseGenotype { get; set; }
+        public virtual Origin Origin { get; set; }
     }
 }

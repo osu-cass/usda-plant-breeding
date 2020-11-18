@@ -23,6 +23,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Value)
+                            </th>
 
                             <th>
                                 Actions
@@ -31,15 +34,18 @@
                     </thead>
                     @foreach (var item in Model.Where(i => i.Retired == false))
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink(item.Retired ? "Unretire" : "Retire", "Retire", new { id = item.Id })
-                            </td>
-                        </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink(item.Retired ? "Unretire" : "Retire", "Retire", new { id = item.Id })
+                    </td>
+                </tr>
                     }
 
                 </table>
@@ -53,21 +59,27 @@
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.Value)
+                            </th>
+                            <th>
                                 Actions
                             </th>
                         </tr>
                     </thead>
                     @foreach (var item in Model.Where(i => i.Retired == true))
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink(item.Retired ? "Unretire" : "Retire", "Retire", new { id = item.Id })
-                            </td>
-                        </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink(item.Retired ? "Unretire" : "Retire", "Retire", new { id = item.Id })
+                    </td>
+                </tr>
                     }
 
                 </table>

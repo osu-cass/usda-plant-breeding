@@ -14,9 +14,22 @@ namespace Usda.PlantBreeding.Data.Models
     
     public partial class Origin
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Origin()
+        {
+            this.CrossPlans = new HashSet<CrossPlan>();
+            this.Families = new HashSet<Family>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Retired { get; set; }
         public bool IsDefault { get; set; }
+        public string Value { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CrossPlan> CrossPlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Family> Families { get; set; }
     }
 }

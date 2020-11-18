@@ -98,7 +98,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Origin origin)
+        public ActionResult Edit([Bind(Include = "Id,Name,Value")] Origin origin)
         {
             if (ModelState.IsValid)
             {

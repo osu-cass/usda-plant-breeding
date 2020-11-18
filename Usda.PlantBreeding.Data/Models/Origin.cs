@@ -18,7 +18,12 @@ namespace Usda.PlantBreeding.Data.Models
 
     public class OriginMetaData
     {
+
         [Required]
+        [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Value")]
+        public string Value { get; set; }
     }
 }

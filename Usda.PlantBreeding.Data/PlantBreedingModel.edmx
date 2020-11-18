@@ -4,1108 +4,1083 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Usda.PlantBreeding.Data.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="UsdaPlantBreedingDataModelsStoreContainer">
-    <EntitySet Name="Families" EntityType="Usda.PlantBreeding.Data.Models.Store.Families" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Genotypes" EntityType="Usda.PlantBreeding.Data.Models.Store.Genotypes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CrossTypes" EntityType="Usda.PlantBreeding.Data.Models.Store.CrossTypes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Genus" EntityType="Usda.PlantBreeding.Data.Models.Store.Genus" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Origins" EntityType="Usda.PlantBreeding.Data.Models.Store.Origins" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Ploidies" EntityType="Usda.PlantBreeding.Data.Models.Store.Ploidies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Questions" EntityType="Usda.PlantBreeding.Data.Models.Store.Questions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Answers" EntityType="Usda.PlantBreeding.Data.Models.Store.Answers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MapComponents" EntityType="Usda.PlantBreeding.Data.Models.Store.MapComponents" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Candidates" EntityType="Usda.PlantBreeding.Data.Models.Store.Candidates" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Maps" EntityType="Usda.PlantBreeding.Data.Models.Store.Maps" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Repetitions" EntityType="Usda.PlantBreeding.Data.Models.Store.Repetitions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CrossPlans" EntityType="Usda.PlantBreeding.Data.Models.Store.CrossPlans" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Fates" EntityType="Usda.PlantBreeding.Data.Models.Store.Fates" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Locations" EntityType="Usda.PlantBreeding.Data.Models.Store.Locations" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Notes" EntityType="Usda.PlantBreeding.Data.Models.Store.Notes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="FlatTypes" EntityType="Usda.PlantBreeding.Data.Models.Store.FlatTypes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="FlatNotes" EntityType="Usda.PlantBreeding.Data.Models.Store.FlatNotes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Years" EntityType="Usda.PlantBreeding.Data.Models.Store.Years" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MapComponentYears" EntityType="Usda.PlantBreeding.Data.Models.Store.MapComponentYears" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserPreferences" EntityType="Usda.PlantBreeding.Data.Models.Store.UserPreferences" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Purposes" EntityType="Usda.PlantBreeding.Data.Models.Store.Purposes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="InputTypes" EntityType="Usda.PlantBreeding.Data.Models.Store.InputTypes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Growers" EntityType="Usda.PlantBreeding.Data.Models.Store.Growers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Materials" EntityType="Usda.PlantBreeding.Data.Models.Store.Materials" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="OrderProducts" EntityType="Usda.PlantBreeding.Data.Models.Store.OrderProducts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Orders" EntityType="Usda.PlantBreeding.Data.Models.Store.Orders" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="C__RefactorLog" EntityType="Usda.PlantBreeding.Data.Models.Store.C__RefactorLog" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="QuestionsCPies" EntityType="Usda.PlantBreeding.Data.Models.Store.QuestionsCPies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MapQuestion" EntityType="Usda.PlantBreeding.Data.Models.Store.MapQuestion" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MapComponentYearsFate" EntityType="Usda.PlantBreeding.Data.Models.Store.MapComponentYearsFate" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="GenusFamily" Association="Usda.PlantBreeding.Data.Models.Store.GenusFamily">
-      <End Role="Genus" EntitySet="Genus" />
-      <End Role="Family" EntitySet="Families" />
-    </AssociationSet>
-    <AssociationSet Name="FamilyOrigin" Association="Usda.PlantBreeding.Data.Models.Store.FamilyOrigin">
-      <End Role="Family" EntitySet="Families" />
-      <End Role="Origin" EntitySet="Origins" />
-    </AssociationSet>
-    <AssociationSet Name="CrossTypeFamily" Association="Usda.PlantBreeding.Data.Models.Store.CrossTypeFamily">
-      <End Role="CrossType" EntitySet="CrossTypes" />
-      <End Role="Family" EntitySet="Families" />
-    </AssociationSet>
-    <AssociationSet Name="PlantFamily" Association="Usda.PlantBreeding.Data.Models.Store.PlantFamily">
-      <End Role="Plant" EntitySet="Genotypes" />
-      <End Role="Family" EntitySet="Families" />
-    </AssociationSet>
-    <AssociationSet Name="FemaleFamilyGenotype" Association="Usda.PlantBreeding.Data.Models.Store.FemaleFamilyGenotype">
-      <End Role="Family" EntitySet="Families" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="MaleFamilyGenotype" Association="Usda.PlantBreeding.Data.Models.Store.MaleFamilyGenotype">
-      <End Role="Family" EntitySet="Families" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="GenusQuestions" Association="Usda.PlantBreeding.Data.Models.Store.GenusQuestions">
-      <End Role="Genus" EntitySet="Genus" />
-      <End Role="Questions" EntitySet="Questions" />
-    </AssociationSet>
-    <AssociationSet Name="AnswersQuestions" Association="Usda.PlantBreeding.Data.Models.Store.AnswersQuestions">
-      <End Role="Answers" EntitySet="Answers" />
-      <End Role="Questions" EntitySet="Questions" />
-    </AssociationSet>
-    <AssociationSet Name="CandidatesGenotype" Association="Usda.PlantBreeding.Data.Models.Store.CandidatesGenotype">
-      <End Role="Candidates" EntitySet="Candidates" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="MapMapComponent" Association="Usda.PlantBreeding.Data.Models.Store.MapMapComponent">
-      <End Role="Map" EntitySet="Maps" />
-      <End Role="MapComponent" EntitySet="MapComponents" />
-    </AssociationSet>
-    <AssociationSet Name="MapComponentRepetition" Association="Usda.PlantBreeding.Data.Models.Store.MapComponentRepetition">
-      <End Role="MapComponent" EntitySet="MapComponents" />
-      <End Role="Repetition" EntitySet="Repetitions" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MapQuestion_Map" Association="Usda.PlantBreeding.Data.Models.Store.FK_MapQuestion_Map">
-      <End Role="Map" EntitySet="Maps" />
-      <End Role="MapQuestion" EntitySet="MapQuestion" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MapQuestion_Question" Association="Usda.PlantBreeding.Data.Models.Store.FK_MapQuestion_Question">
-      <End Role="Question" EntitySet="Questions" />
-      <End Role="MapQuestion" EntitySet="MapQuestion" />
-    </AssociationSet>
-    <AssociationSet Name="MapGenus" Association="Usda.PlantBreeding.Data.Models.Store.MapGenus">
-      <End Role="Map" EntitySet="Maps" />
-      <End Role="Genus" EntitySet="Genus" />
-    </AssociationSet>
-    <AssociationSet Name="AnswerGenotype" Association="Usda.PlantBreeding.Data.Models.Store.AnswerGenotype">
-      <End Role="Answer" EntitySet="Answers" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="CrossPlanGenotype" Association="Usda.PlantBreeding.Data.Models.Store.CrossPlanGenotype">
-      <End Role="CrossPlan" EntitySet="CrossPlans" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="CrossPlanGenotype1" Association="Usda.PlantBreeding.Data.Models.Store.CrossPlanGenotype1">
-      <End Role="CrossPlan" EntitySet="CrossPlans" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="MapComponentGenotype" Association="Usda.PlantBreeding.Data.Models.Store.MapComponentGenotype">
-      <End Role="MapComponent" EntitySet="MapComponents" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="MapLocation" Association="Usda.PlantBreeding.Data.Models.Store.MapLocation">
-      <End Role="Map" EntitySet="Maps" />
-      <End Role="Location" EntitySet="Locations" />
-    </AssociationSet>
-    <AssociationSet Name="CrossPlanGenus" Association="Usda.PlantBreeding.Data.Models.Store.CrossPlanGenus">
-      <End Role="CrossPlan" EntitySet="CrossPlans" />
-      <End Role="Genus" EntitySet="Genus" />
-    </AssociationSet>
-    <AssociationSet Name="NoteGenotype" Association="Usda.PlantBreeding.Data.Models.Store.NoteGenotype">
-      <End Role="Note" EntitySet="Notes" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="FlatNoteFlatType" Association="Usda.PlantBreeding.Data.Models.Store.FlatNoteFlatType">
-      <End Role="FlatNote" EntitySet="FlatNotes" />
-      <End Role="FlatType" EntitySet="FlatTypes" />
-    </AssociationSet>
-    <AssociationSet Name="GenotypeFlatNote" Association="Usda.PlantBreeding.Data.Models.Store.GenotypeFlatNote">
-      <End Role="FlatNote" EntitySet="FlatNotes" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="FamilyGenotype" Association="Usda.PlantBreeding.Data.Models.Store.FamilyGenotype">
-      <End Role="Family" EntitySet="Families" />
-      <End Role="Genotype" EntitySet="Genotypes" />
-    </AssociationSet>
-    <AssociationSet Name="CrossTypeGenus" Association="Usda.PlantBreeding.Data.Models.Store.CrossTypeGenus">
-      <End Role="CrossType" EntitySet="CrossTypes" />
-      <End Role="Genus" EntitySet="Genus" />
-    </AssociationSet>
-    <AssociationSet Name="CrossPlanCrossType" Association="Usda.PlantBreeding.Data.Models.Store.CrossPlanCrossType">
-      <End Role="CrossPlan" EntitySet="CrossPlans" />
-      <End Role="CrossType" EntitySet="CrossTypes" />
-    </AssociationSet>
-    <AssociationSet Name="CrossPlanOrigin" Association="Usda.PlantBreeding.Data.Models.Store.CrossPlanOrigin">
-      <End Role="CrossPlan" EntitySet="CrossPlans" />
-      <End Role="Origin" EntitySet="Origins" />
-    </AssociationSet>
-    <AssociationSet Name="MapYears" Association="Usda.PlantBreeding.Data.Models.Store.MapYears">
-      <End Role="Map" EntitySet="Maps" />
-      <End Role="Years" EntitySet="Years" />
-    </AssociationSet>
-    <AssociationSet Name="MapComponentMapComponentYears" Association="Usda.PlantBreeding.Data.Models.Store.MapComponentMapComponentYears">
-      <End Role="MapComponent" EntitySet="MapComponents" />
-      <End Role="MapComponentYears" EntitySet="MapComponentYears" />
-    </AssociationSet>
-    <AssociationSet Name="YearsMapComponentYears" Association="Usda.PlantBreeding.Data.Models.Store.YearsMapComponentYears">
-      <End Role="Years" EntitySet="Years" />
-      <End Role="MapComponentYears" EntitySet="MapComponentYears" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MapComponentYearsFate_MapComponentYears" Association="Usda.PlantBreeding.Data.Models.Store.FK_MapComponentYearsFate_MapComponentYears">
-      <End Role="MapComponentYears" EntitySet="MapComponentYears" />
-      <End Role="MapComponentYearsFate" EntitySet="MapComponentYearsFate" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MapComponentYearsFate_Fate" Association="Usda.PlantBreeding.Data.Models.Store.FK_MapComponentYearsFate_Fate">
-      <End Role="Fate" EntitySet="Fates" />
-      <End Role="MapComponentYearsFate" EntitySet="MapComponentYearsFate" />
-    </AssociationSet>
-    <AssociationSet Name="MapComponentYearsAnswer" Association="Usda.PlantBreeding.Data.Models.Store.MapComponentYearsAnswer">
-      <End Role="MapComponentYears" EntitySet="MapComponentYears" />
-      <End Role="Answer" EntitySet="Answers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Maps_ToTab" Association="Usda.PlantBreeding.Data.Models.Store.FK_Maps_ToTab">
-      <End Role="CrossType" EntitySet="CrossTypes" />
-      <End Role="Map" EntitySet="Maps" />
-    </AssociationSet>
-    <AssociationSet Name="UserPreferenceGenus" Association="Usda.PlantBreeding.Data.Models.Store.UserPreferenceGenus">
-      <End Role="UserPreference" EntitySet="UserPreferences" />
-      <End Role="Genus" EntitySet="Genus" />
-    </AssociationSet>
-    <AssociationSet Name="FK_InputTypes" Association="Usda.PlantBreeding.Data.Models.Store.FK_InputTypes">
-      <End Role="InputType" EntitySet="InputTypes" />
-      <End Role="Question" EntitySet="Questions" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderProducts_ToGenotypes" Association="Usda.PlantBreeding.Data.Models.Store.FK_OrderProducts_ToGenotypes">
-      <End Role="Genotype" EntitySet="Genotypes" />
-      <End Role="OrderProduct" EntitySet="OrderProducts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Orders_ToGenus" Association="Usda.PlantBreeding.Data.Models.Store.FK_Orders_ToGenus">
-      <End Role="Genus" EntitySet="Genus" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Orders_ToGrowers" Association="Usda.PlantBreeding.Data.Models.Store.FK_Orders_ToGrowers">
-      <End Role="Grower" EntitySet="Growers" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderProducts_ToMaterials" Association="Usda.PlantBreeding.Data.Models.Store.FK_OrderProducts_ToMaterials">
-      <End Role="Material" EntitySet="Materials" />
-      <End Role="OrderProduct" EntitySet="OrderProducts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderProducts_ToOrders" Association="Usda.PlantBreeding.Data.Models.Store.FK_OrderProducts_ToOrders">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="OrderProduct" EntitySet="OrderProducts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Orders_ToLocations" Association="Usda.PlantBreeding.Data.Models.Store.FK_Orders_ToLocations">
-      <End Role="Location" EntitySet="Locations" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Locations_ToGrowers" Association="Usda.PlantBreeding.Data.Models.Store.FK_Locations_ToGrowers">
-      <End Role="Grower" EntitySet="Growers" />
-      <End Role="Location" EntitySet="Locations" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Families">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CrossNum" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="IsReciprocal" Type="bit" Nullable="true" />
-    <Property Name="OriginId" Type="int" Nullable="true" />
-    <Property Name="SeedNum" Type="int" Nullable="true" />
-    <Property Name="CrossTypeId" Type="int" Nullable="true" />
-    <Property Name="Purpose" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="FemaleParent" Type="int" Nullable="true" />
-    <Property Name="MaleParent" Type="int" Nullable="true" />
-    <Property Name="ReciprocalString" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="BaseGenotypeId" Type="int" Nullable="true" />
-    <Property Name="MaleParentOriginalName" Type="nvarchar" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="100" />
-    <Property Name="FemaleParentOriginalName" Type="nvarchar" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="100" />
-    <Property Name="Unsuccessful" Type="bit" Nullable="false" />
-    <Property Name="FieldPlantedNum" Type="int" Nullable="true" />
-    <Property Name="TransplantedNum" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Genotypes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SelectionNum" Type="int" Nullable="true" />
-    <Property Name="GivenName" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="FamilyId" Type="int" Nullable="false" />
-    <Property Name="Year" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Note" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Fate" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-    <Property Name="IsRoot" Type="bit" Nullable="true" />
-    <Property Name="Alias1" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Alias2" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="OriginalName" Type="nvarchar" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="100" />
-    <Property Name="PatentApp" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Patent" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PatentYear" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PloidyName" Type="nvarchar" Nullable="true" MaxLength="255" />
-    <Property Name="CrossPlanId" Type="int" Nullable="true" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
-    <Property Name="IsPopulation" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CrossTypes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Value" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Genus">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Value" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="DefaultPlantsInRep" Type="int" Nullable="false" />
-    <Property Name="VirusLabel1" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="VirusLabel2" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="VirusLabel3" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-    <Property Name="VirusLabel4" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Origins">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="IsDefault" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Ploidies">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="Value" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Questions">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="Required" Type="bit" Nullable="false" />
-    <Property Name="Retired" Type="bit" Nullable="true" />
-    <Property Name="Label" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Order" Type="int" Nullable="false" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-    <Property Name="InputTypeId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Answers">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="QuestionId" Type="int" Nullable="false" />
-    <Property Name="GenotypeId" Type="int" Nullable="false" />
-    <Property Name="MapComponentYearsId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="MapComponents">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Row" Type="int" Nullable="true" />
-    <Property Name="MapId" Type="int" Nullable="false" />
-    <Property Name="Rep" Type="int" Nullable="false" />
-    <Property Name="PlantsInRep" Type="int" Nullable="false" />
-    <Property Name="GenotypeId" Type="int" Nullable="true" />
-    <Property Name="PlantNum" Type="int" Nullable="true" />
-    <Property Name="isSeedling" Type="bit" Nullable="true" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-    <Property Name="Virus4" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Virus1" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Virus2" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Virus3" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="isRemoved" Type="bit" Nullable="false" />
-    <Property Name="PickingNumber" Type="nvarchar" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="150" />
-    <Property Name="CreatedYear" Type="nvarchar" Nullable="true" MaxLength="4" />
-  </EntityType>
-  <EntityType Name="Candidates">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Year" Type="int" Nullable="true" />
-    <Property Name="GenotypeId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Maps">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PlantingYear" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="IsSeedlingMap" Type="bit" Nullable="false" />
-    <Property Name="PicklistPrefix" Type="nvarchar" StoreGeneratedPattern="Computed" Nullable="true" MaxLength="100" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="DefaultPlantsInRep" Type="int" Nullable="false" />
-    <Property Name="LocationId" Type="int" Nullable="true" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-    <Property Name="StartCorner" Type="nchar" Nullable="true" MaxLength="50" />
-    <Property Name="LocationSuffix" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="CrossTypeId" Type="int" Nullable="true" />
-    <Property Name="Note" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Repetitions">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MapComponentId" Type="int" Nullable="false" />
-    <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="RepNumber" Type="int" Nullable="false" />
-    <Property Name="RBD" Type="bit" Nullable="false" />
-    <Property Name="RSV" Type="bit" Nullable="false" />
-    <Property Name="TSV" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CrossPlans">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Year" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="MaleParentId" Type="int" Nullable="true" />
-    <Property Name="FemaleParentId" Type="int" Nullable="true" />
-    <Property Name="Purpose" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="Unsuccessful" Type="bit" Nullable="false" />
-    <Property Name="Reciprocal" Type="bit" Nullable="false" />
-    <Property Name="CrossTypeId" Type="int" Nullable="true" />
-    <Property Name="OriginId" Type="int" Nullable="true" />
-    <Property Name="SeedNum" Type="int" Nullable="true" />
-    <Property Name="FieldPlantedNum" Type="int" Nullable="true" />
-    <Property Name="TransplantedNum" Type="int" Nullable="true" />
-    <Property Name="Note" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="CrossNum" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="GenotypeId" Type="int" Nullable="true" />
-    <Property Name="DateCreated" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Fates">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="Order" Type="int" Nullable="true" />
-    <Property Name="Label" Type="nvarchar" Nullable="true" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Locations">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="MapFlag" Type="bit" Nullable="false" />
-    <Property Name="PrimaryContactId" Type="int" Nullable="true" />
-    <Property Name="Address" Type="nvarchar" Nullable="true" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="Notes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="GenotypeId" Type="int" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="FlatTypes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Value" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="FlatNotes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Other" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="FlatTypeId" Type="int" Nullable="false" />
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="GenotypeId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Years">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MapId" Type="int" Nullable="false" />
-    <Property Name="Year" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="MapComponentYears">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Comments" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="MapComponentId" Type="int" Nullable="false" />
-    <Property Name="YearsId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UserPreferences">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Purposes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="Value" Type="nchar" Nullable="true" MaxLength="255" />
-    <Property Name="Retired" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="InputTypes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Text" Type="nvarchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Growers">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Email" Type="varchar" Nullable="true" MaxLength="320" />
-    <Property Name="WorkPhone" Type="char" Nullable="true" MaxLength="10" />
-    <Property Name="MailingName" Type="varchar" Nullable="true" MaxLength="500" />
-    <Property Name="MobilePhone" Type="char" Nullable="true" MaxLength="10" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Materials">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Value" Type="varchar" Nullable="true" MaxLength="255" />
-  </EntityType>
-  <EntityType Name="OrderProducts">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="GenotypeId" Type="int" Nullable="false" />
-    <Property Name="Quantity" Type="int" Nullable="true" />
-    <Property Name="MaterialId" Type="int" Nullable="false" />
-    <Property Name="OrderId" Type="int" Nullable="false" />
-    <Property Name="VirusTested" Type="datetime" Nullable="true" />
-    <Property Name="Note" Type="nvarchar" Nullable="true" MaxLength="255" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-    <Property Name="DateSent" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Orders">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Year" Type="int" Nullable="false" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="GrowerId" Type="int" Nullable="false" />
-    <Property Name="LocationId" Type="int" Nullable="true" />
-    <Property Name="Note" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="MTARequestedProp" Type="bit" Nullable="false" />
-    <Property Name="MTARequestedTest" Type="bit" Nullable="false" />
-    <Property Name="MTAComplete" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="C__RefactorLog">
-    <Key>
-      <PropertyRef Name="OperationKey" />
-    </Key>
-    <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="QuestionsCPies">
-    <Key>
-      <PropertyRef Name="Id" />
-      <PropertyRef Name="GenusId" />
-      <PropertyRef Name="Required" />
-      <PropertyRef Name="Order" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="GenusId" Type="int" Nullable="false" />
-    <Property Name="Required" Type="bit" Nullable="false" />
-    <Property Name="Retired" Type="bit" Nullable="true" />
-    <Property Name="Label" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Order" Type="int" Nullable="false" />
-    <Property Name="ExternalId" Type="int" Nullable="true" />
-    <Property Name="InputTypeId" Type="int" Nullable="true" />
-    <Property Name="CurId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="MapQuestion">
-    <Key>
-      <PropertyRef Name="Maps_Id" />
-      <PropertyRef Name="Questions_Id" />
-    </Key>
-    <Property Name="Maps_Id" Type="int" Nullable="false" />
-    <Property Name="Questions_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="MapComponentYearsFate">
-    <Key>
-      <PropertyRef Name="MapComponentYears_Id" />
-      <PropertyRef Name="Fates_Id" />
-    </Key>
-    <Property Name="MapComponentYears_Id" Type="int" Nullable="false" />
-    <Property Name="Fates_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="GenusFamily">
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Family">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FamilyOrigin">
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="*" />
-    <End Role="Origin" Type="Usda.PlantBreeding.Data.Models.Store.Origins" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Origin">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Family">
-        <PropertyRef Name="OriginId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossTypeFamily">
-    <End Role="CrossType" Type="Usda.PlantBreeding.Data.Models.Store.CrossTypes" Multiplicity="0..1" />
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CrossType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Family">
-        <PropertyRef Name="CrossTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PlantFamily">
-    <End Role="Plant" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="*" />
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Family">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Plant">
-        <PropertyRef Name="FamilyId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FemaleFamilyGenotype">
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Family">
-        <PropertyRef Name="FemaleParent" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MaleFamilyGenotype">
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Family">
-        <PropertyRef Name="MaleParent" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="GenusQuestions">
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <End Role="Questions" Type="Usda.PlantBreeding.Data.Models.Store.Questions" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Questions">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="AnswersQuestions">
-    <End Role="Answers" Type="Usda.PlantBreeding.Data.Models.Store.Answers" Multiplicity="*" />
-    <End Role="Questions" Type="Usda.PlantBreeding.Data.Models.Store.Questions" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Questions">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Answers">
-        <PropertyRef Name="QuestionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CandidatesGenotype">
-    <End Role="Candidates" Type="Usda.PlantBreeding.Data.Models.Store.Candidates" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Candidates">
-        <PropertyRef Name="GenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapMapComponent">
-    <End Role="Map" Type="Usda.PlantBreeding.Data.Models.Store.Maps" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="MapComponent" Type="Usda.PlantBreeding.Data.Models.Store.MapComponents" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Map">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapComponent">
-        <PropertyRef Name="MapId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapComponentRepetition">
-    <End Role="MapComponent" Type="Usda.PlantBreeding.Data.Models.Store.MapComponents" Multiplicity="1" />
-    <End Role="Repetition" Type="Usda.PlantBreeding.Data.Models.Store.Repetitions" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MapComponent">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Repetition">
-        <PropertyRef Name="MapComponentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapGenus">
-    <End Role="Map" Type="Usda.PlantBreeding.Data.Models.Store.Maps" Multiplicity="*" />
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Map">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="AnswerGenotype">
-    <End Role="Answer" Type="Usda.PlantBreeding.Data.Models.Store.Answers" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Answer">
-        <PropertyRef Name="GenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossPlanGenotype">
-    <End Role="CrossPlan" Type="Usda.PlantBreeding.Data.Models.Store.CrossPlans" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CrossPlan">
-        <PropertyRef Name="MaleParentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossPlanGenotype1">
-    <End Role="CrossPlan" Type="Usda.PlantBreeding.Data.Models.Store.CrossPlans" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CrossPlan">
-        <PropertyRef Name="FemaleParentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapComponentGenotype">
-    <End Role="MapComponent" Type="Usda.PlantBreeding.Data.Models.Store.MapComponents" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapComponent">
-        <PropertyRef Name="GenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapLocation">
-    <End Role="Map" Type="Usda.PlantBreeding.Data.Models.Store.Maps" Multiplicity="*" />
-    <End Role="Location" Type="Usda.PlantBreeding.Data.Models.Store.Locations" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Map">
-        <PropertyRef Name="LocationId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossPlanGenus">
-    <End Role="CrossPlan" Type="Usda.PlantBreeding.Data.Models.Store.CrossPlans" Multiplicity="*" />
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CrossPlan">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="NoteGenotype">
-    <End Role="Note" Type="Usda.PlantBreeding.Data.Models.Store.Notes" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Note">
-        <PropertyRef Name="GenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FlatNoteFlatType">
-    <End Role="FlatNote" Type="Usda.PlantBreeding.Data.Models.Store.FlatNotes" Multiplicity="*" />
-    <End Role="FlatType" Type="Usda.PlantBreeding.Data.Models.Store.FlatTypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="FlatType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="FlatNote">
-        <PropertyRef Name="FlatTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="GenotypeFlatNote">
-    <End Role="FlatNote" Type="Usda.PlantBreeding.Data.Models.Store.FlatNotes" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="FlatNote">
-        <PropertyRef Name="GenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FamilyGenotype">
-    <End Role="Family" Type="Usda.PlantBreeding.Data.Models.Store.Families" Multiplicity="*" />
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Family">
-        <PropertyRef Name="BaseGenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossTypeGenus">
-    <End Role="CrossType" Type="Usda.PlantBreeding.Data.Models.Store.CrossTypes" Multiplicity="*" />
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CrossType">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossPlanCrossType">
-    <End Role="CrossPlan" Type="Usda.PlantBreeding.Data.Models.Store.CrossPlans" Multiplicity="*" />
-    <End Role="CrossType" Type="Usda.PlantBreeding.Data.Models.Store.CrossTypes" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="CrossType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CrossPlan">
-        <PropertyRef Name="CrossTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="CrossPlanOrigin">
-    <End Role="CrossPlan" Type="Usda.PlantBreeding.Data.Models.Store.CrossPlans" Multiplicity="*" />
-    <End Role="Origin" Type="Usda.PlantBreeding.Data.Models.Store.Origins" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Origin">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CrossPlan">
-        <PropertyRef Name="OriginId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapYears">
-    <End Role="Map" Type="Usda.PlantBreeding.Data.Models.Store.Maps" Multiplicity="1" />
-    <End Role="Years" Type="Usda.PlantBreeding.Data.Models.Store.Years" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Map">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Years">
-        <PropertyRef Name="MapId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapComponentMapComponentYears">
-    <End Role="MapComponent" Type="Usda.PlantBreeding.Data.Models.Store.MapComponents" Multiplicity="1" />
-    <End Role="MapComponentYears" Type="Usda.PlantBreeding.Data.Models.Store.MapComponentYears" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MapComponent">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapComponentYears">
-        <PropertyRef Name="MapComponentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="YearsMapComponentYears">
-    <End Role="Years" Type="Usda.PlantBreeding.Data.Models.Store.Years" Multiplicity="1" />
-    <End Role="MapComponentYears" Type="Usda.PlantBreeding.Data.Models.Store.MapComponentYears" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Years">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapComponentYears">
-        <PropertyRef Name="YearsId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MapComponentYearsAnswer">
-    <End Role="MapComponentYears" Type="Usda.PlantBreeding.Data.Models.Store.MapComponentYears" Multiplicity="1" />
-    <End Role="Answer" Type="Usda.PlantBreeding.Data.Models.Store.Answers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MapComponentYears">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Answer">
-        <PropertyRef Name="MapComponentYearsId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Maps_ToTab">
-    <End Role="CrossType" Type="Usda.PlantBreeding.Data.Models.Store.CrossTypes" Multiplicity="0..1" />
-    <End Role="Map" Type="Usda.PlantBreeding.Data.Models.Store.Maps" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CrossType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Map">
-        <PropertyRef Name="CrossTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserPreferenceGenus">
-    <End Role="UserPreference" Type="Usda.PlantBreeding.Data.Models.Store.UserPreferences" Multiplicity="*" />
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="UserPreference">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_InputTypes">
-    <End Role="InputType" Type="Usda.PlantBreeding.Data.Models.Store.InputTypes" Multiplicity="0..1" />
-    <End Role="Question" Type="Usda.PlantBreeding.Data.Models.Store.Questions" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="InputType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Question">
-        <PropertyRef Name="InputTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderProducts_ToGenotypes">
-    <End Role="Genotype" Type="Usda.PlantBreeding.Data.Models.Store.Genotypes" Multiplicity="1" />
-    <End Role="OrderProduct" Type="Usda.PlantBreeding.Data.Models.Store.OrderProducts" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Genotype">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderProduct">
-        <PropertyRef Name="GenotypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Orders_ToGenus">
-    <End Role="Genus" Type="Usda.PlantBreeding.Data.Models.Store.Genus" Multiplicity="1" />
-    <End Role="Order" Type="Usda.PlantBreeding.Data.Models.Store.Orders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Genus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="GenusId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Orders_ToGrowers">
-    <End Role="Grower" Type="Usda.PlantBreeding.Data.Models.Store.Growers" Multiplicity="1" />
-    <End Role="Order" Type="Usda.PlantBreeding.Data.Models.Store.Orders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Grower">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="GrowerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderProducts_ToMaterials">
-    <End Role="Material" Type="Usda.PlantBreeding.Data.Models.Store.Materials" Multiplicity="1" />
-    <End Role="OrderProduct" Type="Usda.PlantBreeding.Data.Models.Store.OrderProducts" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Material">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderProduct">
-        <PropertyRef Name="MaterialId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderProducts_ToOrders">
-    <End Role="Order" Type="Usda.PlantBreeding.Data.Models.Store.Orders" Multiplicity="1" />
-    <End Role="OrderProduct" Type="Usda.PlantBreeding.Data.Models.Store.OrderProducts" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderProduct">
-        <PropertyRef Name="OrderId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Orders_ToLocations">
-    <End Role="Location" Type="Usda.PlantBreeding.Data.Models.Store.Locations" Multiplicity="0..1" />
-    <End Role="Order" Type="Usda.PlantBreeding.Data.Models.Store.Orders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="LocationId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Locations_ToGrowers">
-    <End Role="Grower" Type="Usda.PlantBreeding.Data.Models.Store.Growers" Multiplicity="0..1" />
-    <End Role="Location" Type="Usda.PlantBreeding.Data.Models.Store.Locations" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Grower">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Location">
-        <PropertyRef Name="PrimaryContactId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MapQuestion_Map">
-    <End Role="Map" Type="Usda.PlantBreeding.Data.Models.Store.Maps" Multiplicity="1" />
-    <End Role="MapQuestion" Type="Usda.PlantBreeding.Data.Models.Store.MapQuestion" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Map">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapQuestion">
-        <PropertyRef Name="Maps_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MapQuestion_Question">
-    <End Role="MapQuestion" Type="Usda.PlantBreeding.Data.Models.Store.MapQuestion" Multiplicity="*" />
-    <End Role="Question" Type="Usda.PlantBreeding.Data.Models.Store.Questions" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Question">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapQuestion">
-        <PropertyRef Name="Questions_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MapComponentYearsFate_MapComponentYears">
-    <End Role="MapComponentYears" Type="Usda.PlantBreeding.Data.Models.Store.MapComponentYears" Multiplicity="1" />
-    <End Role="MapComponentYearsFate" Type="Usda.PlantBreeding.Data.Models.Store.MapComponentYearsFate" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MapComponentYears">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapComponentYearsFate">
-        <PropertyRef Name="MapComponentYears_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MapComponentYearsFate_Fate">
-    <End Role="MapComponentYearsFate" Type="Usda.PlantBreeding.Data.Models.Store.MapComponentYearsFate" Multiplicity="*" />
-    <End Role="Fate" Type="Usda.PlantBreeding.Data.Models.Store.Fates" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Fate">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="MapComponentYearsFate">
-        <PropertyRef Name="Fates_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="Usda.PlantBreeding.Data.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="GenotypeId" Type="int" Nullable="false" />
+          <Property Name="MapComponentYearsId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Candidates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" />
+          <Property Name="GenotypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CrossPlans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="nvarchar(max)" />
+          <Property Name="MaleParentId" Type="int" />
+          <Property Name="FemaleParentId" Type="int" />
+          <Property Name="Purpose" Type="nvarchar(max)" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="Unsuccessful" Type="bit" Nullable="false" />
+          <Property Name="Reciprocal" Type="bit" Nullable="false" />
+          <Property Name="CrossTypeId" Type="int" />
+          <Property Name="OriginId" Type="int" />
+          <Property Name="SeedNum" Type="int" />
+          <Property Name="FieldPlantedNum" Type="int" />
+          <Property Name="TransplantedNum" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="CrossNum" Type="nvarchar(max)" />
+          <Property Name="GenotypeId" Type="int" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CrossTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Value" Type="nvarchar(max)" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="ExternalId" Type="int" />
+        </EntityType>
+        <EntityType Name="Families">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CrossNum" Type="nvarchar(max)" />
+          <Property Name="FieldPlantedNum" Type="int" />
+          <Property Name="TransplantedNum" Type="int" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="IsReciprocal" Type="bit" />
+          <Property Name="OriginId" Type="int" />
+          <Property Name="SeedNum" Type="int" />
+          <Property Name="CrossTypeId" Type="int" />
+          <Property Name="Purpose" Type="nvarchar(max)" />
+          <Property Name="FemaleParent" Type="int" />
+          <Property Name="MaleParent" Type="int" />
+          <Property Name="ReciprocalString" Type="nvarchar(max)" />
+          <Property Name="BaseGenotypeId" Type="int" />
+          <Property Name="FemaleParentOriginalName" Type="nvarchar" MaxLength="100" StoreGeneratedPattern="Computed" />
+          <Property Name="MaleParentOriginalName" Type="nvarchar" MaxLength="100" StoreGeneratedPattern="Computed" />
+          <Property Name="Unsuccessful" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="Order" Type="int" />
+          <Property Name="Label" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FlatNotes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Other" Type="nvarchar(max)" />
+          <Property Name="FlatTypeId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GenotypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlatTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genotypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SelectionNum" Type="int" />
+          <Property Name="GivenName" Type="nvarchar(max)" />
+          <Property Name="FamilyId" Type="int" Nullable="false" />
+          <Property Name="Year" Type="nvarchar(max)" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="Fate" Type="nvarchar(max)" />
+          <Property Name="ExternalId" Type="int" />
+          <Property Name="IsRoot" Type="bit" />
+          <Property Name="Alias1" Type="nvarchar(max)" />
+          <Property Name="Alias2" Type="nvarchar(max)" />
+          <Property Name="OriginalName" Type="nvarchar" MaxLength="100" StoreGeneratedPattern="Computed" />
+          <Property Name="PatentApp" Type="nvarchar(max)" />
+          <Property Name="Patent" Type="nvarchar(max)" />
+          <Property Name="PatentYear" Type="nvarchar(max)" />
+          <Property Name="PloidyName" Type="nvarchar" MaxLength="255" />
+          <Property Name="CrossPlanId" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="IsPopulation" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Value" Type="nvarchar(max)" />
+          <Property Name="DefaultPlantsInRep" Type="int" Nullable="false" />
+          <Property Name="VirusLabel1" Type="nvarchar(max)" />
+          <Property Name="VirusLabel2" Type="nvarchar(max)" />
+          <Property Name="VirusLabel3" Type="nvarchar(max)" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="ExternalId" Type="int" />
+          <Property Name="VirusLabel4" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Growers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="320" />
+          <Property Name="WorkPhone" Type="char" MaxLength="10" />
+          <Property Name="MailingName" Type="varchar" MaxLength="500" />
+          <Property Name="MobilePhone" Type="char" MaxLength="10" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InputTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="MapFlag" Type="bit" Nullable="false" />
+          <Property Name="PrimaryContactId" Type="int" />
+          <Property Name="Address" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MapComponents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Row" Type="int" />
+          <Property Name="MapId" Type="int" Nullable="false" />
+          <Property Name="Rep" Type="int" Nullable="false" />
+          <Property Name="PlantsInRep" Type="int" Nullable="false" />
+          <Property Name="GenotypeId" Type="int" />
+          <Property Name="PlantNum" Type="int" />
+          <Property Name="isSeedling" Type="bit" />
+          <Property Name="Virus1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Virus2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Virus3" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExternalId" Type="int" />
+          <Property Name="Virus4" Type="nvarchar" MaxLength="50" />
+          <Property Name="isRemoved" Type="bit" Nullable="false" />
+          <Property Name="CreatedYear" Type="nvarchar" MaxLength="4" />
+          <Property Name="PickingNumber" Type="nvarchar" MaxLength="150" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MapComponentYears">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="MapComponentId" Type="int" Nullable="false" />
+          <Property Name="YearsId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MapComponentYearsFate">
+          <Key>
+            <PropertyRef Name="MapComponentYears_Id" />
+            <PropertyRef Name="Fates_Id" />
+          </Key>
+          <Property Name="MapComponentYears_Id" Type="int" Nullable="false" />
+          <Property Name="Fates_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MapQuestion">
+          <Key>
+            <PropertyRef Name="Maps_Id" />
+            <PropertyRef Name="Questions_Id" />
+          </Key>
+          <Property Name="Maps_Id" Type="int" Nullable="false" />
+          <Property Name="Questions_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maps">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="PlantingYear" Type="nvarchar(max)" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="IsSeedlingMap" Type="bit" Nullable="false" />
+          <Property Name="PicklistPrefix" Type="nvarchar" MaxLength="100" StoreGeneratedPattern="Computed" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="DefaultPlantsInRep" Type="int" Nullable="false" />
+          <Property Name="LocationId" Type="int" />
+          <Property Name="ExternalId" Type="int" />
+          <Property Name="StartCorner" Type="nchar" MaxLength="50" />
+          <Property Name="LocationSuffix" Type="nvarchar" MaxLength="50" />
+          <Property Name="CrossTypeId" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="GenotypeId" Type="int" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderProducts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GenotypeId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="MaterialId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="VirusTested" Type="date" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="DateSent" Type="date" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="LocationId" Type="int" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="GrowerId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="MTARequestedProp" Type="bit" Nullable="false" />
+          <Property Name="MTARequestedTest" Type="bit" Nullable="false" />
+          <Property Name="MTAComplete" Type="date" />
+        </EntityType>
+        <EntityType Name="Origins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+		  <Property Name="Value" Type="nvarchar(max)" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ploidies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Purposes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Value" Type="nchar" MaxLength="255" />
+          <Property Name="Retired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+          <Property Name="Required" Type="bit" Nullable="false" />
+          <Property Name="Retired" Type="bit" />
+          <Property Name="Label" Type="nvarchar(max)" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="ExternalId" Type="int" />
+          <Property Name="InputTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="Repetitions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MapComponentId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RepNumber" Type="int" Nullable="false" />
+          <Property Name="RBD" Type="bit" Nullable="false" />
+          <Property Name="RSV" Type="bit" Nullable="false" />
+          <Property Name="TSV" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPreferences">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GenusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Years">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MapId" Type="int" Nullable="false" />
+          <Property Name="Year" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnswerGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="GenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnswersQuestions">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidatesGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="1" />
+          <End Role="Candidates" Type="Self.Candidates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidates">
+              <PropertyRef Name="GenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossPlanCrossType">
+          <End Role="CrossTypes" Type="Self.CrossTypes" Multiplicity="0..1" />
+          <End Role="CrossPlans" Type="Self.CrossPlans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrossTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossPlans">
+              <PropertyRef Name="CrossTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossPlanGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="0..1" />
+          <End Role="CrossPlans" Type="Self.CrossPlans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossPlans">
+              <PropertyRef Name="MaleParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossPlanGenotype1">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="0..1" />
+          <End Role="CrossPlans" Type="Self.CrossPlans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossPlans">
+              <PropertyRef Name="FemaleParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossPlanGenus">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="CrossPlans" Type="Self.CrossPlans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossPlans">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossPlanOrigin">
+          <End Role="Origins" Type="Self.Origins" Multiplicity="0..1" />
+          <End Role="CrossPlans" Type="Self.CrossPlans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Origins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossPlans">
+              <PropertyRef Name="OriginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossTypeFamily">
+          <End Role="CrossTypes" Type="Self.CrossTypes" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrossTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="CrossTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CrossTypeGenus">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="CrossTypes" Type="Self.CrossTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossTypes">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="BaseGenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyOrigin">
+          <End Role="Origins" Type="Self.Origins" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Origins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="OriginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FemaleFamilyGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="FemaleParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlatNoteFlatType">
+          <End Role="FlatTypes" Type="Self.FlatTypes" Multiplicity="1" />
+          <End Role="FlatNotes" Type="Self.FlatNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlatTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FlatNotes">
+              <PropertyRef Name="FlatTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenotypeFlatNote">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="1" />
+          <End Role="FlatNotes" Type="Self.FlatNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FlatNotes">
+              <PropertyRef Name="GenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenusFamily">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenusQuestions">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InputTypes">
+          <End Role="InputTypes" Type="Self.InputTypes" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InputTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="InputTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locations_ToGrowers">
+          <End Role="Growers" Type="Self.Growers" Multiplicity="0..1" />
+          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Growers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Locations">
+              <PropertyRef Name="PrimaryContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaleFamilyGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="0..1" />
+          <End Role="Families" Type="Self.Families" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Families">
+              <PropertyRef Name="MaleParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapComponentGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="0..1" />
+          <End Role="MapComponents" Type="Self.MapComponents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapComponents">
+              <PropertyRef Name="GenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapComponentMapComponentYears">
+          <End Role="MapComponents" Type="Self.MapComponents" Multiplicity="1" />
+          <End Role="MapComponentYears" Type="Self.MapComponentYears" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MapComponents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapComponentYears">
+              <PropertyRef Name="MapComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapComponentRepetition">
+          <End Role="MapComponents" Type="Self.MapComponents" Multiplicity="1" />
+          <End Role="Repetitions" Type="Self.Repetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MapComponents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Repetitions">
+              <PropertyRef Name="MapComponentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapComponentYearsAnswer">
+          <End Role="MapComponentYears" Type="Self.MapComponentYears" Multiplicity="1" />
+          <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MapComponentYears">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answers">
+              <PropertyRef Name="MapComponentYearsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapComponentYearsFate_Fate">
+          <End Role="Fates" Type="Self.Fates" Multiplicity="1" />
+          <End Role="MapComponentYearsFate" Type="Self.MapComponentYearsFate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapComponentYearsFate">
+              <PropertyRef Name="Fates_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapComponentYearsFate_MapComponentYears">
+          <End Role="MapComponentYears" Type="Self.MapComponentYears" Multiplicity="1" />
+          <End Role="MapComponentYearsFate" Type="Self.MapComponentYearsFate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MapComponentYears">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapComponentYearsFate">
+              <PropertyRef Name="MapComponentYears_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapGenus">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="Maps" Type="Self.Maps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Maps">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapLocation">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Maps" Type="Self.Maps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Maps">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapMapComponent">
+          <End Role="Maps" Type="Self.Maps" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MapComponents" Type="Self.MapComponents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maps">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapComponents">
+              <PropertyRef Name="MapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapQuestion_Map">
+          <End Role="Maps" Type="Self.Maps" Multiplicity="1" />
+          <End Role="MapQuestion" Type="Self.MapQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maps">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapQuestion">
+              <PropertyRef Name="Maps_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapQuestion_Question">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="MapQuestion" Type="Self.MapQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapQuestion">
+              <PropertyRef Name="Questions_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maps_ToTab">
+          <End Role="CrossTypes" Type="Self.CrossTypes" Multiplicity="0..1" />
+          <End Role="Maps" Type="Self.Maps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CrossTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Maps">
+              <PropertyRef Name="CrossTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MapYears">
+          <End Role="Maps" Type="Self.Maps" Multiplicity="1" />
+          <End Role="Years" Type="Self.Years" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maps">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Years">
+              <PropertyRef Name="MapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NoteGenotype">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="GenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProducts_ToGenotypes">
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="1" />
+          <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genotypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderProducts">
+              <PropertyRef Name="GenotypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProducts_ToMaterials">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+          <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderProducts">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderProducts_ToOrders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderProducts">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_ToGenus">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_ToGrowers">
+          <End Role="Growers" Type="Self.Growers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Growers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="GrowerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_ToLocations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlantFamily">
+          <End Role="Families" Type="Self.Families" Multiplicity="1" />
+          <End Role="Genotypes" Type="Self.Genotypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Families">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Genotypes">
+              <PropertyRef Name="FamilyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreferenceGenus">
+          <End Role="Genus" Type="Self.Genus" Multiplicity="1" />
+          <End Role="UserPreferences" Type="Self.UserPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPreferences">
+              <PropertyRef Name="GenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YearsMapComponentYears">
+          <End Role="Years" Type="Self.Years" Multiplicity="1" />
+          <End Role="MapComponentYears" Type="Self.MapComponentYears" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Years">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapComponentYears">
+              <PropertyRef Name="YearsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UsdaPlantBreedingDataModelsStoreContainer">
+          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidates" EntityType="Self.Candidates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CrossPlans" EntityType="Self.CrossPlans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CrossTypes" EntityType="Self.CrossTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Families" EntityType="Self.Families" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fates" EntityType="Self.Fates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlatNotes" EntityType="Self.FlatNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlatTypes" EntityType="Self.FlatTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genotypes" EntityType="Self.Genotypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genus" EntityType="Self.Genus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Growers" EntityType="Self.Growers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InputTypes" EntityType="Self.InputTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MapComponents" EntityType="Self.MapComponents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MapComponentYears" EntityType="Self.MapComponentYears" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MapComponentYearsFate" EntityType="Self.MapComponentYearsFate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MapQuestion" EntityType="Self.MapQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maps" EntityType="Self.Maps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Origins" EntityType="Self.Origins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ploidies" EntityType="Self.Ploidies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purposes" EntityType="Self.Purposes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repetitions" EntityType="Self.Repetitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Years" EntityType="Self.Years" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AnswerGenotype" Association="Self.FK_AnswerGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswersQuestions" Association="Self.FK_AnswersQuestions">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidatesGenotype" Association="Self.FK_CandidatesGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="Candidates" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossPlanCrossType" Association="Self.FK_CrossPlanCrossType">
+            <End Role="CrossTypes" EntitySet="CrossTypes" />
+            <End Role="CrossPlans" EntitySet="CrossPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossPlanGenotype" Association="Self.FK_CrossPlanGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="CrossPlans" EntitySet="CrossPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossPlanGenotype1" Association="Self.FK_CrossPlanGenotype1">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="CrossPlans" EntitySet="CrossPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossPlanGenus" Association="Self.FK_CrossPlanGenus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="CrossPlans" EntitySet="CrossPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossPlanOrigin" Association="Self.FK_CrossPlanOrigin">
+            <End Role="Origins" EntitySet="Origins" />
+            <End Role="CrossPlans" EntitySet="CrossPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossTypeFamily" Association="Self.FK_CrossTypeFamily">
+            <End Role="CrossTypes" EntitySet="CrossTypes" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CrossTypeGenus" Association="Self.FK_CrossTypeGenus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="CrossTypes" EntitySet="CrossTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyGenotype" Association="Self.FK_FamilyGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyOrigin" Association="Self.FK_FamilyOrigin">
+            <End Role="Origins" EntitySet="Origins" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FemaleFamilyGenotype" Association="Self.FK_FemaleFamilyGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlatNoteFlatType" Association="Self.FK_FlatNoteFlatType">
+            <End Role="FlatTypes" EntitySet="FlatTypes" />
+            <End Role="FlatNotes" EntitySet="FlatNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenotypeFlatNote" Association="Self.FK_GenotypeFlatNote">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="FlatNotes" EntitySet="FlatNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenusFamily" Association="Self.FK_GenusFamily">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenusQuestions" Association="Self.FK_GenusQuestions">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InputTypes" Association="Self.FK_InputTypes">
+            <End Role="InputTypes" EntitySet="InputTypes" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locations_ToGrowers" Association="Self.FK_Locations_ToGrowers">
+            <End Role="Growers" EntitySet="Growers" />
+            <End Role="Locations" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaleFamilyGenotype" Association="Self.FK_MaleFamilyGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="Families" EntitySet="Families" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapComponentGenotype" Association="Self.FK_MapComponentGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="MapComponents" EntitySet="MapComponents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapComponentMapComponentYears" Association="Self.FK_MapComponentMapComponentYears">
+            <End Role="MapComponents" EntitySet="MapComponents" />
+            <End Role="MapComponentYears" EntitySet="MapComponentYears" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapComponentRepetition" Association="Self.FK_MapComponentRepetition">
+            <End Role="MapComponents" EntitySet="MapComponents" />
+            <End Role="Repetitions" EntitySet="Repetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapComponentYearsAnswer" Association="Self.FK_MapComponentYearsAnswer">
+            <End Role="MapComponentYears" EntitySet="MapComponentYears" />
+            <End Role="Answers" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapComponentYearsFate_Fate" Association="Self.FK_MapComponentYearsFate_Fate">
+            <End Role="Fates" EntitySet="Fates" />
+            <End Role="MapComponentYearsFate" EntitySet="MapComponentYearsFate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapComponentYearsFate_MapComponentYears" Association="Self.FK_MapComponentYearsFate_MapComponentYears">
+            <End Role="MapComponentYears" EntitySet="MapComponentYears" />
+            <End Role="MapComponentYearsFate" EntitySet="MapComponentYearsFate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapGenus" Association="Self.FK_MapGenus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="Maps" EntitySet="Maps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapLocation" Association="Self.FK_MapLocation">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Maps" EntitySet="Maps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapMapComponent" Association="Self.FK_MapMapComponent">
+            <End Role="Maps" EntitySet="Maps" />
+            <End Role="MapComponents" EntitySet="MapComponents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapQuestion_Map" Association="Self.FK_MapQuestion_Map">
+            <End Role="Maps" EntitySet="Maps" />
+            <End Role="MapQuestion" EntitySet="MapQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapQuestion_Question" Association="Self.FK_MapQuestion_Question">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="MapQuestion" EntitySet="MapQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maps_ToTab" Association="Self.FK_Maps_ToTab">
+            <End Role="CrossTypes" EntitySet="CrossTypes" />
+            <End Role="Maps" EntitySet="Maps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MapYears" Association="Self.FK_MapYears">
+            <End Role="Maps" EntitySet="Maps" />
+            <End Role="Years" EntitySet="Years" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NoteGenotype" Association="Self.FK_NoteGenotype">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProducts_ToGenotypes" Association="Self.FK_OrderProducts_ToGenotypes">
+            <End Role="Genotypes" EntitySet="Genotypes" />
+            <End Role="OrderProducts" EntitySet="OrderProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProducts_ToMaterials" Association="Self.FK_OrderProducts_ToMaterials">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="OrderProducts" EntitySet="OrderProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProducts_ToOrders" Association="Self.FK_OrderProducts_ToOrders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderProducts" EntitySet="OrderProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_ToGenus" Association="Self.FK_Orders_ToGenus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_ToGrowers" Association="Self.FK_Orders_ToGrowers">
+            <End Role="Growers" EntitySet="Growers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_ToLocations" Association="Self.FK_Orders_ToLocations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlantFamily" Association="Self.FK_PlantFamily">
+            <End Role="Families" EntitySet="Families" />
+            <End Role="Genotypes" EntitySet="Genotypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreferenceGenus" Association="Self.FK_UserPreferenceGenus">
+            <End Role="Genus" EntitySet="Genus" />
+            <End Role="UserPreferences" EntitySet="UserPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YearsMapComponentYears" Association="Self.FK_YearsMapComponentYears">
+            <End Role="Years" EntitySet="Years" />
+            <End Role="MapComponentYears" EntitySet="MapComponentYears" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Usda.PlantBreeding.Data.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1114,14 +1089,9 @@
           <EntitySet Name="Genotypes" EntityType="Usda.PlantBreeding.Data.Models.Genotype" />
           <EntitySet Name="CrossTypes" EntityType="Usda.PlantBreeding.Data.Models.CrossType" />
           <EntitySet Name="Genus" EntityType="Usda.PlantBreeding.Data.Models.Genus" />
-          <EntitySet Name="Origins" EntityType="Usda.PlantBreeding.Data.Models.Origin" />
           <AssociationSet Name="GenusFamily" Association="Usda.PlantBreeding.Data.Models.GenusFamily">
             <End Role="Genus" EntitySet="Genus" />
             <End Role="Family" EntitySet="Families" />
-          </AssociationSet>
-          <AssociationSet Name="FamilyOrigin" Association="Usda.PlantBreeding.Data.Models.FamilyOrigin">
-            <End Role="Family" EntitySet="Families" />
-            <End Role="Origin" EntitySet="Origins" />
           </AssociationSet>
           <AssociationSet Name="CrossTypeFamily" Association="Usda.PlantBreeding.Data.Models.CrossTypeFamily">
             <End Role="CrossType" EntitySet="CrossTypes" />
@@ -1228,10 +1198,6 @@
             <End Role="CrossPlan" EntitySet="CrossPlans" />
             <End Role="CrossType" EntitySet="CrossTypes" />
           </AssociationSet>
-          <AssociationSet Name="CrossPlanOrigin" Association="Usda.PlantBreeding.Data.Models.CrossPlanOrigin">
-            <End Role="CrossPlan" EntitySet="CrossPlans" />
-            <End Role="Origin" EntitySet="Origins" />
-          </AssociationSet>
           <FunctionImport Name="GetAccessions" ReturnType="Collection(Usda.PlantBreeding.Data.Models.GetAccessions_Result)">
             <Parameter Name="GenusId" Mode="In" Type="Int32" />
             <Parameter Name="Year" Mode="In" Type="String" />
@@ -1316,8 +1282,6 @@
             <End Role="Grower" EntitySet="Growers" />
             <End Role="Location" EntitySet="Locations" />
           </AssociationSet>
-          <EntitySet Name="C__RefactorLog" EntityType="Usda.PlantBreeding.Data.Models.C__RefactorLog" />
-          <EntitySet Name="QuestionsCPies" EntityType="Usda.PlantBreeding.Data.Models.QuestionsCPY" />
           <FunctionImport Name="BreedingSummary" ReturnType="Collection(Usda.PlantBreeding.Data.Models.BreedingSummary_Result)">
           <Parameter Name="GenusId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1387,6 +1351,15 @@
             <Parameter Name="mapId" Mode="In" Type="Int32" />
             <Parameter Name="isSeedling" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <EntitySet Name="Origins" EntityType="Usda.PlantBreeding.Data.Models.Origin" />
+          <AssociationSet Name="FK_CrossPlanOrigin" Association="Usda.PlantBreeding.Data.Models.FK_CrossPlanOrigin">
+            <End Role="Origin" EntitySet="Origins" />
+            <End Role="CrossPlan" EntitySet="CrossPlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FamilyOrigin" Association="Usda.PlantBreeding.Data.Models.FK_FamilyOrigin">
+            <End Role="Origin" EntitySet="Origins" />
+            <End Role="Family" EntitySet="Families" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Family">
           <Key>
@@ -1397,7 +1370,6 @@
           <NavigationProperty Name="Genus" Relationship="Usda.PlantBreeding.Data.Models.GenusFamily" FromRole="Family" ToRole="Genus" />
           <Property Name="GenusId" Type="Int32" Nullable="false" />
           <Property Name="IsReciprocal" Type="Boolean" Nullable="true" />
-          <NavigationProperty Name="Origin" Relationship="Usda.PlantBreeding.Data.Models.FamilyOrigin" FromRole="Family" ToRole="Origin" />
           <Property Name="OriginId" Type="Int32" Nullable="true" />
           <Property Name="SeedNum" Type="Int32" Nullable="true" />
           <NavigationProperty Name="CrossType" Relationship="Usda.PlantBreeding.Data.Models.CrossTypeFamily" FromRole="Family" ToRole="CrossType" />
@@ -1416,6 +1388,7 @@
           <Property Name="Unsuccessful" Type="Boolean" Nullable="false" />
           <Property Name="FieldPlantedNum" Type="Int32" />
           <Property Name="TransplantedNum" Type="Int32" />
+          <NavigationProperty Name="Origin" Relationship="Usda.PlantBreeding.Data.Models.FK_FamilyOrigin" FromRole="Family" ToRole="Origin" />
         </EntityType>
         <EntityType Name="Genotype">
           <Key>
@@ -1477,15 +1450,6 @@
           <Property Name="ExternalId" Type="Int32" />
           <Property Name="VirusLabel4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Origin">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Retired" Type="Boolean" Nullable="false" />
-          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
-        </EntityType>
         <Association Name="GenusFamily">
           <End Type="Usda.PlantBreeding.Data.Models.Genus" Role="Genus" Multiplicity="1" />
           <End Type="Usda.PlantBreeding.Data.Models.Family" Role="Family" Multiplicity="*" />
@@ -1495,18 +1459,6 @@
             </Principal>
             <Dependent Role="Family">
               <PropertyRef Name="GenusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FamilyOrigin">
-          <End Type="Usda.PlantBreeding.Data.Models.Family" Role="Family" Multiplicity="*" />
-          <End Type="Usda.PlantBreeding.Data.Models.Origin" Role="Origin" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Origin">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Family">
-              <PropertyRef Name="OriginId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1775,7 +1727,6 @@
           <Property Name="Reciprocal" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CrossType" Relationship="Usda.PlantBreeding.Data.Models.CrossPlanCrossType" FromRole="CrossPlan" ToRole="CrossType" />
           <Property Name="CrossTypeId" Type="Int32" Nullable="true" />
-          <NavigationProperty Name="Origin" Relationship="Usda.PlantBreeding.Data.Models.CrossPlanOrigin" FromRole="CrossPlan" ToRole="Origin" />
           <Property Name="OriginId" Type="Int32" Nullable="true" />
           <Property Name="SeedNum" Type="Int32" annotation:StoreGeneratedPattern="None" Nullable="true" />
           <Property Name="FieldPlantedNum" Type="Int32" Nullable="true" />
@@ -1784,6 +1735,7 @@
           <Property Name="CrossNum" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="GenotypeId" Type="Int32" Nullable="true" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Origin" Relationship="Usda.PlantBreeding.Data.Models.FK_CrossPlanOrigin" FromRole="CrossPlan" ToRole="Origin" />
         </EntityType>
         <Association Name="CrossPlanGenotype">
           <End Type="Usda.PlantBreeding.Data.Models.CrossPlan" Role="CrossPlan" Multiplicity="*" />
@@ -1844,7 +1796,7 @@
           <Property Name="MapFlag" Type="Boolean" Nullable="false" />
           <Property Name="PrimaryContactId" Type="Int32" />
           <NavigationProperty Name="Grower" Relationship="Usda.PlantBreeding.Data.Models.FK_Locations_ToGrowers" FromRole="Location" ToRole="Grower" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="MapLocation">
           <End Type="Usda.PlantBreeding.Data.Models.Map" Role="Map" Multiplicity="*" />
@@ -1970,18 +1922,6 @@
             </Principal>
             <Dependent Role="CrossPlan">
               <PropertyRef Name="CrossTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CrossPlanOrigin">
-          <End Type="Usda.PlantBreeding.Data.Models.CrossPlan" Role="CrossPlan" Multiplicity="*" />
-          <End Type="Usda.PlantBreeding.Data.Models.Origin" Role="Origin" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Origin">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CrossPlan">
-              <PropertyRef Name="OriginId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2319,30 +2259,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="C__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="QuestionsCPY">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="GenusId" />
-            <PropertyRef Name="Required" />
-            <PropertyRef Name="Order" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GenusId" Type="Int32" Nullable="false" />
-          <Property Name="Required" Type="Boolean" Nullable="false" />
-          <Property Name="Retired" Type="Boolean" />
-          <Property Name="Label" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="ExternalId" Type="Int32" />
-          <Property Name="InputTypeId" Type="Int32" />
-          <Property Name="CurId" Type="Int32" />
-        </EntityType>
         <ComplexType Name="BreedingSummary_Result">
           <Property Type="String" Name="OriginalName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="GivenName" Nullable="true" />
@@ -2534,6 +2450,42 @@
           <Property Type="String" Name="YearName" Nullable="false" />
           <Property Type="String" Name="Fates" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Origin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Retired" Type="Boolean" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CrossPlans" Relationship="Usda.PlantBreeding.Data.Models.FK_CrossPlanOrigin" FromRole="Origin" ToRole="CrossPlan" />
+          <NavigationProperty Name="Families" Relationship="Usda.PlantBreeding.Data.Models.FK_FamilyOrigin" FromRole="Origin" ToRole="Family" />
+          <Property Name="Value" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="FK_CrossPlanOrigin">
+          <End Type="Usda.PlantBreeding.Data.Models.Origin" Role="Origin" Multiplicity="0..1" />
+          <End Type="Usda.PlantBreeding.Data.Models.CrossPlan" Role="CrossPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Origin">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CrossPlan">
+              <PropertyRef Name="OriginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FamilyOrigin">
+          <End Type="Usda.PlantBreeding.Data.Models.Origin" Role="Origin" Multiplicity="0..1" />
+          <End Type="Usda.PlantBreeding.Data.Models.Family" Role="Family" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Origin">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Family">
+              <PropertyRef Name="OriginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2613,16 +2565,6 @@
           <ScalarProperty Name="Retired" ColumnName="Retired" />
           <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
           <ScalarProperty Name="VirusLabel4" ColumnName="VirusLabel4" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Origins">
-      <EntityTypeMapping TypeName="IsTypeOf(Usda.PlantBreeding.Data.Models.Origin)">
-        <MappingFragment StoreEntitySet="Origins">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Retired" ColumnName="Retired" />
-          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2904,29 +2846,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="C__RefactorLog">
-      <EntityTypeMapping TypeName="IsTypeOf(Usda.PlantBreeding.Data.Models.C__RefactorLog)">
-        <MappingFragment StoreEntitySet="C__RefactorLog">
-          <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="QuestionsCPies">
-      <EntityTypeMapping TypeName="IsTypeOf(Usda.PlantBreeding.Data.Models.QuestionsCPY)">
-        <MappingFragment StoreEntitySet="QuestionsCPies">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="GenusId" ColumnName="GenusId" />
-          <ScalarProperty Name="Required" ColumnName="Required" />
-          <ScalarProperty Name="Order" ColumnName="Order" />
-          <ScalarProperty Name="Text" ColumnName="Text" />
-          <ScalarProperty Name="Retired" ColumnName="Retired" />
-          <ScalarProperty Name="Label" ColumnName="Label" />
-          <ScalarProperty Name="ExternalId" ColumnName="ExternalId" />
-          <ScalarProperty Name="InputTypeId" ColumnName="InputTypeId" />
-          <ScalarProperty Name="CurId" ColumnName="CurId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="MapQuestion" TypeName="Usda.PlantBreeding.Data.Models.MapQuestion" StoreEntitySet="MapQuestion">
       <EndProperty Name="Map">
         <ScalarProperty Name="Id" ColumnName="Maps_Id" />
@@ -2943,6 +2862,17 @@
         <ScalarProperty Name="Id" ColumnName="Fates_Id" />
       </EndProperty>
     </AssociationSetMapping>
+          <EntitySetMapping Name="Origins">
+            <EntityTypeMapping TypeName="Usda.PlantBreeding.Data.Models.Origin">
+              <MappingFragment StoreEntitySet="Origins">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="Retired" ColumnName="Retired" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+				<ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
