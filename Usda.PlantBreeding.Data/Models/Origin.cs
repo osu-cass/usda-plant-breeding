@@ -20,10 +20,11 @@ namespace Usda.PlantBreeding.Data.Models
     {
 
         [Required]
+        [StringLength(20)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Value")]
+        [Display(Name = "Value")]        
         public string Value { get; set; }
     }
 }
