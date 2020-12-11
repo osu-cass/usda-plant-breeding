@@ -27,8 +27,13 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
         }
         
         // GET: Origins
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            //Check for origin id to scroll to and highlight
+            if (id != null)
+            {
+                ViewBag.OriginId = id;
+            }
             var origins = m_repo.GetOrigins();
             if (origins.IsNullOrEmpty())
            {

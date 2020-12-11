@@ -1,6 +1,40 @@
 ﻿@model IEnumerable<Usda.PlantBreeding.Data.Models.Origin>
 
 
+    <style>
+        #originTable .highlighted td {
+            border-bottom: 3px solid #0099ff;
+            border-top: 3px solid #0099ff;
+            margin: -3px -3px -3px -3px;
+        }
+
+        #originTable .highlighted td:last-child {
+            border-right: 3px solid #0099ff;
+        }
+
+        #originTable .highlighted td:first-child {
+            border-left: 3px solid #0099ff;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var originId = @ViewBag.OriginId;
+            var searchtr = document.getElementById("" + originId);
+
+            //Scroll to matching origin and highlight it
+            if (searchtr) {
+
+                searchtr.classList.add("highlighted");
+
+                var scrollToPos = $(searchtr).offset().top;
+                $(document).scrollTop(scrollToPos - 100);
+
+            }
+
+        });
+    </script>
+
 <div class="row"></div>
 <p class="text-center">
     @Html.ActionLink("+ Create New", "Create", null, new { @class = "btn btn-primary" })
@@ -17,7 +51,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="active">
                 <br />
-                <table class="table table-striped table-hover " style="width: 36% !important; margin-left:32%">
+                <table class="table table-striped table-hover " id="originTable" style="width: 36% !important; margin-left:32%">
                     <thead>
                         <tr class="primary">
                             <th>
@@ -34,7 +68,7 @@
                     </thead>
                     @foreach (var item in Model.Where(i => i.Retired == false))
                     {
-                <tr>
+                <tr id="@item.Id">
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
