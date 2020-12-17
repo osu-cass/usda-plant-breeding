@@ -77,7 +77,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 m_repo.SaveOrigin(origin);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = origin.Id });
             }
 
             return View(origin);
@@ -95,6 +95,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(origin);
         }
 
@@ -108,7 +109,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 m_repo.SaveOrigin(origin);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = origin.Id });
             }
             return View(origin);
         }
@@ -144,7 +145,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             }
             origin.Retired = !origin.Retired;
             m_repo.SaveOrigin(origin);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = origin.Id });
         }
     }
 }
