@@ -35,7 +35,7 @@
     "webpack": "4.39.1",
     "moment": "2.24.0",
     "offline-js": "0.7.14",
-    "datatables.net": "1.10.18",
+    "datatables.net": "1.10.22",
     "datatables.net-bs": "1.10.18",
     "datatables.net-fixedcolumns": "3.2.6",
     "datatables.net-fixedcolumns-bs": "3.2.6",
