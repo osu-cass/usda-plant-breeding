@@ -31,7 +31,7 @@
                             </th>
                         </tr>
                     </thead>
-                    @foreach (var item in Model.Where(i => i.Retired == false))
+                    @foreach (var item in Model.Where(i => i.Retired == false).OrderBy(i => i.Name))
                     {
                         <tr>
                             <td>
@@ -66,7 +66,7 @@
                             </th>
                         </tr>
                     </thead>
-                    @foreach (var item in Model.Where(i => i.Retired == true))
+                    @foreach (var item in Model.Where(i => i.Retired == true).OrderBy(i => i.Name))
                     {
                         <tr>
                             <td>
