@@ -27,8 +27,13 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
         }
         
         // GET: Origins
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            //Check for origin id to scroll to and highlight
+            if (id != null)
+            {
+                ViewBag.OriginId = id;
+            }
             var origins = m_repo.GetOrigins();
             if (origins.IsNullOrEmpty())
            {
@@ -72,7 +77,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 m_repo.SaveOrigin(origin);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = origin.Id });
             }
 
             return View(origin);
@@ -90,6 +95,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(origin);
         }
 
@@ -98,12 +104,12 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Origin origin)
+        public ActionResult Edit([Bind(Include = "Id,Name,Value")] Origin origin)
         {
             if (ModelState.IsValid)
             {
                 m_repo.SaveOrigin(origin);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = origin.Id });
             }
             return View(origin);
         }
@@ -139,7 +145,7 @@ namespace Usda.PlantBreeding.Site.Areas.Admin.Controllers
             }
             origin.Retired = !origin.Retired;
             m_repo.SaveOrigin(origin);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = origin.Id });
         }
     }
 }

@@ -324,7 +324,8 @@ GO
 -- Creating table 'Origins'
 CREATE TABLE [dbo].[Origins] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NULL,
+    [Name] nvarchar(20)  NULL,
+	[Value] nvarchar(max)  NULL,
     [Retired] bit  NOT NULL,
     [IsDefault] bit  NOT NULL
 );

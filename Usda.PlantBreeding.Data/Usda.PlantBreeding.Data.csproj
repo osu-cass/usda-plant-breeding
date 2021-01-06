@@ -91,9 +91,6 @@
     <Compile Include="CrossType.cs">
       <DependentUpon>PlantBreedingModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="C__RefactorLog.cs">
-      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataAccess\IPlantBreedingContext.cs" />
     <Compile Include="DataAccess\IPlantBreedingRepo.cs" />
     <Compile Include="DataAccess\PlantBreedingContext.cs" />
@@ -234,9 +231,6 @@
       <DependentUpon>PlantBreedingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Question.cs">
-      <DependentUpon>PlantBreedingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="QuestionsCPY.cs">
       <DependentUpon>PlantBreedingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Repetition.cs">

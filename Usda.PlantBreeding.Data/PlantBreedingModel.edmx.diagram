@@ -9,9 +9,7 @@
         <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.Genotype" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.CrossType" Width="1.5" PointX="12.5" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.Genus" Width="1.5" PointX="2.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.Origin" Width="1.5" PointX="7.75" PointY="5.125" IsExpanded="true" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.GenusFamily" />
-        <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FamilyOrigin" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.CrossTypeFamily" ManuallyRouted="false" >
         </AssociationConnector>
         <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.Ploidy" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
@@ -50,10 +48,8 @@
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FamilyGenotype" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.CrossTypeGenus" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.CrossPlanCrossType" />
-        <AssociationConnector Association="Usda.PlantBreeding.Data.Models.CrossPlanOrigin" />
         <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.Years" Width="1.5" PointX="16" PointY="5.875" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.MapYears" />
-        <AssociationConnector Association="USDAFruitsModel.YearsAnswer" />
         <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.MapComponentYears" Width="1.5" PointX="18.25" PointY="8.375" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.MapComponentMapComponentYears" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.YearsMapComponentYears" />
@@ -76,8 +72,9 @@
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FK_OrderProducts_ToOrders" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FK_Orders_ToLocations" />
         <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FK_Locations_ToGrowers" />
-        <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.C__RefactorLog" Width="1.5" PointX="11.375" PointY="1.375" />
-        <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.QuestionsCPY" Width="1.5" PointX="10.375" PointY="15.375" />
+        <EntityTypeShape EntityType="Usda.PlantBreeding.Data.Models.Origin" Width="1.5" PointX="0.75" PointY="4.75" />
+        <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FK_CrossPlanOrigin" />
+        <AssociationConnector Association="Usda.PlantBreeding.Data.Models.FK_FamilyOrigin" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
