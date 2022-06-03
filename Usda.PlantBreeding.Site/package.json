@@ -21,7 +21,7 @@
     "jquery": "3.5.1",
     "jquery-ui": "1.12.1",
     "jquery-ajax-unobtrusive": "3.2.6",
-    "jquery-validation": "1.19.3",
+    "jquery-validation": "1.19.4",
     "jquery-validation-unobtrusive": "3.2.11",
     "tablesorter": "2.31.1",
     "floatthead": "2.1.4",
