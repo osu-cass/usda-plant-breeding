@@ -33,7 +33,7 @@
     "source-map-loader": "0.2.4",
     "typescript": "3.5.3",
     "webpack": "4.39.1",
-    "moment": "2.24.0",
+    "moment": "2.29.4",
     "offline-js": "0.7.14",
     "datatables.net": "1.10.22",
     "datatables.net-bs": "1.10.18",
